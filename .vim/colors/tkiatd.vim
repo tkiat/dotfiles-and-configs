@@ -8,7 +8,7 @@ hi clear
 syntax reset
 syntax on
 " colorscheme name
-let g:colors_name = "tkiatd"
+let b:colors_name = "tkiatd"
 " background
 set background=dark
 " set 256 colors
@@ -49,6 +49,7 @@ endfunction
 ""endfor
 " ----------------------------------------
 " Show actual color for variables b:xtermxxx
+" Note: Need to source .vimrc from here first
 " ----------------------------------------
 for i in range(0,255)
 	let b:colorcode=PadZeroes(i)
