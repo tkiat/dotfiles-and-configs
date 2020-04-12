@@ -1,13 +1,14 @@
 # Reference: http://zsh.sourceforge.net/Doc/Release/index.html
 # helper variables
 local mydir="/run/media/tkiatd/Shared"
-local colors=(226 165 046 208 014 129 001)
-local colors_light=(229 213 123 215 123 099 204)
+local colors=(226 165 046 208 014 129 196)
+local colors_light=(229 213 121 180 123 099 124)
 local emojis=('$' '(ノ°Д°)ノ' '(つ•̀ω•́)つ' '(´＿｀)' '(๑•﹏•)⋆*' '(ノ°Д°)ノ┻━┻' '(ﾉ´ヮ´)ﾉ*' 'ʕ •ᴥ•ʔ' '(˘ ³˘)♥' '(っ˘з(˘⌣˘)' '(ɔˆз(ˆ⌣ˆc)' '( ˘⌣˘)♡' '(¬_¬ )')
 # pick Thailand's'color of the day (for prompt)
 local day=$(date +%u) # Mon(1)-Sun(7)
 local color=$colors[day]
 local color_light=$colors_light[day]
+# local color=$colors[$(($RANDOM % ${#colors[@]} + 1))]
 # pick emoji (for prompt)
 local emoji=$emojis[$(($RANDOM % ${#emojis[@]} + 1))]
 # history file
@@ -19,7 +20,7 @@ setopt sharehistory # share history across terminals
 # load and style function vcs_info
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' actionformats '(%a'$'\UE0A0''%b)' # used when git detected and e.g. rebase/merge conflict
-zstyle ':vcs_info:*' formats '(%F{'$color_light'}%n/%r'$' \UE0A0''%b%f)' # used when git detected and actionformats is inactive
+zstyle ':vcs_info:*' formats '(%F{'$color_light'}%n/%r'$'\UE0A0''%b%f)' # used when git detected and actionformats is inactive
 #zstyle ':vcs_info:*' nvcsformats ${emoji} # used when no git detected
 # enable vcs_info_msg_0_
 setopt PROMPT_SUBST
@@ -32,9 +33,13 @@ autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 # include in PATH
 export PATH=$PATH:$mydir/Git/script/shell
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 # set default apps
 export EDITOR=vim
 # aliases
 source ~/.aliases
 # fix key(s)
 bindkey "\e[3~" delete-char
+
+function 2change-tab-title { echo -en "\e]2;$1\a" }

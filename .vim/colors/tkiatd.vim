@@ -96,7 +96,7 @@ let gm8=['Nontext', 'Specialkey']
 let tc9=b:xterm245
 let hc9=b:xterm236
 let gm9=['Folded']
-let gm9_custom=[{'name':'CursorLine','cterm':'none','ctermbg':hc9},{'name':'CursorLineNr','cterm':'bold,italic','ctermfg':tc9,'ctermbg':hc9}]
+let gm9_custom=[{'name':'CursorLine','cterm':'none','ctermbg':hc9},{'name':'CursorLineNr','cterm':'bold,italic','ctermfg':hc9,'ctermbg':tc9}]
 " group 10: highlight: general (bright)
 let tc10=b:xterm000
 let hc10=b:xterm255

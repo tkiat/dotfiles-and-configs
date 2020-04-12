@@ -3,6 +3,7 @@ let @/ = ""
 " define variables
 let mapleader=','
 let template_dir= '~/dotfiles/.vim/template/'
+let space_per_tab=2
 " ----------------------------------------
 " Mapping: insert mode
 " ----------------------------------------
@@ -19,7 +20,7 @@ inoremap {<CR> {<CR>}<Esc>ko<tab>
 " Mapping: normal mode
 " ----------------------------------------
 " comment
-:autocmd BufNewFile,BufRead *.sh,*.zshrc nnoremap <buffer> <leader>c I# <esc>
+:autocmd BufNewFile,BufRead *.sh,*.tmux.conf,*.zshrc nnoremap <buffer> <leader>c I# <esc>
 :autocmd BufNewFile,BufRead *.vim,*.vimrc nnoremap <buffer> <leader>c I" <esc>h
 :autocmd BufNewFile,BufRead *.js,*.cpp nnoremap <buffer> <leader>c I// <esc>
 " enclose word
@@ -28,9 +29,20 @@ nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
 " insert at the end of current line
 nnoremap <leader>, mqA,<esc>`q
 nnoremap <leader>; mqA;<esc>`q
+" delete last character in current line
+nnoremap <leader>a mq$x<esc>`q
+" insert line
+nnoremap <leader>o mqo<esc>`q
+nnoremap <leader>O mqO<esc>`q
 " open file
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>ec :vsplit ~/.vim/colors/tkiatd.vim<cr>
+nnoremap <leader>oa :vsplit ~/.aliases<cr>
+nnoremap <leader>oc :vsplit ~/.vim/colors/tkiatd.vim<cr>
+nnoremap <leader>ov :vsplit $MYVIMRC<cr>
+nnoremap <leader>oz :vsplit ~/.zshrc<cr>
+" replace spaces with a tab until the first non-whitespace character
+exe 'nnoremap <leader><tab> mq:%s/\(^ *\)\@<= \{'.space_per_tab.'\}/<tab>/g<cr>`q'
+" toggle highlight
+nnoremap <expr> <leader>hl (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 " source file
 nnoremap <leader>sv :source $MYVIMRC<cr>
 " strip trailing whitespace
@@ -40,10 +52,18 @@ nnoremap :shebang i#!/usr/bin/env<space>
 exe 'nnoremap :html5 <ESC>:r '.template_dir.'html5.template<CR>kdd/body<CR>:nohl<CR>o<TAB>'
 exe 'nnoremap :vue <ESC>:r '.template_dir.'vue.template<CR>kdd'
 " ----------------------------------------
-" Mapping: operator-pending
+" Mapping: Visual mode
 " ----------------------------------------
-" dp -> empty text in parenthesis
-onoremap p i(
+" map 2 tabs to 1 tab
+vnoremap <leader><tab><tab> :s/\%V\t\t/\t/g<cr>:nohl<cr>
+" comment
+:autocmd BufNewFile,BufRead *.sh,*.tmux.conf,*.zshrc vnoremap <buffer> <leader>c :s/^\%V/# /g<cr>:nohl<cr>
+:autocmd BufNewFile,BufRead *.vim,*.vimrc vnoremap <buffer> <leader>c :s/^\%V/" /g<cr>:nohl<cr>
+:autocmd BufNewFile,BufRead *.js,*.cpp vnoremap <buffer> <leader>c :s/^\%V/\/\/ /g<cr>:nohl<cr>
+" uncomment
+:autocmd BufNewFile,BufRead *.sh,*.tmux.conf,*.zshrc vnoremap <buffer> <leader>u :s/^\%V# //g<cr>
+:autocmd BufNewFile,BufRead *.vim,*.vimrc vnoremap <buffer> <leader>u :s/^\%V" //g<cr>
+:autocmd BufNewFile,BufRead *.js,*.cpp vnoremap <buffer> <leader>u :s/^\%V\/\/ //g<cr>
 " ----------------------------------------
 " Abbreviation & Correction
 " ----------------------------------------
@@ -72,28 +92,5 @@ set listchars=eol:$,tab:\|·,trail:_
 set nofoldenable " disable auto-folding at start
 set number " show line number
 set pumheight=10 " Pmenu max height
-set shiftwidth=2 " indent (shiftwidth/tabstop) tabs with <<, >>
-set tabstop=2 " spaces per tab
-
-""let s:inputBuffer = ''
-""
-""augroup _silentInsertTrigger
-""    autocmd!
-""    autocmd InsertCharPre * call <sid>OnPreEnterChar()
-""    autocmd InsertLeave * call <sid>OnInsertLeave()
-""augroup END
-""
-""function! s:OnPreEnterChar()
-""	let s:inputBuffer .= v:char
-""	if s:inputBuffer[-3:] ==# 'abc'
-""		":r .vim/template/html5.template<CR>kdd/body<CR>:nohl<CR>o<TAB>
-""		"echo '<do stuff>'
-""		:execute "normal! :wq"
-""	endif
-""	return v:char
-""endfunction
-""
-""function! s:OnInsertLeave()
-""	let s:inputBuffer = ''
-""endfunction
-
+exe 'set shiftwidth='.space_per_tab
+exe 'set tabstop='.space_per_tab
