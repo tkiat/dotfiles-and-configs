@@ -1,45 +1,65 @@
 # Reference: http://zsh.sourceforge.net/Doc/Release/index.html
-# helper variables
+# ========================================
+#                                  Aliases
+# ========================================
+source ~/.aliases
+# shell command
+alias ls='ls --color'
+function 2change-tab-title { echo -en "\e]2;$1\a" }
+# ========================================
+#                           Autocompletion
+# ========================================
+# Case-insensitive
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+# ========================================
+#                                   Export
+# ========================================
 local mydir="/run/media/tkiatd/Shared"
-local colors=(226 165 046 208 014 129 196)
-local colors_light=(229 213 121 180 123 099 124)
-local emojis=('$' '(ノ°Д°)ノ' '(つ•̀ω•́)つ' '(´＿｀)' '(๑•﹏•)⋆*' '(ノ°Д°)ノ┻━┻' '(ﾉ´ヮ´)ﾉ*' 'ʕ •ᴥ•ʔ' '(˘ ³˘)♥' '(っ˘з(˘⌣˘)' '(ɔˆз(ˆ⌣ˆc)' '( ˘⌣˘)♡' '(¬_¬ )')
-# pick Thailand's'color of the day (for prompt)
-local day=$(date +%u) # Mon(1)-Sun(7)
-local color=$colors[day]
-local color_light=$colors_light[day]
-# local color=$colors[$(($RANDOM % ${#colors[@]} + 1))]
-# pick emoji (for prompt)
-local emoji=$emojis[$(($RANDOM % ${#emojis[@]} + 1))]
-# history file
-HISTFILE=~/.zsh_history # history file path
-HISTSIZE=1000 # max number of history entries to keep in current-session memory
-SAVEHIST=1000 # max number of history entries to save to HISTFILE
+
+export EDITOR=vim
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+export PATH=$PATH:$mydir/Git/script/shell
+# ========================================
+#                                 History
+# ========================================
+HISTFILE=~/.zsh_history
+HISTSIZE=1000 # max entries in current-session memory
+SAVEHIST=1000 # max entries in HISTFILE
 setopt incappendhistory # immediately append to history file, not waiting until shell exits
 setopt sharehistory # share history across terminals
-# load and style function vcs_info
+# ========================================
+#                              Key Binding
+# ========================================
+bindkey "\e[3~" delete-char
+# ========================================
+#                               $LS_COLORS
+# ========================================
+# get and reset default value
+eval $(dircolors | head -1)
+LS_COLORS=$(echo $LS_COLORS | sed -e 's/=[^=]*:/=0:/g')
+# remap and export
+LS_COLORS=$LS_COLORS'di=1;44:tw=1;44:ow=1;44:'
+LS_COLORS=$LS_COLORS'ln=1;36:'
+LS_COLORS=$LS_COLORS'*.7z=35:*.bz=35:*.bz2=35:*.gz=35:*.rar=35:*.tar=35:*.zip=35:'
+export LS_COLORS
+# ========================================
+#                                   Prompt
+# ========================================
+# pick emoji
+local emojis=('$' '(ノ°Д°)ノ' '(つ•̀ω•́)つ' '(´＿｀)' '(๑•﹏•)⋆*' '(ノ°Д°)ノ┻━┻' '(ﾉ´ヮ´)ﾉ*' 'ʕ •ᴥ•ʔ' '(˘ ³˘)♥' '(っ˘з(˘⌣˘)' '(ɔˆз(ˆ⌣ˆc)' '( ˘⌣˘)♡' '(¬_¬ )')
+local emoji=$emojis[$(($RANDOM % ${#emojis[@]} + 1))]
+# pick color of the day
+local day=$(date +%u) # Mon(1)-Sun(7)
+local colors=(226 165 046 208 014 129 196); local color=$colors[day]
+local colors_light=(229 213 121 180 123 099 124); local color_light=$colors_light[day]
+# git
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' actionformats '(%a'$'\UE0A0''%b)' # used when git detected and e.g. rebase/merge conflict
 zstyle ':vcs_info:*' formats '(%F{'$color_light'}%n/%r'$'\UE0A0''%b%f)' # used when git detected and actionformats is inactive
-#zstyle ':vcs_info:*' nvcsformats ${emoji} # used when no git detected
-# enable vcs_info_msg_0_
 setopt PROMPT_SUBST
 precmd () { vcs_info }
 # modify prompt
 PROMPT='%F{'$color_light'}%n@'$HOST'%f:%F{'$color'}%0 %1~%f'
-PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.)'${emoji}' ' #%(!.(root).)
-# case-insensitive autocompletion
-autoload -Uz compinit && compinit
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-# include in PATH
-export PATH=$PATH:$mydir/Git/script/shell
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-# set default apps
-export EDITOR=vim
-# aliases
-source ~/.aliases
-# fix key(s)
-bindkey "\e[3~" delete-char
-
-function 2change-tab-title { echo -en "\e]2;$1\a" }
+PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.)'${emoji}' '

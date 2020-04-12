@@ -1,94 +1,76 @@
 " Made by Theerawat Kiatdarakun
-" Note - I don't use gVim so I did not take it in mind when writing this file
-" ----------------------------------------
-" General settings
-" ----------------------------------------
+" Note - I use only ctermbg, not guibg. Same for ctermfg
+" Suggested reading :help *highlight-groups*
+
 " reset syntax highlighting
 hi clear
 syntax reset
 syntax on
 " colorscheme name
-let b:colors_name = "tkiatd"
-" background
-set background=dark
+let g:colors_name = "tkiatd"
 " set 256 colors
 set t_Co=256
-" ----------------------------------------
-" Helper functions
-" ----------------------------------------
-function! HighlightGroup(gm, tc, hc)
-	for member in a:gm
-		exe 'hi '.member.' ctermfg='.a:tc.' ctermbg='.a:hc
-	endfor
-endfunction
-
-function! HighlightGroupCustom(gm_custom)
-	for member in a:gm_custom
-		let cmd='hi '.member['name']
-		for [key,value] in items(member)
-			if key !=# 'name'
-				let cmd=cmd.' '.key.'='.value
-			endif
-		endfor
-		exe cmd
-	endfor
-endfunction
-
+" ========================================
+"          Set all highlight groups to red
+"                      for testing purpose
+" ========================================
+" for hl_group in getcompletion('', 'highlight')
+" 	if hl_group ==# 'CursorLine'
+" 		continue
+" 	endif
+" 	exe 'hi '.hl_group.' ctermfg=red'
+" endfor
+" ========================================
+"         Display group color in this file
+"          after sourcing .vimrc from here
+" ========================================
 function! PadZeroes(i)
 	let temp='00'.a:i
 	return temp[strlen(temp)-3:strlen(temp)-1]
 endfunction
-" ----------------------------------------
-" Set all highlight groups to red for testing purpose
-" ----------------------------------------
-""for hl_group in getcompletion('', 'highlight')
-""	if hl_group ==# 'CursorLine'
-""		continue
-""	 endif
-""	exe 'hi '.hl_group.' ctermfg=red'
-""endfor
-" ----------------------------------------
-" Show actual color for variables b:xtermxxx
-" Note: Need to source .vimrc from here first
-" ----------------------------------------
+
 for i in range(0,255)
 	let b:colorcode=PadZeroes(i)
 	exe 'let b:xterm'.b:colorcode.'='.i
 	exe 'syntax match xterm'.b:colorcode.' /\vb:(xterm'.b:colorcode.')@=/'
 	exe 'hi xterm'.b:colorcode.' ctermfg='.i.' ctermbg='.i
 endfor
-" ----------------------------------------
-" Assign group member (gm), text color (tc), and highlight color (hc)
-" ----------------------------------------
+" ========================================
+"     Assign color to each highlight group
+" ========================================
+" Note: group member(gm), text color(tc), and highlight color(hc)
+" Some groups have non-intuitive bg and fg assignments so put them in gm_reversed arrays
+" Some groups need more properties like bold, italic. Put them in gm_custom arrays
+" group 1
 let tc1=b:xterm214
 let hc1='NONE'
 let gm1=['Boolean', 'Directory', 'Float', 'Number', 'String']
-" group 2: statement
+" group 2
 let tc2=b:xterm149
 let hc2='NONE'
 let gm2=['Conditional', 'Exception', 'Label', 'Repeat', 'Statement']
-" group 3: normal text, main background
+" group 3
 let tc3=b:xterm015
 let hc3=b:xterm233
 let gm3=['Normal', 'Operator', 'Question', 'ModeMsg']
 let gm3_reversed=['TabLineFill']
-" group 4: non-focal text
+" group 4
 let tc4=b:xterm245
 let hc4='NONE'
 let gm4=['Comment', 'Delimiter', 'EndOfBuffer', 'LineNr']
-" group 5: type
+" group 5
 let tc5=b:xterm123
 let hc5='NONE'
 let gm5=['Keyword', 'Type', 'Typedef', 'StorageClass', 'Structure']
-" group 6:
+" group 6
 let tc6=b:xterm213
 let hc6='NONE'
 let gm6=['Special']
-" group 7:
+" group 7
 let tc7=b:xterm075
 let hc7='NONE'
 let gm7=['Function', 'Identifier', 'Preproc']
-" group 8:
+" group 8
 let tc8=b:xterm067
 let hc8='NONE'
 let gm8=['Nontext', 'Specialkey']
@@ -96,7 +78,7 @@ let gm8=['Nontext', 'Specialkey']
 let tc9=b:xterm245
 let hc9=b:xterm236
 let gm9=['Folded']
-let gm9_custom=[{'name':'CursorLine','cterm':'none','ctermbg':hc9},{'name':'CursorLineNr','cterm':'bold,italic','ctermfg':hc9,'ctermbg':tc9}]
+let gm9_custom=[{'name':'CursorLine','cterm':'none','ctermbg':hc9},{'name':'CursorLineNr','cterm':'bold,italic','ctermfg':tc9,'ctermbg':hc9}]
 " group 10: highlight: general (bright)
 let tc10=b:xterm000
 let hc10=b:xterm255
@@ -119,9 +101,27 @@ let gm13=['Search']
 let tc14=b:xterm000
 let hc14=b:xterm166
 let gm14_reversed=['IncSearch', 'MatchParen']
-" ----------------------------------------
-" Apply all highlights
-" ----------------------------------------
+" ========================================
+"               Apply all group highlights
+" ========================================
+function! HighlightGroup(gm, tc, hc)
+	for member in a:gm
+		exe 'hi '.member.' ctermfg='.a:tc.' ctermbg='.a:hc
+	endfor
+endfunction
+
+function! HighlightGroupCustom(gm_custom)
+	for member in a:gm_custom
+		let cmd='hi '.member['name']
+		for [key,value] in items(member)
+			if key !=# 'name'
+				let cmd=cmd.' '.key.'='.value
+			endif
+		endfor
+		exe cmd
+	endfor
+endfunction
+
 let cur_group=1
 while exists('gm'.cur_group) || exists('gm'.cur_group.'_reversed') || exists('gm'.cur_group.'_custom')
 	if exists('gm'.cur_group)
