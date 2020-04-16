@@ -1,4 +1,5 @@
 # Reference: http://zsh.sourceforge.net/Doc/Release/index.html
+setopt autocd
 # ========================================
 #                                  Aliases
 # ========================================
@@ -52,8 +53,8 @@ local emojis=('$' '(ノ°Д°)ノ' '(つ•̀ω•́)つ' '(´＿｀)' '(๑•�
 local emoji=$emojis[$(($RANDOM % ${#emojis[@]} + 1))]
 # pick color of the day
 local day=$(date +%u) # Mon(1)-Sun(7)
-local colors=(226 165 046 208 014 129 196); local color=$colors[day]
-local colors_light=(229 213 121 180 123 099 124); local color_light=$colors_light[day]
+local colors=(11 165 046 208 014 129 196); local color=$colors[day]
+local colors_light=(230 213 121 180 123 099 124); local color_light=$colors_light[day]
 # git
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' actionformats '(%a'$'\UE0A0''%b)' # used when git detected and e.g. rebase/merge conflict

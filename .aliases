@@ -11,6 +11,7 @@ alias 2gt_droplet="ssh tkiatd@178.128.218.134"
 alias 2gt_git="cd "$mydir"/Git"
 alias 2gt_local="cd "$mydir"/Local"
 alias 2gt_music="cd "$mydir"/Content/Music"
+alias 2gt_nextcloud="cd "$mydir"/Nextcloud"
 alias 2rm_podman_images="podman rmi \$(podman images -a -q)"
 
 alias 2tmux-theme1="\

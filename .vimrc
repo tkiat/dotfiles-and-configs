@@ -37,9 +37,13 @@ let g:netrw_liststyle = 3 " tree listing style"
 "                                 nnoremap
 " ========================================
 " comment
-:autocmd BufNewFile,BufRead *.sh,*.tmux.conf,*.zshrc nnoremap <buffer> <leader>c I# <esc>
-:autocmd BufNewFile,BufRead *.vim,*.vimrc nnoremap <buffer> <leader>c I" <esc>h
-:autocmd BufNewFile,BufRead *.js,*.cpp nnoremap <buffer> <leader>c I// <esc>
+:autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc nnoremap <buffer> <leader>c mqI# <esc>`qll
+:autocmd BufNewFile,BufRead *.vim,*.vimrc nnoremap <buffer> <leader>c mqI" <esc>`qll
+:autocmd BufNewFile,BufRead *.js,*.cpp nnoremap <buffer> <leader>c mqI// <esc>`qll
+" uncomment
+:autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh
+:autocmd BufNewFile,BufRead *.vim,*.vimrc nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh
+:autocmd BufNewFile,BufRead *.js,*.cpp nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh
 " enclose word
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
@@ -90,10 +94,10 @@ exe 'set tabstop='.space_per_tab
 " map 2 tabs to 1 tab
 vnoremap <leader><tab><tab> :s/\%V\t\t/\t/g<cr>:nohl<cr>
 " comment
-:autocmd BufNewFile,BufRead *.sh,*.tmux.conf,*.zshrc vnoremap <buffer> <leader>c :s/^\%V/# /g<cr>:nohl<cr>
+:autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc vnoremap <buffer> <leader>c :s/^\%V/# /g<cr>:nohl<cr>
 :autocmd BufNewFile,BufRead *.vim,*.vimrc vnoremap <buffer> <leader>c :s/^\%V/" /g<cr>:nohl<cr>
 :autocmd BufNewFile,BufRead *.js,*.cpp vnoremap <buffer> <leader>c :s/^\%V/\/\/ /g<cr>:nohl<cr>
 " uncomment
-:autocmd BufNewFile,BufRead *.sh,*.tmux.conf,*.zshrc vnoremap <buffer> <leader>u :s/^\%V# //g<cr>
+:autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc vnoremap <buffer> <leader>u :s/^\%V# //g<cr>
 :autocmd BufNewFile,BufRead *.vim,*.vimrc vnoremap <buffer> <leader>u :s/^\%V" //g<cr>
 :autocmd BufNewFile,BufRead *.js,*.cpp vnoremap <buffer> <leader>u :s/^\%V\/\/ //g<cr>
