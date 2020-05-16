@@ -21,7 +21,13 @@ local mydir="/run/media/tkiatd/Shared"
 export EDITOR=vim
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-export PATH=$PATH:$mydir/Git/script/shell
+for dir in $mydir/Git/script/*/; do
+	if ! [[ $dir =~ _unused/$ ]]; then
+		export PATH=$PATH:$dir
+	fi
+done
+export GOPATH=$HOME/go # GOPATH
+export PATH="/home/tkiatd/.gem/ruby/2.7.0/bin:$PATH"
 # ========================================
 #                                 History
 # ========================================
@@ -41,7 +47,7 @@ bindkey "\e[3~" delete-char
 eval $(dircolors | head -1)
 LS_COLORS=$(echo $LS_COLORS | sed -e 's/=[^=]*:/=0:/g')
 # remap and export
-LS_COLORS=$LS_COLORS'di=1;44:tw=1;44:ow=1;44:'
+LS_COLORS=$LS_COLORS'di=1;30;47:tw=1;30;47:ow=1;30;47:'
 LS_COLORS=$LS_COLORS'ln=1;36:'
 LS_COLORS=$LS_COLORS'*.7z=35:*.bz=35:*.bz2=35:*.gz=35:*.rar=35:*.tar=35:*.zip=35:'
 export LS_COLORS
