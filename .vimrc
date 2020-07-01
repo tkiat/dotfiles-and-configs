@@ -1,20 +1,19 @@
 " Author: Theerawat Kiatdarakun
-" I group all codes by scopes ranging from
-" Local in .vimrc
-" Character
-" Word
-" Line
-" Visual Select
-" All Text in File
-" File
-" Plugin
-" Configuration
+" I group all codes by scopes
+" Scope: Local Variable
+" Scope: Character
+" Scope: Word
+" Scope: Line
+" Scope: Visual Select
+" Scope: All Text in File
+" Scope: File
+" Scope: Plugin
+" Scope: Configuration
 " ========================================
-"                   Scope: Local in .vimrc
+"                    Scope: Local Variable
 " ========================================
-" variables (don't rename/remove!)
 let mapleader=','
-let template_dir= '~/dotfiles/.vim/template/'
+let template_dir='~/.vim/template/'
 let space_per_tab=2
 " ========================================
 "                         Scope: Character
@@ -51,20 +50,21 @@ iabbrev adn and
 iabbrev tehn then
 iabbrev waht what
 " template
-exe 'nnoremap :html5 <ESC>:r '.template_dir.'html5.template<CR>kdd/body<CR>:nohl<CR>o<TAB>'
-exe 'nnoremap :vue <ESC>:r '.template_dir.'vue.template<CR>kdd'
+exe 'nnoremap <leader>html5 <ESC>:r '.template_dir.'html5.template<CR>kdd/body<CR>:nohl<CR>o<TAB>'
+exe 'nnoremap <leader>vue <ESC>:r '.template_dir.'vue.template<CR>kdd'
+exe 'nnoremap <leader>pkgm <ESC>:r '.template_dir.'main.go.template<CR>kddjjjjjjA'
 " ========================================
 "                              Scope: Line
 " ========================================
 " comment
 :autocmd BufNewFile,BufRead *.html nnoremap <buffer> <leader>c mqI<!--<esc>A--><esc>`qllll
-:autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc nnoremap <buffer> <leader>c mqI# <esc>`qll
+:autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc,*.zshrc.local nnoremap <buffer> <leader>c mqI# <esc>`qll
 :autocmd BufNewFile,BufRead *.vim,*.vimrc nnoremap <buffer> <leader>c mqI" <esc>`qll
 :autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp nnoremap <buffer> <leader>c mqI// <esc>`qll
 :autocmd BufNewFile,BufRead *.css nnoremap <buffer> <leader>c mqI/*<esc>A*/<esc>`qll
 " uncomment
 :autocmd BufNewFile,BufRead *.html nnoremap <buffer> <leader>u mqI<del><del><del><del><esc>A<bs><bs><bs><esc>`qhhhh
-:autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh
+:autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc,*.zshrc.local nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh
 :autocmd BufNewFile,BufRead *.vim,*.vimrc nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh
 :autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh
 :autocmd BufNewFile,BufRead *.css nnoremap <buffer> <leader>u mqI<del><del><esc>A<bs><bs><esc>`qhh
@@ -84,13 +84,13 @@ nnoremap <leader>o mqo<esc>`q
 vnoremap <leader><tab><tab> :s/\%V\t\t/\t/g<cr>:nohl<cr>
 " comment
 :autocmd BufNewFile,BufRead *.html vnoremap <buffer> <leader>c :s/^/<!--/g<cr>gv:s/$/-->/g<cr>:nohl<cr>
-:autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc vnoremap <buffer> <leader>c :s/^\%V/# /g<cr>:nohl<cr>
+:autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc,*.zshrc.local vnoremap <buffer> <leader>c :s/^\%V/# /g<cr>:nohl<cr>
 :autocmd BufNewFile,BufRead *.vim,*.vimrc vnoremap <buffer> <leader>c :s/^\%V/" /g<cr>:nohl<cr>
 :autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp vnoremap <buffer> <leader>c :s/^\%V/\/\/ /g<cr>:nohl<cr>
 :autocmd BufNewFile,BufRead *.css vnoremap <buffer> <leader>c :s/^/\/*/g<cr>gv:s/$/*\//g<cr>:nohl<cr>
 " uncomment
 :autocmd BufNewFile,BufRead *.html vnoremap <buffer> <leader>u :s/<!--//g<cr>gv:s/-->//g<cr>:nohl<cr>
-:autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc vnoremap <buffer> <leader>u :s/^\%V# //g<cr>
+:autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc,*.zshrc.local vnoremap <buffer> <leader>u :s/^\%V# //g<cr>
 :autocmd BufNewFile,BufRead *.vim,*.vimrc vnoremap <buffer> <leader>u :s/^\%V" //g<cr>
 :autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp vnoremap <buffer> <leader>u :s/^\%V\/\/ //g<cr>
 :autocmd BufNewFile,BufRead *.css vnoremap <buffer> <leader>u :s/\/\*//g<cr>gv:s/\*\///g<cr>:nohl<cr>
@@ -156,3 +156,16 @@ set number " show line number
 set pumheight=10 " Pmenu max height
 exe 'set shiftwidth='.space_per_tab
 exe 'set tabstop='.space_per_tab
+"
+" TODO to check if file empty when will use template.this copied from somewhere and i dont understand
+" function! BufferListEmpty()
+"   let BufferListFile = @%
+"   let lines = readfile(BufferListFile)    " read the file *contents* into a list
+"   let matched_index = match(lines, '\S')  " find the first entry with a non-space
+"   return matched_index == -1              " if no match was found -1 was returned
+" endfunction
+" if BufferListEmpty()
+"   echo "Empty"
+" else
+"   echo "Not"
+" endif

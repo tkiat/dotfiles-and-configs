@@ -1,11 +1,15 @@
 # Reference: http://zsh.sourceforge.net/Doc/Release/index.html
+source ~/.zshrc.local
 setopt autocd
+umask 027
 # ========================================
 #                                  Aliases
 # ========================================
-source ~/.aliases
-# shell command
+alias ...="cd ../.."
+alias 2edit_.tmux.conf="vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
+alias 2edit_.zshrc="vim ~/.zshrc && source ~/.zshrc"
 alias ls='ls --color'
+alias sl="ls"
 function 2change-tab-title { echo -en "\e]2;$1\a" }
 # ========================================
 #                           Autocompletion
@@ -19,15 +23,15 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 local mydir="/run/media/tkiatd/Shared"
 
 export EDITOR=vim
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-for dir in $mydir/Git/script/*/; do
-	if ! [[ $dir =~ _unused/$ ]]; then
-		export PATH=$PATH:$dir
-	fi
-done
+# export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# for dir in $mydir/Git/script/*/; do
+# 	if ! [[ $dir =~ _unused/$ ]]; then
+# 		export PATH=$PATH:$dir
+# 	fi
+# done
 export GOPATH=$HOME/go # GOPATH
-export PATH="/home/tkiatd/.gem/ruby/2.7.0/bin:$PATH"
+# export PATH="/home/tkiatd/.gem/ruby/2.7.0/bin:$PATH"
 # ========================================
 #                                 History
 # ========================================

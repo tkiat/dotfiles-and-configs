@@ -1,14 +1,5 @@
 local mydir="/run/media/tkiatd/Shared"
 
-alias ..="cd .."
-alias ...="cd ../.."
-
-alias dr="docker"
-alias sl="ls"
-
-alias 2edit_.zshrc="vim ~/.zshrc && source ~/.zshrc"
-alias 2edit_.tmux.conf="vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
-
 alias 2gt_content="cd "$mydir"/Content"
 alias 2gt_download="cd "$mydir"/Download"
 alias 2gt_droplet="ssh tkiatd@178.128.218.134"

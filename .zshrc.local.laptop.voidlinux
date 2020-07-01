@@ -1,0 +1,9 @@
+local git_dir="/home/tkiatd/Git"
+
+for dir in $git_dir/script/*/; do
+	if ! [[ $dir =~ _unused/$ ]]; then
+		export PATH=$PATH:$dir
+	fi
+done
+alias start-internet='sudo wpa_supplicant -B -D wext -i wlp3s0 -c /etc/wpa_supplicant/wpa_supplicant.conf && sudo iw wlp3s0 link'
+alias vim='gvim -v'
