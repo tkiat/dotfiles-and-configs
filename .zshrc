@@ -30,7 +30,10 @@ export EDITOR=vim
 # 		export PATH=$PATH:$dir
 # 	fi
 # done
-export GOPATH=$HOME/go # GOPATH
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+# export GOROOT=/usr/local/go
 # export PATH="/home/tkiatd/.gem/ruby/2.7.0/bin:$PATH"
 # ========================================
 #                                 History

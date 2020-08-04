@@ -1,3 +1,4 @@
+# Void Linux Laptop
 local git_dir="/home/tkiatd/Git"
 
 for dir in $git_dir/script/*/; do
@@ -5,5 +6,14 @@ for dir in $git_dir/script/*/; do
 		export PATH=$PATH:$dir
 	fi
 done
+
+if which ruby >/dev/null && which gem >/dev/null; then
+    PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
+
+# alias
+alias mount-sdb1='sudo mount /dev/sdb1 /mnt/sdb1/'
+alias mount-sdb2='sudo mount /dev/sdb2 /mnt/sdb2/'
 alias start-internet='sudo wpa_supplicant -B -D wext -i wlp3s0 -c /etc/wpa_supplicant/wpa_supplicant.conf && sudo iw wlp3s0 link'
 alias vim='gvim -v'
+alias serve-browser="browser-sync start -s -f . --no-notify --host $LOCAL_IP --port 8080 --no-open"

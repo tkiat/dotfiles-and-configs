@@ -52,7 +52,8 @@ iabbrev waht what
 " template
 exe 'nnoremap <leader>html5 <ESC>:r '.template_dir.'html5.template<CR>kdd/body<CR>:nohl<CR>o<TAB>'
 exe 'nnoremap <leader>vue <ESC>:r '.template_dir.'vue.template<CR>kdd'
-exe 'nnoremap <leader>pkgm <ESC>:r '.template_dir.'main.go.template<CR>kddjjjjjjA'
+exe 'nnoremap <leader>gomain <ESC>:r '.template_dir.'main.go.template<CR>kddjjjjjjA'
+exe 'nnoremap <leader>gotest <ESC>:r '.template_dir.'main_test.go.template<CR>kddjjjjjjeea'
 " ========================================
 "                              Scope: Line
 " ========================================
@@ -61,13 +62,13 @@ exe 'nnoremap <leader>pkgm <ESC>:r '.template_dir.'main.go.template<CR>kddjjjjjj
 :autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc,*.zshrc.local nnoremap <buffer> <leader>c mqI# <esc>`qll
 :autocmd BufNewFile,BufRead *.vim,*.vimrc nnoremap <buffer> <leader>c mqI" <esc>`qll
 :autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp nnoremap <buffer> <leader>c mqI// <esc>`qll
-:autocmd BufNewFile,BufRead *.css nnoremap <buffer> <leader>c mqI/*<esc>A*/<esc>`qll
+:autocmd BufNewFile,BufRead *.css,*.scss nnoremap <buffer> <leader>c mqI/*<esc>A*/<esc>`qll
 " uncomment
 :autocmd BufNewFile,BufRead *.html nnoremap <buffer> <leader>u mqI<del><del><del><del><esc>A<bs><bs><bs><esc>`qhhhh
 :autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc,*.zshrc.local nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh
 :autocmd BufNewFile,BufRead *.vim,*.vimrc nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh
 :autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh
-:autocmd BufNewFile,BufRead *.css nnoremap <buffer> <leader>u mqI<del><del><esc>A<bs><bs><esc>`qhh
+:autocmd BufNewFile,BufRead *.css,*.scss nnoremap <buffer> <leader>u mqI<del><del><esc>A<bs><bs><esc>`qhh
 
 " insert at the end of current line
 nnoremap <leader>, mqA,<esc>`q
@@ -87,13 +88,13 @@ vnoremap <leader><tab><tab> :s/\%V\t\t/\t/g<cr>:nohl<cr>
 :autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc,*.zshrc.local vnoremap <buffer> <leader>c :s/^\%V/# /g<cr>:nohl<cr>
 :autocmd BufNewFile,BufRead *.vim,*.vimrc vnoremap <buffer> <leader>c :s/^\%V/" /g<cr>:nohl<cr>
 :autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp vnoremap <buffer> <leader>c :s/^\%V/\/\/ /g<cr>:nohl<cr>
-:autocmd BufNewFile,BufRead *.css vnoremap <buffer> <leader>c :s/^/\/*/g<cr>gv:s/$/*\//g<cr>:nohl<cr>
+:autocmd BufNewFile,BufRead *.css,*.scss vnoremap <buffer> <leader>c :s/^/\/*/g<cr>gv:s/$/*\//g<cr>:nohl<cr>
 " uncomment
 :autocmd BufNewFile,BufRead *.html vnoremap <buffer> <leader>u :s/<!--//g<cr>gv:s/-->//g<cr>:nohl<cr>
 :autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc,*.zshrc.local vnoremap <buffer> <leader>u :s/^\%V# //g<cr>
 :autocmd BufNewFile,BufRead *.vim,*.vimrc vnoremap <buffer> <leader>u :s/^\%V" //g<cr>
 :autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp vnoremap <buffer> <leader>u :s/^\%V\/\/ //g<cr>
-:autocmd BufNewFile,BufRead *.css vnoremap <buffer> <leader>u :s/\/\*//g<cr>gv:s/\*\///g<cr>:nohl<cr>
+:autocmd BufNewFile,BufRead *.css,*.scss vnoremap <buffer> <leader>u :s/\/\*//g<cr>gv:s/\*\///g<cr>:nohl<cr>
 " ========================================
 "                  Scope: All Text in File
 " ========================================
@@ -128,6 +129,8 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 let g:netrw_browse_split = 3 " open file in new tab
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro nornu' " enable line number
 let g:netrw_liststyle = 3 " tree listing style"
+" disable scratch preview
+set completeopt-=preview
 " ========================================
 "                            Scope: Plugin
 " ========================================
@@ -136,9 +139,12 @@ call pathogen#infect()
 " NERDTree Plugin
 filetype plugin indent on
 let NERDTreeShowHidden=1
+let NERDTreeShowLineNumbers=1
 " start NERDTree without filename specified"
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" vim-go
+nnoremap <leader>gi :GoImport <C-R><C-W><cr>
 " ========================================
 "                     Scope: Configuration
 " ========================================
