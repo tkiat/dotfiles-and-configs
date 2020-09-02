@@ -20,6 +20,7 @@ let space_per_tab=2
 " ========================================
 inoremap " ""<Esc>i
 inoremap ' ''<Esc>i
+inoremap ` ``<Esc>i
 inoremap ( ()<Esc>i
 inoremap [ []<Esc>i
 inoremap { {}<Esc>i
@@ -50,7 +51,7 @@ iabbrev adn and
 iabbrev tehn then
 iabbrev waht what
 " template
-exe 'nnoremap <leader>html5 <ESC>:r '.template_dir.'html5.template<CR>kdd/body<CR>:nohl<CR>o<TAB>'
+exe 'nnoremap <leader>html5 <ESC>:r '.template_dir.'html5.template<CR>kdd/body<CR>:nohl<CR>o'
 exe 'nnoremap <leader>vue <ESC>:r '.template_dir.'vue.template<CR>kdd'
 exe 'nnoremap <leader>gomain <ESC>:r '.template_dir.'main.go.template<CR>kddjjjjjjA'
 exe 'nnoremap <leader>gotest <ESC>:r '.template_dir.'main_test.go.template<CR>kddjjjjjjeea'
@@ -59,15 +60,15 @@ exe 'nnoremap <leader>gotest <ESC>:r '.template_dir.'main_test.go.template<CR>kd
 " ========================================
 " comment
 :autocmd BufNewFile,BufRead *.html nnoremap <buffer> <leader>c mqI<!--<esc>A--><esc>`qllll
-:autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc,*.zshrc.local nnoremap <buffer> <leader>c mqI# <esc>`qll
+:autocmd BufNewFile,BufRead *.py,*.sh,*.tf,*.tmux.conf,*.zshrc,*.zshrc.local nnoremap <buffer> <leader>c mqI# <esc>`qll
 :autocmd BufNewFile,BufRead *.vim,*.vimrc nnoremap <buffer> <leader>c mqI" <esc>`qll
 :autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp nnoremap <buffer> <leader>c mqI// <esc>`qll
 :autocmd BufNewFile,BufRead *.css,*.scss nnoremap <buffer> <leader>c mqI/*<esc>A*/<esc>`qll
 " uncomment
 :autocmd BufNewFile,BufRead *.html nnoremap <buffer> <leader>u mqI<del><del><del><del><esc>A<bs><bs><bs><esc>`qhhhh
-:autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc,*.zshrc.local nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh
+:autocmd BufNewFile,BufRead *.py,*.sh,*.tf,*.tmux.conf,*.zshrc,*.zshrc.local nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh
 :autocmd BufNewFile,BufRead *.vim,*.vimrc nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh
-:autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh
+:autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp nnoremap <buffer> <leader>u mqI<del><del><del><esc>`qhh
 :autocmd BufNewFile,BufRead *.css,*.scss nnoremap <buffer> <leader>u mqI<del><del><esc>A<bs><bs><esc>`qhh
 
 " insert at the end of current line
@@ -85,13 +86,13 @@ nnoremap <leader>o mqo<esc>`q
 vnoremap <leader><tab><tab> :s/\%V\t\t/\t/g<cr>:nohl<cr>
 " comment
 :autocmd BufNewFile,BufRead *.html vnoremap <buffer> <leader>c :s/^/<!--/g<cr>gv:s/$/-->/g<cr>:nohl<cr>
-:autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc,*.zshrc.local vnoremap <buffer> <leader>c :s/^\%V/# /g<cr>:nohl<cr>
+:autocmd BufNewFile,BufRead *.py,*.sh,*.tf,*.tmux.conf,*.zshrc,*.zshrc.local vnoremap <buffer> <leader>c :s/^\%V/# /g<cr>:nohl<cr>
 :autocmd BufNewFile,BufRead *.vim,*.vimrc vnoremap <buffer> <leader>c :s/^\%V/" /g<cr>:nohl<cr>
 :autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp vnoremap <buffer> <leader>c :s/^\%V/\/\/ /g<cr>:nohl<cr>
 :autocmd BufNewFile,BufRead *.css,*.scss vnoremap <buffer> <leader>c :s/^/\/*/g<cr>gv:s/$/*\//g<cr>:nohl<cr>
 " uncomment
 :autocmd BufNewFile,BufRead *.html vnoremap <buffer> <leader>u :s/<!--//g<cr>gv:s/-->//g<cr>:nohl<cr>
-:autocmd BufNewFile,BufRead *.py,*.sh,*.tmux.conf,*.zshrc,*.zshrc.local vnoremap <buffer> <leader>u :s/^\%V# //g<cr>
+:autocmd BufNewFile,BufRead *.py,*.sh,*.tf,*.tmux.conf,*.zshrc,*.zshrc.local vnoremap <buffer> <leader>u :s/^\%V# //g<cr>
 :autocmd BufNewFile,BufRead *.vim,*.vimrc vnoremap <buffer> <leader>u :s/^\%V" //g<cr>
 :autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp vnoremap <buffer> <leader>u :s/^\%V\/\/ //g<cr>
 :autocmd BufNewFile,BufRead *.css,*.scss vnoremap <buffer> <leader>u :s/\/\*//g<cr>gv:s/\*\///g<cr>:nohl<cr>
@@ -134,6 +135,8 @@ set completeopt-=preview
 " ========================================
 "                            Scope: Plugin
 " ========================================
+" vim-terraform
+let g:terraform_fmt_on_save=1
 " pathogen.vim
 call pathogen#infect()
 " NERDTree Plugin
@@ -148,12 +151,16 @@ nnoremap <leader>gi :GoImport <C-R><C-W><cr>
 " ========================================
 "                     Scope: Configuration
 " ========================================
+" Directory
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
 " Set
 set autoindent " auto indent next line
 set cursorline " highlight current line
 set foldmethod=indent
 set hlsearch " highlight searches
-set ignorecase " ignore case when search
+" set ignorecase " ignore case when search
 set incsearch " highlight while still typing search
 set list " enable listchars
 set listchars=eol:$,tab:\|·,trail:_

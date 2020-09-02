@@ -63,7 +63,7 @@ let tc5=b:xterm123
 let hc5='NONE'
 let gm5=['Keyword', 'Type', 'Typedef', 'StorageClass', 'Structure']
 " group 6
-let tc6=b:xterm213
+let tc6=b:xterm210
 let hc6='NONE'
 let gm6=['Special']
 " group 7

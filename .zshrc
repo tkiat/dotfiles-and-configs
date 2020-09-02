@@ -1,16 +1,9 @@
 # Reference: http://zsh.sourceforge.net/Doc/Release/index.html
 source ~/.zshrc.local
+source ~/.zshrc.aliases
 setopt autocd
 umask 027
-# ========================================
-#                                  Aliases
-# ========================================
-alias ...="cd ../.."
-alias 2edit_.tmux.conf="vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
-alias 2edit_.zshrc="vim ~/.zshrc && source ~/.zshrc"
-alias ls='ls --color'
-alias sl="ls"
-function 2change-tab-title { echo -en "\e]2;$1\a" }
+local line_str="----------------------------------------"
 # ========================================
 #                           Autocompletion
 # ========================================
@@ -77,3 +70,14 @@ precmd () { vcs_info }
 # modify prompt
 PROMPT='%F{'$color_light'}%n@'$HOST'%f:%F{'$color'}%0 %1~%f'
 PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.)'${emoji}' '
+
+# Added by serverless binary installer
+export PATH="$HOME/.serverless/bin:$PATH"
+
+# TODO
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/terraform terraform
