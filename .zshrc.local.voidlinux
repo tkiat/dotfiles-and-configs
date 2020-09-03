@@ -8,13 +8,6 @@ alias 2install-pkg='sudo xbps-install'
 alias 2serve-browser="browser-sync start -s -f . --no-notify --host $LOCAL_IP --port 8080 --no-open"
 alias 2start-internet='sudo wpa_supplicant -B -D wext -i wlp3s0 -c /etc/wpa_supplicant/wpa_supplicant.conf && sudo iw wlp3s0 link'
 alias 2update-os='sudo xbps-install -Su'
-# add scripts to PATH
-local git_dir="/home/tkiatd/Git"
-for dir in $git_dir/scripts/*/; do
-	if ! [[ $dir =~ _unused/$ ]]; then
-		export PATH=$PATH:$dir
-	fi
-done
 
 if which ruby >/dev/null && which gem >/dev/null; then
     PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"

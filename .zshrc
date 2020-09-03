@@ -13,21 +13,19 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 # ========================================
 #                                   Export
 # ========================================
-local mydir="/run/media/tkiatd/Shared"
-
 export EDITOR=vim
-# export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-# for dir in $mydir/Git/script/*/; do
-# 	if ! [[ $dir =~ _unused/$ ]]; then
-# 		export PATH=$PATH:$dir
-# 	fi
-# done
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 # export GOROOT=/usr/local/go
 # export PATH="/home/tkiatd/.gem/ruby/2.7.0/bin:$PATH"
+# add scripts to PATH
+local git_dir=~/Git
+for dir in $git_dir/scripts/*; do
+	if [[ $(basename $dir) == bash || $(basename $dir) == python ]]; then
+		export PATH=$PATH:$dir
+	fi
+done
 # ========================================
 #                                 History
 # ========================================
