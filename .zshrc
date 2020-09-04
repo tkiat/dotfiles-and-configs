@@ -1,6 +1,7 @@
 # Reference: http://zsh.sourceforge.net/Doc/Release/index.html
-source ~/.zshrc.local
 source ~/.zshrc.aliases
+source ~/.zshrc.local
+source ~/.zshrc.program
 setopt autocd
 umask 027
 local line_str="----------------------------------------"
@@ -18,7 +19,6 @@ export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 # export GOROOT=/usr/local/go
-# export PATH="/home/tkiatd/.gem/ruby/2.7.0/bin:$PATH"
 # add scripts to PATH
 local git_dir=~/Git
 for dir in $git_dir/scripts/*; do
@@ -26,6 +26,9 @@ for dir in $git_dir/scripts/*; do
 		export PATH=$PATH:$dir
 	fi
 done
+#nvm
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 # ========================================
 #                                 History
 # ========================================

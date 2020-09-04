@@ -15,18 +15,26 @@
 let mapleader=','
 let template_dir='~/.vim/template/'
 let space_per_tab=2
+let s:char_pairs={
+	\'(': ')',
+	\'[': ']',
+	\"{": "}",
+\}
+let s:char_pairs_adjacent=extend(s:char_pairs,{
+	\'"': '"',
+	\"'": "'"
+\})
 " ========================================
 "                         Scope: Character
 " ========================================
-inoremap " ""<Esc>i
-inoremap ' ''<Esc>i
-inoremap ` ``<Esc>i
-inoremap ( ()<Esc>i
-inoremap [ []<Esc>i
-inoremap { {}<Esc>i
-inoremap (<CR> (<CR>)<Esc>ko
-inoremap [<CR> [<CR>]<Esc>ko
-inoremap {<CR> {<CR>}<Esc>ko
+" closing brace: adjacent
+for [key, val] in items(s:char_pairs_adjacent)
+	exe 'inoremap '.key.' '.key.val.'<Esc>i'
+endfor
+" closing brace: different lines
+for [key, val] in items(s:char_pairs)
+	exe 'inoremap '.key.'<CR> '.key.'<CR>'.val.'<Esc>ko<tab>'
+endfor
 " ========================================
 "                              Scope: Word
 " ========================================
@@ -120,7 +128,7 @@ nnoremap <expr> <leader>hl (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 nnoremap <leader>s :update<cr>
 vnoremap <leader>s <c-c>:update<cr>
 " open file
-nnoremap <leader>oa :vsplit ~/.aliases<cr>
+nnoremap <leader>oa :vsplit ~/.zshrc.aliases<cr>
 nnoremap <leader>oc :vsplit ~/.vim/colors/tkiatd.vim<cr>
 nnoremap <leader>ov :vsplit $MYVIMRC<cr>
 nnoremap <leader>oz :vsplit ~/.zshrc<cr>
@@ -169,16 +177,3 @@ set number " show line number
 set pumheight=10 " Pmenu max height
 exe 'set shiftwidth='.space_per_tab
 exe 'set tabstop='.space_per_tab
-"
-" TODO to check if file empty when will use template.this copied from somewhere and i dont understand
-" function! BufferListEmpty()
-"   let BufferListFile = @%
-"   let lines = readfile(BufferListFile)    " read the file *contents* into a list
-"   let matched_index = match(lines, '\S')  " find the first entry with a non-space
-"   return matched_index == -1              " if no match was found -1 was returned
-" endfunction
-" if BufferListEmpty()
-"   echo "Empty"
-" else
-"   echo "Not"
-" endif

@@ -1,0 +1,4 @@
+# BEGIN fzf
+export FZF_DEFAULT_COMMAND="ag --depth 4 --hidden --ignore .git -f -g \"\""
+export FZF_DEFAULT_OPTS=""
+# END

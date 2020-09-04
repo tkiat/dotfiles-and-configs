@@ -9,6 +9,8 @@ alias 2copy-file_to_clipboard="xclip -sel clip"
 alias 2edit-.tmux.conf="vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
 alias 2edit-.zshrc="vim ~/.zshrc && source ~/.zshrc"
 function 2goto-symlink { cd $(dirname $(readlink $1)) }
+alias 2edit-dotfiles="vim ~/Git/dotfiles"
+alias 2edit-scripts="vim ~/Git/scripts"
 alias 2show-filesize="du -sh ./*"
 
 # git
