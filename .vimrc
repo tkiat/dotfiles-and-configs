@@ -12,6 +12,7 @@
 " ========================================
 "                    Scope: Local Variable
 " ========================================
+let s:commentgroup_hash='*.py,*.sh,*.tf,*.tmux.conf,*.yml,*.zshrc*'
 let mapleader=','
 let template_dir='~/.vim/template/'
 let space_per_tab=2
@@ -68,13 +69,14 @@ exe 'nnoremap <leader>gotest <ESC>:r '.template_dir.'main_test.go.template<CR>kd
 " ========================================
 " comment
 :autocmd BufNewFile,BufRead *.html nnoremap <buffer> <leader>c mqI<!--<esc>A--><esc>`qllll
-:autocmd BufNewFile,BufRead *.py,*.sh,*.tf,*.tmux.conf,*.zshrc,*.zshrc.local nnoremap <buffer> <leader>c mqI# <esc>`qll
+exe ':autocmd BufNewFile,BufRead '.s:commentgroup_hash.' nnoremap <buffer> <leader>c mqI# <esc>`qll'
+" :autocmd BufNewFile,BufRead *.py,*.sh,*.tf,*.tmux.conf,*.zshrc,*.zshrc.local nnoremap <buffer> <leader>c mqI# <esc>`qll
 :autocmd BufNewFile,BufRead *.vim,*.vimrc nnoremap <buffer> <leader>c mqI" <esc>`qll
 :autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp nnoremap <buffer> <leader>c mqI// <esc>`qll
 :autocmd BufNewFile,BufRead *.css,*.scss nnoremap <buffer> <leader>c mqI/*<esc>A*/<esc>`qll
 " uncomment
 :autocmd BufNewFile,BufRead *.html nnoremap <buffer> <leader>u mqI<del><del><del><del><esc>A<bs><bs><bs><esc>`qhhhh
-:autocmd BufNewFile,BufRead *.py,*.sh,*.tf,*.tmux.conf,*.zshrc,*.zshrc.local nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh
+exe ':autocmd BufNewFile,BufRead '.s:commentgroup_hash.' nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh'
 :autocmd BufNewFile,BufRead *.vim,*.vimrc nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh
 :autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp nnoremap <buffer> <leader>u mqI<del><del><del><esc>`qhh
 :autocmd BufNewFile,BufRead *.css,*.scss nnoremap <buffer> <leader>u mqI<del><del><esc>A<bs><bs><esc>`qhh
@@ -94,13 +96,13 @@ nnoremap <leader>o mqo<esc>`q
 vnoremap <leader><tab><tab> :s/\%V\t\t/\t/g<cr>:nohl<cr>
 " comment
 :autocmd BufNewFile,BufRead *.html vnoremap <buffer> <leader>c :s/^/<!--/g<cr>gv:s/$/-->/g<cr>:nohl<cr>
-:autocmd BufNewFile,BufRead *.py,*.sh,*.tf,*.tmux.conf,*.zshrc,*.zshrc.local vnoremap <buffer> <leader>c :s/^\%V/# /g<cr>:nohl<cr>
+exe ':autocmd BufNewFile,BufRead '.s:commentgroup_hash.' vnoremap <buffer> <leader>c :s/^\%V/# /g<cr>:nohl<cr>'
 :autocmd BufNewFile,BufRead *.vim,*.vimrc vnoremap <buffer> <leader>c :s/^\%V/" /g<cr>:nohl<cr>
 :autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp vnoremap <buffer> <leader>c :s/^\%V/\/\/ /g<cr>:nohl<cr>
 :autocmd BufNewFile,BufRead *.css,*.scss vnoremap <buffer> <leader>c :s/^/\/*/g<cr>gv:s/$/*\//g<cr>:nohl<cr>
 " uncomment
 :autocmd BufNewFile,BufRead *.html vnoremap <buffer> <leader>u :s/<!--//g<cr>gv:s/-->//g<cr>:nohl<cr>
-:autocmd BufNewFile,BufRead *.py,*.sh,*.tf,*.tmux.conf,*.zshrc,*.zshrc.local vnoremap <buffer> <leader>u :s/^\%V# //g<cr>
+exe ':autocmd BufNewFile,BufRead '.s:commentgroup_hash.' vnoremap <buffer> <leader>u :s/^\%V# //g<cr>'
 :autocmd BufNewFile,BufRead *.vim,*.vimrc vnoremap <buffer> <leader>u :s/^\%V" //g<cr>
 :autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp vnoremap <buffer> <leader>u :s/^\%V\/\/ //g<cr>
 :autocmd BufNewFile,BufRead *.css,*.scss vnoremap <buffer> <leader>u :s/\/\*//g<cr>gv:s/\*\///g<cr>:nohl<cr>
