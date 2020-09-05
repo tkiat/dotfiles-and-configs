@@ -1,7 +1,7 @@
 # Reference: http://zsh.sourceforge.net/Doc/Release/index.html
-source ~/.zshrc.aliases
-source ~/.zshrc.local
-source ~/.zshrc.program
+[ -f ~/.zshrc.aliases ] && source ~/.zshrc.aliases
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+[ -f ~/.zshrc.program ] && source ~/.zshrc.program
 setopt autocd
 umask 027
 local line_str="----------------------------------------"
@@ -14,18 +14,12 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 # ========================================
 #                                   Export
 # ========================================
+export LC_CTYPE="en_US.UTF-8"
 export EDITOR=vim
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 # export GOROOT=/usr/local/go
-# add scripts to PATH
-local git_dir=~/Git
-for dir in $git_dir/scripts/*; do
-	if [[ $(basename $dir) == bash || $(basename $dir) == python ]]; then
-		export PATH=$PATH:$dir
-	fi
-done
 #nvm
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

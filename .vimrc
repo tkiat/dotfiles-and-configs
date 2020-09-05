@@ -81,21 +81,16 @@ endfor
 for [key, val] in items(s:char_html_escape)
 	exe 'inoremap '.key.'esc '.val
 endfor
-" surround current word with characters
+" enclose word under cursor by symbols
 for val in s:char_surround
-	exe 'nnoremap <leader>'.val[0].' vwb<esc>i'.val[1].'<esc>ea'.val[0].'<esc>'
-	if val[0] !=# val[1]
-		exe 'nnoremap <leader>'.val[1].' vwb<esc>i'.val[1].'<esc>ea'.val[0].'<esc>'
-	endif
+	exe 'nnoremap <leader>'.val[0].' ciw'.val[0].val[1].'<esc>Pl'
 endfor
+" delete enclose char
+nnoremap <leader>d mqdiwpbXX`qh
 " abbreviation
 inoreabbrev shebang #!/usr/bin/env
 inoreabbrev bestregards <bs><cr><cr>Best regards,<cr>Theerawat Kiatdarakun
 inoreabbrev lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dapibus convallis massa, nec gravida diam pellentesque at. Aliquam mollis tempor mi sed venenatis. Maecenas neque massa, pulvinar vitae lacus et, convallis interdum ligula. Suspendisse rhoncus a arcu quis volutpat. Donec ac risus eros. Pellentesque convallis lectus eu sodales ornare. Quisque egestas ex non purus porta porttitor. Ut blandit feugiat iaculis. Nulla mollis venenatis pulvinar. Nullam pulvinar efficitur aliquet. Donec in nibh eleifend, finibus dui nec, faucibus dui.
-" spelling correction
-iabbrev adn and
-iabbrev tehn then
-iabbrev waht what
 " template
 exe 'nnoremap <leader>html5 <ESC>:r '.template_dir.'html5.template<CR>kdd/body<CR>:nohl<CR>o'
 exe 'nnoremap <leader>vue <ESC>:r '.template_dir.'vue.template<CR>kdd'
