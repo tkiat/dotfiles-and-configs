@@ -168,18 +168,13 @@ let g:netrw_liststyle = 3 " tree listing style"
 " disable scratch preview
 set completeopt-=preview
 " ========================================
-"                     Scope: Configuration
+"               Scope: Configs and Plugins
 " ========================================
-" Directory
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
-set undodir=~/.vim/undo//
 " Set
 set autoindent " auto indent next line
 set cursorline " highlight current line
 set foldmethod=indent
 set hlsearch " highlight searches
-" set ignorecase " ignore case when search
 set incsearch " highlight while still typing search
 set list " enable listchars
 set listchars=eol:$,tab:\|·,trail:_
@@ -188,19 +183,24 @@ set number " show line number
 set pumheight=10 " Pmenu max height
 exe 'set shiftwidth='.space_per_tab
 exe 'set tabstop='.space_per_tab
-" ========================================
-"                            Scope: Plugin
-" ========================================
-" vim-terraform
-let g:terraform_fmt_on_save=1
-" pathogen.vim
+" BEGIN config: directories
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
+" END
+" BEGIN pkg manager: vim-pathogen
 call pathogen#infect()
-" NERDTree Plugin
+" END
+" BEGIN plugin: vim-go
+nnoremap <leader>gi :GoImport <C-R><C-W><cr>
+" END
+" BEGIN plugin: NERDTree
 filetype plugin indent on
 let NERDTreeShowHidden=1
 let NERDTreeShowLineNumbers=1
-" start NERDTree without filename specified"
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" vim-go
-nnoremap <leader>gi :GoImport <C-R><C-W><cr>
+" END
+" BEGIN plugin: vim-terraform
+let g:terraform_fmt_on_save=1
+" END

@@ -1,43 +1,30 @@
 # Reference: http://zsh.sourceforge.net/Doc/Release/index.html
+# ========================================
+#
+#                 INTERNAL
+#
+# ========================================
+# General  ================================
 [ -f ~/.zshrc.aliases ] && source ~/.zshrc.aliases
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
-[ -f ~/.zshrc.program ] && source ~/.zshrc.program
+bindkey "\e[3~" delete-char
+local line_str="----------------------------------------"
+export LC_CTYPE="en_US.UTF-8"
 setopt autocd
 umask 027
-local line_str="----------------------------------------"
-# ========================================
-#                           Autocompletion
-# ========================================
-# Case-insensitive
+# ----------------------------------------
+# Case-Insensitive =======================
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-# ========================================
-#                                   Export
-# ========================================
-export LC_CTYPE="en_US.UTF-8"
-export EDITOR=vim
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOBIN
-# export GOROOT=/usr/local/go
-#nvm
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-# ========================================
-#                                 History
-# ========================================
+# ----------------------------------------
+# History ================================
 HISTFILE=~/.zsh_history
 HISTSIZE=1000 # max entries in current-session memory
 SAVEHIST=1000 # max entries in HISTFILE
 setopt incappendhistory # immediately append to history file, not waiting until shell exits
 setopt sharehistory # share history across terminals
-# ========================================
-#                              Key Binding
-# ========================================
-bindkey "\e[3~" delete-char
-# ========================================
-#                               $LS_COLORS
-# ========================================
+# ----------------------------------------
+# LS_COLORS ==============================
 # get and reset default value
 eval $(dircolors | head -1)
 LS_COLORS=$(echo $LS_COLORS | sed -e 's/=[^=]*:/=0:/g')
@@ -46,9 +33,8 @@ LS_COLORS=$LS_COLORS'di=1;30;47:tw=1;30;47:ow=1;30;47:'
 LS_COLORS=$LS_COLORS'ln=1;36:'
 LS_COLORS=$LS_COLORS'*.7z=35:*.bz=35:*.bz2=35:*.gz=35:*.rar=35:*.tar=35:*.zip=35:'
 export LS_COLORS
-# ========================================
-#                                   Prompt
-# ========================================
+# ----------------------------------------
+# Prompt =================================
 # pick emoji
 local emojis=('$' '(ノ°Д°)ノ' '(つ•̀ω•́)つ' '(´＿｀)' '(๑•﹏•)⋆*' '(ノ°Д°)ノ┻━┻' '(ﾉ´ヮ´)ﾉ*' 'ʕ •ᴥ•ʔ' '(˘ ³˘)♥' '(っ˘з(˘⌣˘)' '(ɔˆз(ˆ⌣ˆc)' '( ˘⌣˘)♡' '(¬_¬ )')
 local emoji=$emojis[$(($RANDOM % ${#emojis[@]} + 1))]
@@ -65,10 +51,20 @@ precmd () { vcs_info }
 # modify prompt
 PROMPT='%F{'$color_light'}%n@'$HOST'%f:%F{'$color'}%0 %1~%f'
 PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.)'${emoji}' '
-
+# ----------------------------------------
+# ========================================
+#
+#                 EXTERNAL
+#
+# ========================================
 # Added by serverless binary installer
 export PATH="$HOME/.serverless/bin:$PATH"
 
+export EDITOR=vim
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+# export GOROOT=/usr/local/go
 # TODO
 # tabtab source for packages
 # uninstall by removing these lines
@@ -76,3 +72,21 @@ export PATH="$HOME/.serverless/bin:$PATH"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
+# Scripts ================================
+local git_dir=~/Git
+if [ -d $git_dir/scripts/ ]; then
+  for dir in $git_dir/scripts/*; do
+    if [[ $(basename $dir) == bash || $(basename $dir) == python ]]; then
+      export PATH=$PATH:$dir
+    fi
+  done
+fi
+# ----------------------------------------
+# fzf ====================================
+export FZF_DEFAULT_COMMAND="ag --depth 4 --hidden --ignore .git -f -g \"\""
+export FZF_DEFAULT_OPTS="--layout=reverse"
+# ----------------------------------------
+# nvm ====================================
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# ----------------------------------------
