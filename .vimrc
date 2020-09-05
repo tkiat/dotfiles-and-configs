@@ -7,50 +7,87 @@
 " Scope: Visual Select
 " Scope: All Text in File
 " Scope: File
-" Scope: Plugin
 " Scope: Configuration
+" Scope: Plugin
 " ========================================
 "                    Scope: Local Variable
 " ========================================
-let s:commentgroup_hash='*.py,*.sh,*.tf,*.tmux.conf,*.yml,*.zshrc*'
-let mapleader=','
-let template_dir='~/.vim/template/'
-let space_per_tab=2
-let s:char_pairs={
-	\'(': ')',
-	\'[': ']',
-	\"{": "}",
+let s:char_html_escape={
+	\'&': '&amp;',
+	\">": "&gt;",
+	\'<': '&lt;'
 \}
-let s:char_pairs_adjacent=extend(s:char_pairs,{
-	\'"': '"',
-	\"'": "'"
-\})
+let s:char_closing_braces=['{}','()','[]']
+let s:char_surround_insertmode=s:char_closing_braces + ['""', "''"]
+let s:char_surround=s:char_surround_insertmode + ['**','<>']
+let s:commentgroup=[
+	\{
+		\'comment-symbol': '#',
+		\'ext': '*.gitignore,*.py,*.sh,*.tf,*.tmux.conf,*.yml,*.zshrc*',
+		\'comment-line': 'mqI# <esc>`qll',
+		\'comment-visual': ':s/^\%V/# /g<cr>:nohl<cr>',
+		\'uncomment-line': 'mqI<del><del><esc>`qhh',
+		\'uncomment-visual': ':s/^\%V# //g<cr>'
+	\},
+	\{
+		\'comment-symbol': '//',
+		\'ext': '*.adoc,*.go,*.js,*.cpp',
+		\'comment-line': 'mqI// <esc>`qll',
+		\'comment-visual': ':s/^\%V/\/\/ /g<cr>:nohl<cr>',
+		\'uncomment-line': 'mqI<del><del><del><esc>`qhh',
+		\'uncomment-visual': ':s/^\%V\/\/ //g<cr>'
+	\},
+	\{
+		\'comment-symbol': '/* */',
+		\'ext': '*.css,*.scss',
+		\'comment-line': 'mqI/*<esc>A*/<esc>`qll',
+		\'comment-visual': ':s/^/\/*/g<cr>gv:s/$/*\//g<cr>:nohl<cr>',
+		\'uncomment-line': 'mqI<del><del><esc>A<bs><bs><esc>`qhh',
+		\'uncomment-visual': ':s/\/\*//g<cr>gv:s/\*\///g<cr>:nohl<cr>'
+	\},
+	\{
+		\'comment-symbol': '"',
+		\'ext': '*.vim,*.vimrc,',
+		\'comment-line': 'mqI" <esc>`qll',
+		\'comment-visual': ':s/^\%V/" /g<cr>:nohl<cr>',
+		\'uncomment-line': 'mqI<del><del><esc>`qhh',
+		\'uncomment-visual': ':s/^\%V" //g<cr>'
+	\},
+	\{
+		\'comment-symbol': '<!-- -->',
+		\'ext': '*.html',
+		\'comment-line': 'mqI<!--<esc>A--><esc>`qllll',
+		\'comment-visual': ':s/^/<!--/g<cr>gv:s/$/-->/g<cr>:nohl<cr>',
+		\'uncomment-line': 'mqI<del><del><del><del><esc>A<bs><bs><bs><esc>`qhhhh',
+		\'uncomment-visual': ':s/<!--//g<cr>gv:s/-->//g<cr>:nohl<cr>'
+	\}
+\]
+let mapleader=','
+let space_per_tab=2
+let template_dir='~/.vim/template/'
 " ========================================
 "                         Scope: Character
 " ========================================
-" closing brace: adjacent
-for [key, val] in items(s:char_pairs_adjacent)
-	exe 'inoremap '.key.' '.key.val.'<Esc>i'
+for val in s:char_closing_braces
+	exe 'inoremap '.val[0].'<CR> '.val[0].'<CR>'.val[1].'<Esc>ko<tab>'
 endfor
-" closing brace: different lines
-for [key, val] in items(s:char_pairs)
-	exe 'inoremap '.key.'<CR> '.key.'<CR>'.val.'<Esc>ko<tab>'
+for val in s:char_surround_insertmode
+	exe 'inoremap '.val[0].' '.val[0].val[1].'<Esc>i'
 endfor
 " ========================================
 "                              Scope: Word
 " ========================================
-" replace
-inoremap esc& &amp;
-inoremap esc< &lt;
-inoremap esc> &gt;
-" enclose
-nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
-nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
-nnoremap <leader>* viw<esc>a*<esc>bi*<esc>
-nnoremap <leader>( viw<esc>a)<esc>bi(<esc>
-nnoremap <leader>) viw<esc>a)<esc>bi(<esc>
-nnoremap <leader>[ viw<esc>a]<esc>bi[<esc>lel
-nnoremap <leader>] viw<esc>a]<esc>bi[<esc>lel
+" html escape
+for [key, val] in items(s:char_html_escape)
+	exe 'inoremap '.key.'esc '.val
+endfor
+" surround current word with characters
+for val in s:char_surround
+	exe 'nnoremap <leader>'.val[0].' vwb<esc>i'.val[1].'<esc>ea'.val[0].'<esc>'
+	if val[0] !=# val[1]
+		exe 'nnoremap <leader>'.val[1].' vwb<esc>i'.val[1].'<esc>ea'.val[0].'<esc>'
+	endif
+endfor
 " abbreviation
 inoreabbrev shebang #!/usr/bin/env
 inoreabbrev bestregards <bs><cr><cr>Best regards,<cr>Theerawat Kiatdarakun
@@ -67,20 +104,11 @@ exe 'nnoremap <leader>gotest <ESC>:r '.template_dir.'main_test.go.template<CR>kd
 " ========================================
 "                              Scope: Line
 " ========================================
-" comment
-:autocmd BufNewFile,BufRead *.html nnoremap <buffer> <leader>c mqI<!--<esc>A--><esc>`qllll
-exe ':autocmd BufNewFile,BufRead '.s:commentgroup_hash.' nnoremap <buffer> <leader>c mqI# <esc>`qll'
-" :autocmd BufNewFile,BufRead *.py,*.sh,*.tf,*.tmux.conf,*.zshrc,*.zshrc.local nnoremap <buffer> <leader>c mqI# <esc>`qll
-:autocmd BufNewFile,BufRead *.vim,*.vimrc nnoremap <buffer> <leader>c mqI" <esc>`qll
-:autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp nnoremap <buffer> <leader>c mqI// <esc>`qll
-:autocmd BufNewFile,BufRead *.css,*.scss nnoremap <buffer> <leader>c mqI/*<esc>A*/<esc>`qll
-" uncomment
-:autocmd BufNewFile,BufRead *.html nnoremap <buffer> <leader>u mqI<del><del><del><del><esc>A<bs><bs><bs><esc>`qhhhh
-exe ':autocmd BufNewFile,BufRead '.s:commentgroup_hash.' nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh'
-:autocmd BufNewFile,BufRead *.vim,*.vimrc nnoremap <buffer> <leader>u mqI<del><del><esc>`qhh
-:autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp nnoremap <buffer> <leader>u mqI<del><del><del><esc>`qhh
-:autocmd BufNewFile,BufRead *.css,*.scss nnoremap <buffer> <leader>u mqI<del><del><esc>A<bs><bs><esc>`qhh
-
+" comment and uncomment
+for i in range(0,4)
+	exe ':autocmd BufNewFile,BufRead '.s:commentgroup[i]['ext'].' nnoremap <buffer> <leader>c '.s:commentgroup[i]['comment-line']
+	exe ':autocmd BufNewFile,BufRead '.s:commentgroup[i]['ext'].' nnoremap <buffer> <leader>u '.s:commentgroup[i]['uncomment-line']
+endfor
 " insert at the end of current line
 nnoremap <leader>, mqA,<esc>`q
 nnoremap <leader>; mqA;<esc>`q
@@ -92,20 +120,22 @@ nnoremap <leader>o mqo<esc>`q
 " ========================================
 "                     Scope: Visual Select
 " ========================================
+" surround visual select with characters
+for val in s:char_surround
+	exe 'vnoremap <leader>'.val[0].' mq:s/\%V.*\%V./'.val[0].'&'.val[1].'/<cr>`qf'.val[1].':nohl<cr>'
+	if val[0] !=# val[1]
+		exe 'vnoremap <leader>'.val[1].' mq:s/\%V.*\%V./'.val[0].'&'.val[1].'/<cr>`qf'.val[1].':nohl<cr>'
+	endif
+endfor
 " map 2 tabs to 1 tab
 vnoremap <leader><tab><tab> :s/\%V\t\t/\t/g<cr>:nohl<cr>
-" comment
-:autocmd BufNewFile,BufRead *.html vnoremap <buffer> <leader>c :s/^/<!--/g<cr>gv:s/$/-->/g<cr>:nohl<cr>
-exe ':autocmd BufNewFile,BufRead '.s:commentgroup_hash.' vnoremap <buffer> <leader>c :s/^\%V/# /g<cr>:nohl<cr>'
-:autocmd BufNewFile,BufRead *.vim,*.vimrc vnoremap <buffer> <leader>c :s/^\%V/" /g<cr>:nohl<cr>
-:autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp vnoremap <buffer> <leader>c :s/^\%V/\/\/ /g<cr>:nohl<cr>
-:autocmd BufNewFile,BufRead *.css,*.scss vnoremap <buffer> <leader>c :s/^/\/*/g<cr>gv:s/$/*\//g<cr>:nohl<cr>
-" uncomment
-:autocmd BufNewFile,BufRead *.html vnoremap <buffer> <leader>u :s/<!--//g<cr>gv:s/-->//g<cr>:nohl<cr>
-exe ':autocmd BufNewFile,BufRead '.s:commentgroup_hash.' vnoremap <buffer> <leader>u :s/^\%V# //g<cr>'
-:autocmd BufNewFile,BufRead *.vim,*.vimrc vnoremap <buffer> <leader>u :s/^\%V" //g<cr>
-:autocmd BufNewFile,BufRead *.adoc,*.go,*.js,*.cpp vnoremap <buffer> <leader>u :s/^\%V\/\/ //g<cr>
-:autocmd BufNewFile,BufRead *.css,*.scss vnoremap <buffer> <leader>u :s/\/\*//g<cr>gv:s/\*\///g<cr>:nohl<cr>
+" comment and uncomment
+for i in range(0,4)
+	exe ':autocmd BufNewFile,BufRead '.s:commentgroup[i]['ext'].' vnoremap <buffer> <leader>c '.s:commentgroup[i]['comment-visual']
+	exe ':autocmd BufNewFile,BufRead '.s:commentgroup[i]['ext'].' vnoremap <buffer> <leader>u '.s:commentgroup[i]['uncomment-visual']
+endfor
+" search and replace global
+vnoremap <leader>R y:%s/<c-r>"//g<left><left>
 " ========================================
 "                  Scope: All Text in File
 " ========================================
@@ -143,22 +173,6 @@ let g:netrw_liststyle = 3 " tree listing style"
 " disable scratch preview
 set completeopt-=preview
 " ========================================
-"                            Scope: Plugin
-" ========================================
-" vim-terraform
-let g:terraform_fmt_on_save=1
-" pathogen.vim
-call pathogen#infect()
-" NERDTree Plugin
-filetype plugin indent on
-let NERDTreeShowHidden=1
-let NERDTreeShowLineNumbers=1
-" start NERDTree without filename specified"
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" vim-go
-nnoremap <leader>gi :GoImport <C-R><C-W><cr>
-" ========================================
 "                     Scope: Configuration
 " ========================================
 " Directory
@@ -179,3 +193,19 @@ set number " show line number
 set pumheight=10 " Pmenu max height
 exe 'set shiftwidth='.space_per_tab
 exe 'set tabstop='.space_per_tab
+" ========================================
+"                            Scope: Plugin
+" ========================================
+" vim-terraform
+let g:terraform_fmt_on_save=1
+" pathogen.vim
+call pathogen#infect()
+" NERDTree Plugin
+filetype plugin indent on
+let NERDTreeShowHidden=1
+let NERDTreeShowLineNumbers=1
+" start NERDTree without filename specified"
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" vim-go
+nnoremap <leader>gi :GoImport <C-R><C-W><cr>
