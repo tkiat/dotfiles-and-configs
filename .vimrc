@@ -23,7 +23,7 @@ let s:char_surround=s:char_surround_insertmode + ['**','<>']
 let s:commentgroup=[
 	\{
 		\'comment-symbol': '#',
-		\'ext': '*.gitignore,*.py,*.sh,*.tf,*.tmux.conf,*.yml,*.zshrc*',
+		\'ext': '*.gitignore,*.py,*.sh,*.tf,*.tmux.conf,*.yml,*.zprofile,*.zshenv,*.zshrc',
 		\'comment-line': 'mqI# <esc>`qll',
 		\'comment-visual': ':s/^\%V/# /g<cr>:nohl<cr>',
 		\'uncomment-line': 'mqI<del><del><esc>`qhh',
@@ -155,10 +155,11 @@ nnoremap <expr> <leader>hl (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 nnoremap <leader>s :update<cr>
 vnoremap <leader>s <c-c>:update<cr>
 " open file
-nnoremap <leader>oa :vsplit ~/.zshrc.aliases<cr>
 nnoremap <leader>oc :vsplit ~/.vim/colors/tkiatd.vim<cr>
 nnoremap <leader>ov :vsplit $MYVIMRC<cr>
-nnoremap <leader>oz :vsplit ~/.zshrc<cr>
+nnoremap <leader>ozc :vsplit ~/.zshrc<cr>
+nnoremap <leader>oze :vsplit ~/.zshenv<cr>
+nnoremap <leader>ozp :vsplit ~/.zprofile<cr>
 " source file
 nnoremap <leader>sv :source $MYVIMRC<cr>
 " netrw
@@ -187,6 +188,8 @@ exe 'set tabstop='.space_per_tab
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
+" move new tab to the last position
+autocmd BufNew * execute ":tabm"
 " END
 " BEGIN pkg manager: vim-pathogen
 call pathogen#infect()

@@ -1,21 +1,45 @@
 # Reference: http://zsh.sourceforge.net/Doc/Release/index.html
 # ========================================
+# Author: Theerawat Kiatdarakun
 #
-#                 INTERNAL
-#
+# Welcome to .zshrc
+# executed when creating interactive shell
+# I put everything interactive here
 # ========================================
-# General  ================================
-[ -f ~/.zshrc.aliases ] && source ~/.zshrc.aliases
-[ -f ~/.zshrc.local ] && source ~/.zshrc.local
-bindkey "\e[3~" delete-char
 local line_str="----------------------------------------"
-export LC_CTYPE="en_US.UTF-8"
-setopt autocd
-umask 027
-# ----------------------------------------
-# Case-Insensitive =======================
-autoload -Uz compinit && compinit
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+# Aliases ================================
+alias    ...="cd ../.."
+alias    ls='ls --color'
+alias    sl="ls"
+alias    2change-brightness="xrandr --output LVDS-1 --brightness"
+function 2change-tab_title { echo -en "\e]2;$1\a" }
+alias    2copy-file_to_clipboard="xclip -sel clip"
+alias    2edit-.tmux.conf="vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
+alias    2edit-.zshrc="vim ~/.zshrc && source ~/.zshrc"
+function 2goto-symlink { cd $(dirname $(readlink $1)) }
+[ -d ~/Git/dotfiles ] &&
+alias    2edit-dotfiles="vim ~/Git/dotfiles"
+[ -d ~/Git/scripts ] &&
+alias    2edit-scripts="vim ~/Git/scripts"
+alias    2logout="pkill -u $USER"
+function 2run {
+	$1 > /dev/null 2>&1 &
+	disown
+}
+alias    2show-filesize="du -sh ./*"
+alias    2start-tor-browser="/usr/local/tor-browser_en-US/Browser/start-tor-browser"
+function git-status-all { for x in *; do echo $line_str && echo "Folder name: ${x}" && echo $line_str && git --work-tree=$x --git-dir=$x/.git status; done }
+
+# OS specific
+if [[ $(lsb_release -a | grep 'Void Linux' | wc -l) != '0' ]]
+then
+	alias 2query-pkg='xbps-query -Rs'
+	alias 2install-pkg='sudo xbps-install'
+	alias 2update-os='sudo xbps-install -Su'
+
+	alias vim='gvim -v'
+	alias 2start-internet='sudo wpa_supplicant -B -D wext -i wlp3s0 -c /etc/wpa_supplicant/wpa_supplicant.conf && sudo iw wlp3s0 link'
+fi
 # ----------------------------------------
 # History ================================
 HISTFILE=~/.zsh_history
@@ -23,6 +47,9 @@ HISTSIZE=1000 # max entries in current-session memory
 SAVEHIST=1000 # max entries in HISTFILE
 setopt incappendhistory # immediately append to history file, not waiting until shell exits
 setopt sharehistory # share history across terminals
+# ----------------------------------------
+# Key-Binding ============================
+bindkey "\e[3~" delete-char
 # ----------------------------------------
 # LS_COLORS ==============================
 # get and reset default value
@@ -49,44 +76,11 @@ zstyle ':vcs_info:*' formats '(%F{'$color_light'}%n/%r'$'\UE0A0''%b%f)' # used w
 setopt PROMPT_SUBST
 precmd () { vcs_info }
 # modify prompt
-PROMPT='%F{'$color_light'}%n@'$HOST'%f:%F{'$color'}%0 %1~%f'
-PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.)'${emoji}' '
+PROMPT='%F{'$color_light'}%n@'$HOST'%f(%D{%L:%M:%S}):%F{'$color'}%0 %1~%f'
+PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.) '
+# PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.)'${emoji}' '
 # ----------------------------------------
-# ========================================
-#
-#                 EXTERNAL
-#
-# ========================================
-# Added by serverless binary installer
-export PATH="$HOME/.serverless/bin:$PATH"
-
-export EDITOR=vim
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOBIN
-# export GOROOT=/usr/local/go
-# TODO
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
-
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/terraform terraform
-# Scripts ================================
-local git_dir=~/Git
-if [ -d $git_dir/scripts/ ]; then
-  for dir in $git_dir/scripts/*; do
-    if [[ $(basename $dir) == bash || $(basename $dir) == python ]]; then
-      export PATH=$PATH:$dir
-    fi
-  done
-fi
-# ----------------------------------------
-# fzf ====================================
-export FZF_DEFAULT_COMMAND="ag --depth 4 --hidden --ignore .git -f -g \"\""
-export FZF_DEFAULT_OPTS="--layout=reverse"
-# ----------------------------------------
-# nvm ====================================
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# Tab Completion =========================
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 # ----------------------------------------
