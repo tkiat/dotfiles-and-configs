@@ -31,7 +31,7 @@ let s:commentgroup=[
 	\},
 	\{
 		\'comment-symbol': '//',
-		\'ext': '*.adoc,*.go,*.js,*.cpp',
+		\'ext': '*.adoc,*.go,*.h,*.js,*.cpp',
 		\'comment-line': 'mqI// <esc>`qll',
 		\'comment-visual': ':s/^\%V/\/\/ /g<cr>:nohl<cr>',
 		\'uncomment-line': 'mqI<del><del><del><esc>`qhh',
@@ -151,6 +151,13 @@ nnoremap <expr> <leader>hl (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 " ========================================
 "                              Scope: File
 " ========================================
+" asciidoctor autoconvert after save, note! must open file directly like vim <filename>, not vim .
+let s:asciidoctor_stylesdir='/home/tkiatd/Git/assets/stylesheets/asciidoctor-skins/'
+function AsciiDocToHTML()
+	execute '!asciidoctor -a stylesdir='.s:asciidoctor_stylesdir.' '.expand('%:t')
+	execute '!html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true -o '.expand('%:r').'.html '.expand('%:r').'.html'
+endfunction
+autocmd BufWritePost *.adoc :call AsciiDocToHTML()
 " save file
 nnoremap <leader>s :update<cr>
 vnoremap <leader>s <c-c>:update<cr>

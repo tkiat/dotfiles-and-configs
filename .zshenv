@@ -40,3 +40,8 @@ source /usr/share/doc/fzf/completion.zsh # e.g. cd **<tab>
 export FZF_DEFAULT_COMMAND="ag --depth 4 --hidden --ignore .git -f -g \"\""
 export FZF_DEFAULT_OPTS="--layout=reverse --exact"
 # ----------------------------------------
+# ruby ===================================
+if which ruby >/dev/null && which gem >/dev/null; then
+    PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
+# ----------------------------------------
