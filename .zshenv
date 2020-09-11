@@ -10,6 +10,7 @@
 # ========================================
 # My Configs =============================
 export LC_CTYPE="en_US.UTF-8"
+export EDITOR=vim
 setopt autocd # no need to type cd to change dir
 umask 027
 # ----------------------------------------
