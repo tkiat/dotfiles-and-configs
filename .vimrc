@@ -191,26 +191,26 @@ set number " show line number
 set pumheight=10 " Pmenu max height
 exe 'set shiftwidth='.space_per_tab
 exe 'set tabstop='.space_per_tab
-" BEGIN config: directories
+" move new tab to the last position
+autocmd BufNew * execute ":tabm"
+" config: directories ====================
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
-" move new tab to the last position
-autocmd BufNew * execute ":tabm"
-" END
-" BEGIN pkg manager: vim-pathogen
+" ----------------------------------------
+" pkg manager: vim-pathogen ==============
 call pathogen#infect()
-" END
-" BEGIN plugin: vim-go
-nnoremap <leader>gi :GoImport <C-R><C-W><cr>
-" END
-" BEGIN plugin: NERDTree
+" ----------------------------------------
+" plugin: NERDTree =======================
 filetype plugin indent on
 let NERDTreeShowHidden=1
 let NERDTreeShowLineNumbers=1
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" END
-" BEGIN plugin: vim-terraform
+" ----------------------------------------
+" plugin: vim-go =========================
+nnoremap <leader>gi :GoImport <C-R><C-W><cr>
+" ----------------------------------------
+" plugin: vim-terraform ==================
 let g:terraform_fmt_on_save=1
-" END
+" ----------------------------------------

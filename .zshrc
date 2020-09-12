@@ -27,19 +27,22 @@ function 2run {
 	$1 > /dev/null 2>&1 &
 	disown
 }
-alias    2start-tor-browser="/usr/local/tor-browser_en-US/Browser/start-tor-browser"
+function 2start-tor-browser {
+	~/Applications/tor-browser_en-US/Browser/start-tor-browser > /dev/null 2>&1 &
+	disown
+}
 function git-status-all { for x in *; do echo $line_str && echo "Folder name: ${x}" && echo $line_str && git --work-tree=$x --git-dir=$x/.git status; done }
 
 # OS specific
 if [[ $(lsb_release -a | grep 'Void Linux' | wc -l) != '0' ]]
 then
-	alias 2query-pkg='xbps-query -Rs'
-	alias 2install-pkg='sudo xbps-install'
-	alias 2remove-pkg='sudo xbps-remove'
-	alias 2update-os='sudo xbps-install -Su'
-
 	alias vim='gvim -v'
-	alias 2start-internet='sudo wpa_supplicant -B -D wext -i wlp3s0 -c /etc/wpa_supplicant/wpa_supplicant.conf && sudo iw wlp3s0 link'
+
+	alias 2install-pkg='sudo xbps-install'
+	alias 2query-pkg='xbps-query -Rs'
+	alias 2remove-pkg='sudo xbps-remove'
+	alias 2start-internet='sudo wpa_supplicant -B -D wext -i wlp3s0 -c /etc/wpa_supplicant/wpa_supplicant.conf'
+	alias 2update-os='sudo xbps-install -Su'
 fi
 # ----------------------------------------
 # History ================================
@@ -51,10 +54,10 @@ setopt sharehistory # share history across terminals
 # ----------------------------------------
 # Keybinding ============================
 bindkey "\e[3~" delete-char
-function zle-line-init () { echoti smkx }
-function zle-line-finish () { echoti rmkx }
-zle -N zle-line-init
-zle -N zle-line-finish
+# function zle-line-init () { echoti smkx }
+# function zle-line-finish () { echoti rmkx }
+# zle -N zle-line-init
+# zle -N zle-line-finish
 # ----------------------------------------
 # LS_COLORS ==============================
 # get and reset default value
@@ -68,7 +71,7 @@ export LS_COLORS
 # ----------------------------------------
 # Prompt =================================
 # pick emoji
-local emojis=('$' '(ノ°Д°)ノ' '(つ•̀ω•́)つ' '(´＿｀)' '(๑•﹏•)⋆*' '(ノ°Д°)ノ┻━┻' '(ﾉ´ヮ´)ﾉ*' 'ʕ •ᴥ•ʔ' '(˘ ³˘)♥' '(っ˘з(˘⌣˘)' '(ɔˆз(ˆ⌣ˆc)' '( ˘⌣˘)♡' '(¬_¬ )')
+local emojis=('$' '( °Д°) ' '( •̀ω•́)つ' '(´＿- `)' '(๑•﹏•)⋆*' '( °Д°) ┻━┻' '(ﾉ´ヮ´)ﾉ*' 'ʕ •ᴥ•ʔ' '(˘ ³˘)♥' '(っ˘з(˘⌣˘)' '(ɔˆз(ˆ⌣ˆc)' '( ˘⌣˘)♡' '(¬_¬ )')
 local emoji=$emojis[$(($RANDOM % ${#emojis[@]} + 1))]
 # pick color of the day
 local day=$(date +%u) # Mon(1)-Sun(7)
@@ -81,11 +84,18 @@ zstyle ':vcs_info:*' formats '(%F{'$color_light'}%n/%r'$'\UE0A0''%b%f)' # used w
 setopt PROMPT_SUBST
 precmd () { vcs_info }
 # modify prompt
-PROMPT='%F{'$color_light'}%n@'$HOST'%f(%D{%L:%M}):%F{'$color'}%0 %1~%f'
-PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.) '
-# PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.)'${emoji}' '
+PROMPT='%F{'$color_light'}%n@'$HOST':%F{'$color'}%0 %1~%f'
+PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.)'${emoji}' '
+# PROMPT='%F{'$color_light'}%n@'$HOST'%f(%D{%L:%M}):%F{'$color'}%0 %1~%f'
+# PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.) '
 # ----------------------------------------
 # Tab Completion =========================
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+# ----------------------------------------
+##########################################
+#=========== external config =============
+##########################################
+# config: directories ====================
+export EDITOR=vim
 # ----------------------------------------
