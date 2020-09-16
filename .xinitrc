@@ -1,6 +1,12 @@
-[ -x "$(command -v redshift)" ] && redshift -O 3500
+# display settings
+[ -x "$(command -v xrandr)" ] && xrandr --output LVDS-1 --brightness 0.9
+[ -x "$(command -v redshift)" ] && redshift -O 3600
+
+[ -x "$(command -v dropbox)" ] && dropbox start &
+
 while true; do
-	xsetroot -name "$(date)"
+	xsetroot -name "$(date --rfc-2822)"
 	sleep 1
 done &
+
 exec dwm

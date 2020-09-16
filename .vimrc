@@ -152,9 +152,9 @@ nnoremap <expr> <leader>hl (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 "                              Scope: File
 " ========================================
 " asciidoctor autoconvert after save, note! must open file directly like vim <filename>, not vim .
-let s:asciidoctor_stylesdir='/home/tkiatd/Git/assets/stylesheets/asciidoctor-skins/'
+let s:asciidoctor_stylesdir='/home/'.$USER.'/Git/assets/stylesheets/asciidoctor-custom/'
 function AsciiDocToHTML()
-	execute '!asciidoctor -a stylesdir='.s:asciidoctor_stylesdir.' '.expand('%:t')
+	execute '!asciidoctor -a stylesdir='.s:asciidoctor_stylesdir.' '.expand('%:p')
 	execute '!html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true -o '.expand('%:r').'.html '.expand('%:r').'.html'
 endfunction
 autocmd BufWritePost *.adoc :call AsciiDocToHTML()

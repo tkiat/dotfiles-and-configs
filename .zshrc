@@ -11,38 +11,41 @@ local line_str="----------------------------------------"
 alias    ...="cd ../.."
 alias    ls='ls --color'
 alias    sl="ls"
-alias    2change-brightness="xrandr --output LVDS-1 --brightness"
-function 2change-tab_title { echo -en "\e]2;$1\a" }
-alias    2copy-file_to_clipboard="xclip -sel clip"
-alias    2display-filesize="du -sh ./*"
-alias    2edit-.tmux.conf="vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
-alias    2edit-.zshrc="vim ~/.zshrc && source ~/.zshrc"
+alias    2c-brightness="xrandr --output LVDS-1 --brightness"
+function 2c-tab_title { echo -en "\e]2;$1\a" }
+alias    2c-file_to_clipboard="xclip -sel clip"
+alias    2d-filesize="du -sh ./*"
+# alias    2e-.tmux.conf="vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
+alias    2e.zshrc="vim ~/.zshrc && source ~/.zshrc"
 [ -d ~/Git/dotfiles ] &&
-alias    2edit-dotfiles="vim ~/Git/dotfiles"
+alias    2e-dotfiles="vim ~/Git/dotfiles"
 [ -d ~/Git/scripts ] &&
-alias    2edit-scripts="vim ~/Git/scripts"
+alias    2e-scripts="vim ~/Git/scripts"
 function 2goto-symlink { cd $(dirname $(readlink $1)) }
 alias    2logout="pkill -u $USER"
-function 2run {
+function 2r {
 	$1 > /dev/null 2>&1 &
 	disown
 }
-function 2start-tor-browser {
+function 2r-tor-browser {
 	~/Applications/tor-browser_en-US/Browser/start-tor-browser > /dev/null 2>&1 &
 	disown
 }
+alias    2xclip="xclip -selection clipboard"
 function git-status-all { for x in *; do echo $line_str && echo "Folder name: ${x}" && echo $line_str && git --work-tree=$x --git-dir=$x/.git status; done }
 
 # OS specific
 if [[ $(lsb_release -a | grep 'Void Linux' | wc -l) != '0' ]]
 then
+	# alias surf='tabbed -c surf -e'
+	# alias surf='surf www.google.com'
 	alias vim='gvim -v'
 
-	alias 2install-pkg='sudo xbps-install'
-	alias 2query-pkg='xbps-query -Rs'
-	alias 2remove-pkg='sudo xbps-remove'
-	alias 2start-internet='sudo wpa_supplicant -B -D wext -i wlp3s0 -c /etc/wpa_supplicant/wpa_supplicant.conf'
-	alias 2update-os='sudo xbps-install -Su'
+	alias 2i-pkg='sudo xbps-install'
+	alias 2q-pkg='xbps-query -Rs'
+	alias 2r-pkg='sudo xbps-remove'
+	alias 2s-internet='sudo wpa_supplicant -B -D wext -i wlp3s0 -c /etc/wpa_supplicant/wpa_supplicant.conf'
+	alias 2u-os='sudo xbps-install -Su'
 fi
 # ----------------------------------------
 # History ================================
@@ -80,14 +83,15 @@ local colors_light=(227 213 121 180 123 099 124); local color_light=$colors_ligh
 # git
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' actionformats '(%a'$'\UE0A0''%b)' # used when git detected and e.g. rebase/merge conflict
-zstyle ':vcs_info:*' formats '(%F{'$color_light'}%n/%r'$'\UE0A0''%b%f)' # used when git detected and actionformats is inactive
+# zstyle ':vcs_info:*' formats '%F{'$color_light'}:%n/%r/%b%f' # used when git detected and actionformats is inactive
+zstyle ':vcs_info:*' formats '%F{'$color_light'}:git@%b%f'
+# \UE0A0
 setopt PROMPT_SUBST
 precmd () { vcs_info }
 # modify prompt
 PROMPT='%F{'$color_light'}%n@'$HOST':%F{'$color'}%0 %1~%f'
-PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.)'${emoji}' '
-# PROMPT='%F{'$color_light'}%n@'$HOST'%f(%D{%L:%M}):%F{'$color'}%0 %1~%f'
-# PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.) '
+PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.): '
+# PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.)${emoji} '
 # ----------------------------------------
 # Tab Completion =========================
 autoload -Uz compinit && compinit
