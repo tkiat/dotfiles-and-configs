@@ -134,8 +134,6 @@ vnoremap <leader>R y:%s/<c-r>"//g<left><left>
 " ========================================
 "                  Scope: All Text in File
 " ========================================
-" colorscheme
-colorscheme tkiatd
 " clear last search pattern
 let @/ = ""
 " search current word
@@ -185,7 +183,7 @@ set foldmethod=indent
 set hlsearch " highlight searches
 set incsearch " highlight while still typing search
 set list " enable listchars
-set listchars=eol:$,tab:\|·,trail:_
+set listchars=eol:$,tab:\|-,trail:_
 set nofoldenable " disable auto-folding at start
 set number " show line number
 set pumheight=10 " Pmenu max height
@@ -193,24 +191,3 @@ exe 'set shiftwidth='.space_per_tab
 exe 'set tabstop='.space_per_tab
 " move new tab to the last position
 autocmd BufNew * execute ":tabm"
-" config: directories ====================
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
-set undodir=~/.vim/undo//
-" ----------------------------------------
-" pkg manager: vim-pathogen ==============
-call pathogen#infect()
-" ----------------------------------------
-" plugin: NERDTree =======================
-filetype plugin indent on
-let NERDTreeShowHidden=1
-let NERDTreeShowLineNumbers=1
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" ----------------------------------------
-" plugin: vim-go =========================
-nnoremap <leader>gi :GoImport <C-R><C-W><cr>
-" ----------------------------------------
-" plugin: vim-terraform ==================
-let g:terraform_fmt_on_save=1
-" ----------------------------------------

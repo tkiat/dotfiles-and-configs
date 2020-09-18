@@ -34,6 +34,7 @@ function 2r-tor-browser {
 alias    2xclip="xclip -selection clipboard"
 function git-status-all { for x in *; do echo $line_str && echo "Folder name: ${x}" && echo $line_str && git --work-tree=$x --git-dir=$x/.git status; done }
 
+[ -x "$(command -v mc)" ] && [ -x "$(command -v vim)" ] && alias mc="EDITOR=vim mc"
 # OS specific
 if [[ $(lsb_release -a | grep 'Void Linux' | wc -l) != '0' ]]
 then
@@ -100,5 +101,5 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 #=========== external config =============
 ##########################################
 # config: directories ====================
-export EDITOR=vim
+#export EDITOR=vim
 # ----------------------------------------
