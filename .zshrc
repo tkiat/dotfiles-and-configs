@@ -73,9 +73,8 @@ LS_COLORS=$LS_COLORS'*.7z=35:*.bz=35:*.bz2=35:*.gz=35:*.rar=35:*.tar=35:*.zip=35
 export LS_COLORS
 # ----------------------------------------
 # Prompt =================================
-# pick emoji
-local emojis=('$' '( °Д°) ' '( •̀ω•́)つ' '(´＿- `)' '(๑•﹏•)⋆*' '( °Д°) ┻━┻' '(ﾉ´ヮ´)ﾉ*' 'ʕ •ᴥ•ʔ' '(˘ ³˘)♥' '(っ˘з(˘⌣˘)' '(ɔˆз(ˆ⌣ˆc)' '( ˘⌣˘)♡' '(¬_¬ )')
-local emoji=$emojis[$(($RANDOM % ${#emojis[@]} + 1))]
+# local emojis=('$' '( °Д°) ' '( •̀ω•́)つ' '(´＿- `)' '(๑•﹏•)⋆*' '( °Д°) ┻━┻' '(ﾉ´ヮ´)ﾉ*' 'ʕ •ᴥ•ʔ' '(˘ ³˘)♥' '(っ˘з(˘⌣˘)' '(ɔˆз(ˆ⌣ˆc)' '( ˘⌣˘)♡' '(¬_¬ )')
+# local emoji=$emojis[$(($RANDOM % ${#emojis[@]} + 1))]
 # pick color of the day
 local day=$(date +%u) # Mon(1)-Sun(7)
 local colors=(11 165 046 208 014 129 196); local color=$colors[day]
@@ -83,14 +82,14 @@ local colors_light=(227 213 121 180 123 099 124); local color_light=$colors_ligh
 # git
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' actionformats '(%a'$'\UE0A0''%b)' # used when git detected and e.g. rebase/merge conflict
-# zstyle ':vcs_info:*' formats '%F{'$color_light'}:%n/%r/%b%f' # used when git detected and actionformats is inactive
 zstyle ':vcs_info:*' formats '%F{'$color_light'}:git@%b%f'
+# zstyle ':vcs_info:*' formats '%F{'$color_light'}:%n/%r/%b%f' # used when git detected and actionformats is inactive
 # \UE0A0
 setopt PROMPT_SUBST
 precmd () { vcs_info }
 # modify prompt
 PROMPT='%F{'$color_light'}%n@'$HOST':%F{'$color'}%0 %1~%f'
-PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.): '
+PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b:%(60l.'$'\n.)'
 # PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.)${emoji} '
 # ----------------------------------------
 # Tab Completion =========================
