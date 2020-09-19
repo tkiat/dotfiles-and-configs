@@ -7,12 +7,12 @@
 local line_str="----------------------------------------"
 # Aliases ================================
 alias    ...="cd ../.."
-alias    ls='ls --color'
-alias    mc="[ -x "$(command -v mc)" ] && [ -x "$(command -v vim)" ] && EDITOR=vim mc"
+alias    ls="ls --color"
+alias    mc="[ -x '$(command -v mc)' ] && [ -x '$(command -v vim)' ] && EDITOR=vim mc"
 alias    sl="ls"
 
 # change
-alias    2c-brightness="[ -x "$(command -v xrandr)" ] && xrandr --output LVDS-1 --brightness"
+alias    2c-brightness="[ -x '$(command -v xrandr)' ] && xrandr --output LVDS-1 --brightness"
 function 2c-tab-title { echo -en "\e]2;$1\a" }
 # copy to clipboard
 function 2c-clipboard-c {
@@ -26,7 +26,7 @@ function 2c-file-c {
 alias    2d-filesize="du -sh ./*"
 function 2d-git-status-all { for x in *; do echo $line_str && echo "Folder name: ${x}" && echo $line_str && git --work-tree=$x --git-dir=$x/.git status; done }
 # edit
-alias    2e-.tmux.conf="[ -x "$(command -v tmux)" ] && vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
+alias    2e-.tmux.conf="[ -x '$(command -v tmux)' ] && vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
 alias    2e-.zshrc="vim -o ~/Git/dotfiles/.zshrc ~/.zshrc && source ~/.zshrc"
 alias    2e-dotfiles="vim ~/Git/dotfiles"
 alias    2e-scripts="vim ~/Git/scripts"
@@ -44,14 +44,19 @@ function 2r-tor-browser {
 	disown
 }
 # OS specific
-if [[ $(lsb_release -a | grep 'Void Linux' | wc -l) != '0' ]]
-then
+# if [[ $(lsb_release -a | grep 'Void Linux' | wc -l) != '0' ]]; then
+if [ "$(uname)" '==' "Void" ]; then
 	alias vim='gvim -v'
 
 	alias 2i-pkg='sudo xbps-install'
 	alias 2q-pkg='xbps-query -Rs'
 	alias 2r-pkg='sudo xbps-remove'
 	alias 2u-os='sudo xbps-install -Su'
+elif [ "$(uname)" '==' "FreeBSD" ]; then
+	alias 2i-pkg='sudo pkg install'
+	alias 2q-pkg='pkg search'
+	alias 2r-pkg='sudo pkg delete'
+	alias 2u-os='sudo freebsd-update fetch && sudo freebsd-update install'
 fi
 # ----------------------------------------
 # History ================================
@@ -70,7 +75,7 @@ bindkey "\e[3~" delete-char
 # ----------------------------------------
 # LS_COLORS ==============================
 # get and reset default value
-eval $(dircolors | head -1)
+# eval $(dircolors | head -1)
 LS_COLORS=$(echo $LS_COLORS | sed -e 's/=[^=]*:/=0:/g')
 # remap and export
 LS_COLORS=$LS_COLORS'di=1;30;107:tw=1;30;107:ow=1;30;107:'
