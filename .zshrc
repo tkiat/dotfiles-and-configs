@@ -4,6 +4,7 @@
 # Welcome to .zshrc
 # I put everything interactive here
 # ========================================
+export EDITOR=
 local line_str="----------------------------------------"
 # Aliases ================================
 alias    ...="cd ../.."
