@@ -1,28 +1,40 @@
-# Reference: http://zsh.sourceforge.net/Doc/Release/index.html
 # ========================================
+# Reference: http://zsh.sourceforge.net/Doc/Release/index.html
 # Author: Theerawat Kiatdarakun
-#
 # Welcome to .zshrc
-# executed when creating interactive shell
 # I put everything interactive here
 # ========================================
 local line_str="----------------------------------------"
 # Aliases ================================
 alias    ...="cd ../.."
 alias    ls='ls --color'
+alias    mc="[ -x "$(command -v mc)" ] && [ -x "$(command -v vim)" ] && EDITOR=vim mc"
 alias    sl="ls"
-alias    2c-brightness="xrandr --output LVDS-1 --brightness"
-function 2c-tab_title { echo -en "\e]2;$1\a" }
-alias    2c-file_to_clipboard="xclip -sel clip"
+
+# change
+alias    2c-brightness="[ -x "$(command -v xrandr)" ] && xrandr --output LVDS-1 --brightness"
+function 2c-tab-title { echo -en "\e]2;$1\a" }
+# copy to clipboard
+function 2c-clipboard-c {
+	xclip -o | xclip -selection clipboard
+}
+# alias    2c-file_to_clipboard="xclip -sel clip"
+function 2c-file-c {
+	echo $1 xclip -selection clipboard
+}
+# display
 alias    2d-filesize="du -sh ./*"
-# alias    2e-.tmux.conf="vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
-alias    2e.zshrc="vim ~/.zshrc && source ~/.zshrc"
-[ -d ~/Git/dotfiles ] &&
+function 2d-git-status-all { for x in *; do echo $line_str && echo "Folder name: ${x}" && echo $line_str && git --work-tree=$x --git-dir=$x/.git status; done }
+# edit
+alias    2e-.tmux.conf="[ -x "$(command -v tmux)" ] && vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
+alias    2e-.zshrc="vim -o ~/Git/dotfiles/.zshrc ~/.zshrc && source ~/.zshrc"
 alias    2e-dotfiles="vim ~/Git/dotfiles"
-[ -d ~/Git/scripts ] &&
 alias    2e-scripts="vim ~/Git/scripts"
-function 2goto-symlink { cd $(dirname $(readlink $1)) }
+# goto
+function 2gt-symlink { cd $(dirname $(readlink $1)) }
+# logout
 alias    2logout="pkill -u $USER"
+# run
 function 2r {
 	$1 > /dev/null 2>&1 &
 	disown
@@ -31,28 +43,21 @@ function 2r-tor-browser {
 	~/Applications/tor-browser_en-US/Browser/start-tor-browser > /dev/null 2>&1 &
 	disown
 }
-alias    2xclip="xclip -selection clipboard"
-function git-status-all { for x in *; do echo $line_str && echo "Folder name: ${x}" && echo $line_str && git --work-tree=$x --git-dir=$x/.git status; done }
-
-[ -x "$(command -v mc)" ] && [ -x "$(command -v vim)" ] && alias mc="EDITOR=vim mc"
 # OS specific
 if [[ $(lsb_release -a | grep 'Void Linux' | wc -l) != '0' ]]
 then
-	# alias surf='tabbed -c surf -e'
-	# alias surf='surf www.google.com'
 	alias vim='gvim -v'
 
 	alias 2i-pkg='sudo xbps-install'
 	alias 2q-pkg='xbps-query -Rs'
 	alias 2r-pkg='sudo xbps-remove'
-	alias 2s-internet='sudo wpa_supplicant -B -D wext -i wlp3s0 -c /etc/wpa_supplicant/wpa_supplicant.conf'
 	alias 2u-os='sudo xbps-install -Su'
 fi
 # ----------------------------------------
 # History ================================
 HISTFILE=~/.zsh_history
-HISTSIZE=1000 # max entries in current-session memory
-SAVEHIST=1000 # max entries in HISTFILE
+HISTSIZE=4000 # max entries in current-session memory
+SAVEHIST=4000 # max entries in HISTFILE
 setopt incappendhistory # immediately append to history file, not waiting until shell exits
 setopt sharehistory # share history across terminals
 # ----------------------------------------
@@ -97,9 +102,8 @@ PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b:%(60l.'$'\n.)'
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 # ----------------------------------------
-##########################################
+#
+#
 #=========== external config =============
-##########################################
-# config: directories ====================
-#export EDITOR=vim
-# ----------------------------------------
+#
+#
