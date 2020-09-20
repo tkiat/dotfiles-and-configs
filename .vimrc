@@ -154,6 +154,7 @@ let s:asciidoctor_stylesdir='/home/'.$USER.'/Git/assets/stylesheets/asciidoctor-
 function AsciiDocToHTML()
 	execute '!asciidoctor -a stylesdir='.s:asciidoctor_stylesdir.' '.expand('%:p')
 	execute '!html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true -o '.expand('%:r').'.html '.expand('%:r').'.html'
+	execute '!echo "'.strftime("%Y-%m-%d %X \(GMT %Z\)").'" > '.expand('%:p:h').'/modified'
 endfunction
 autocmd BufWritePost *.adoc :call AsciiDocToHTML()
 " save file
