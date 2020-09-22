@@ -28,11 +28,16 @@ alias    2d-filesize="du -sh ./*"
 function 2d-git-status-all { for x in *; do echo $line_str && echo "Folder name: ${x}" && echo $line_str && git --work-tree=$x --git-dir=$x/.git status; done }
 # edit
 alias    2e-.tmux.conf="[ -x '$(command -v tmux)' ] && vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
+alias    2e-.vimrc="vim -o ~/Git/dotfiles/.vimrc ~/.vimrc"
+alias    2e-.xinitrc="vim -o ~/Git/dotfiles/.xinitrc ~/.xinitrc"
+alias    2e-.zshenv="vim -o ~/Git/dotfiles/.zshenv ~/.zshenv && source ~/.zshenv"
 alias    2e-.zshrc="vim -o ~/Git/dotfiles/.zshrc ~/.zshrc && source ~/.zshrc"
 alias    2e-dotfiles="vim ~/Git/dotfiles"
 alias    2e-scripts="vim ~/Git/scripts"
 # goto
 function 2gt-symlink { cd $(dirname $(readlink $1)) }
+# kill
+function 2k-port { sudo fuser -k $1/tcp }
 # logout
 alias    2logout="pkill -u $USER"
 # run
@@ -41,12 +46,12 @@ function 2r {
 	disown
 }
 function 2r-tor-browser {
-	~/Applications/tor-browser_en-US/Browser/start-tor-browser > /dev/null 2>&1 &
+	~/Apps/tor-browser_en-US/Browser/start-tor-browser > /dev/null 2>&1 &
 	disown
 }
 # OS specific
-# if [[ $(lsb_release -a | grep 'Void Linux' | wc -l) != '0' ]]; then
-if [ "$(uname)" '==' "Void" ]; then
+if cat /etc/*-release | grep -q 'void'
+then
 	alias vim='gvim -v'
 
 	alias 2i-pkg='sudo xbps-install'
@@ -101,7 +106,7 @@ setopt PROMPT_SUBST
 precmd () { vcs_info }
 # modify prompt
 PROMPT='%F{'$color_light'}%n@'$HOST':%F{'$color'}%0 %1~%f'
-PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b:%(60l.'$'\n.)'
+PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b: '
 # PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.)${emoji} '
 # ----------------------------------------
 # Tab Completion =========================

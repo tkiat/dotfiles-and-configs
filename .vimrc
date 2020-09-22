@@ -15,7 +15,10 @@
 let s:char_html_escape={
 	\'&': '&amp;',
 	\">": "&gt;",
-	\'<': '&lt;'
+	\'<': '&lt;',
+	\'1sp': '&nbsp;',
+	\'2sp': '&ensp;',
+	\'4sp': '&emsp;'
 \}
 let s:char_closing_braces=['{}','()','[]']
 let s:char_surround_insertmode=s:char_closing_braces + ['""', "''"]
