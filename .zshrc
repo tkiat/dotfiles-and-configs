@@ -52,7 +52,12 @@ function 2r-tor-browser {
 # OS specific
 if cat /etc/*-release | grep -q 'void'
 then
+	local dir_glibc=~/glibc-chroot # tilde expansion
+
 	alias vim='gvim -v'
+
+	alias 2c-glibc-chroot='mkdir -p ${dir_glibc} && sudo XBPS_ARCH=x86_64 xbps-install -r ${dir_glibc} -S -R https://alpha.de.repo.voidlinux.org/current base-voidstrap && sudo cp /etc/resolv.conf ${dir_glibc}/etc'
+	alias 2gt-glibc-chroot='echo ${dir_glibc} && sudo mount -t proc none ${dir_glibc}/proc && sudo mount -t sysfs none ${dir_glibc}/sys && sudo mount --rbind /dev ${dir_glibc}/dev && sudo mount --rbind /run ${dir_glibc}/run && sudo chroot ${dir_glibc}'
 
 	alias 2i-pkg='sudo xbps-install'
 	alias 2q-pkg='xbps-query -Rs'
