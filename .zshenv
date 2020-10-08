@@ -20,6 +20,7 @@ function surf {
 # export EDITOR=vim
 setopt autocd # no need to type cd
 # umask 027
+# export PATH=/mnt/shared/Apps-Linux:$PATH # dmenu
 # ----------------------------------------
 #
 #

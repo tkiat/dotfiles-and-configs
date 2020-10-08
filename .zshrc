@@ -9,12 +9,23 @@ local line_str="----------------------------------------"
 # Aliases ================================
 alias    ...="cd ../.."
 alias    ls="ls --color"
-alias    mc="[ -x '$(command -v mc)' ] && [ -x '$(command -v vim)' ] && EDITOR=vim mc"
+alias    mc="EDITOR=vim mc"
 alias    sl="ls"
-
+# bind
+function 2b {
+for dir in dev proc run sys
+do
+	echo "mounting /$dir to $1/$dir ..."
+	sudo mkdir -p $1/$dir
+	sudo mount --rbind /$dir $1/$dir
+	sudo mount --make-rslave $1/$dir
+done
+}
 # change
 alias    2c-brightness="[ -x '$(command -v xrandr)' ] && xrandr --output LVDS-1 --brightness"
 function 2c-tab-title { echo -en "\e]2;$1\a" }
+# clear cache
+alias    2cc-go="go clean -cache -modcache -i -r"
 # copy to clipboard
 function 2c-clipboard-c {
 	xclip -o | xclip -selection clipboard
@@ -24,7 +35,7 @@ function 2c-file-c {
 	echo $1 xclip -selection clipboard
 }
 # display
-alias    2d-filesize="du -sh ./*"
+alias    2d-filesize="du -sh ./* | sort -h"
 function 2d-git-status-all { for x in *; do echo $line_str && echo "Folder name: ${x}" && echo $line_str && git --work-tree=$x --git-dir=$x/.git status; done }
 # edit
 alias    2e-.tmux.conf="[ -x '$(command -v tmux)' ] && vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
@@ -36,6 +47,10 @@ alias    2e-dotfiles="vim ~/Git/dotfiles"
 alias    2e-scripts="vim ~/Git/scripts"
 # goto
 function 2gt-symlink { cd $(dirname $(readlink $1)) }
+# grep
+alias    2gh="history 1 | grep "
+# grub
+alias    2gm="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 # kill
 function 2k-port { sudo fuser -k $1/tcp }
 # logout
@@ -50,19 +65,19 @@ function 2r-tor-browser {
 	disown
 }
 # OS specific
-if cat /etc/*-release | grep -q 'void'
-then
-	local dir_glibc=~/glibc-chroot # tilde expansion
+if cat /etc/*-release | grep -q 'void'; then
 
 	alias vim='gvim -v'
 
-	alias 2c-glibc-chroot='mkdir -p ${dir_glibc} && sudo XBPS_ARCH=x86_64 xbps-install -r ${dir_glibc} -S -R https://alpha.de.repo.voidlinux.org/current base-voidstrap && sudo cp /etc/resolv.conf ${dir_glibc}/etc'
-	alias 2gt-glibc-chroot='echo ${dir_glibc} && sudo mount -t proc none ${dir_glibc}/proc && sudo mount -t sysfs none ${dir_glibc}/sys && sudo mount --rbind /dev ${dir_glibc}/dev && sudo mount --rbind /run ${dir_glibc}/run && sudo chroot ${dir_glibc}'
-
 	alias 2i-pkg='sudo xbps-install'
 	alias 2q-pkg='xbps-query -Rs'
-	alias 2r-pkg='sudo xbps-remove'
+	alias 2r-pkg='sudo xbps-remove -R'
 	alias 2u-os='sudo xbps-install -Su'
+elif cat /etc/*-release | grep -q 'Arch Linux'; then
+	alias 2i-pkg='sudo pacman -S'
+	alias 2q-pkg='pacman -Ss'
+	alias 2r-pkg='sudo pacman -R'
+	alias 2u-os='sudo pacman -Syu'
 elif [ "$(uname)" '==' "FreeBSD" ]; then
 	alias 2i-pkg='sudo pkg install'
 	alias 2q-pkg='pkg search'
