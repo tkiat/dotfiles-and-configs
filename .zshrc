@@ -5,11 +5,15 @@
 # I put everything interactive here
 # ========================================
 export EDITOR=
+local apps_cli_dir=/mnt/shared/Apps-Linux/CLI
+local dotfile_dir=/mnt/shared/Git/dotfiles
 local line_str="----------------------------------------"
 # Aliases ================================
+# overwite default
 alias    ...="cd ../.."
-alias    ls="ls --color"
+alias    ls="ls --color --group-directories-first"
 alias    mc="EDITOR=vim mc"
+# alternative to default
 alias    sl="ls"
 # bind
 function 2b {
@@ -39,12 +43,13 @@ alias    2d-filesize="du -sh ./* | sort -h"
 function 2d-git-status-all { for x in *; do echo $line_str && echo "Folder name: ${x}" && echo $line_str && git --work-tree=$x --git-dir=$x/.git status; done }
 # edit
 alias    2e-.tmux.conf="[ -x '$(command -v tmux)' ] && vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
-alias    2e-.vimrc="vim -o ~/Git/dotfiles/.vimrc ~/.vimrc"
-alias    2e-.xinitrc="vim -o ~/Git/dotfiles/.xinitrc ~/.xinitrc"
-alias    2e-.zshenv="vim -o ~/Git/dotfiles/.zshenv ~/.zshenv && source ~/.zshenv"
-alias    2e-.zshrc="vim -o ~/Git/dotfiles/.zshrc ~/.zshrc && source ~/.zshrc"
-alias    2e-dotfiles="vim ~/Git/dotfiles"
-alias    2e-scripts="vim ~/Git/scripts"
+alias    2e-.vimrc="vim -o $dotfile_dir/.vimrc ~/.vimrc"
+alias    2e-.xinitrc="vim -o $dotfile_dir/.xinitrc ~/.xinitrc"
+alias    2e-.zshenv="vim -o $dotfile_dir/.zshenv ~/.zshenv && source ~/.zshenv"
+alias    2e-.zshrc="vim -o $dotfile_dir/.zshrc ~/.zshrc && source ~/.zshrc"
+alias    2e-dotfiles="vim $dotfile_dir"
+# find
+alias    2fs="find . -maxdepth 1 -type l" # symlink
 # goto
 function 2gt-symlink { cd $(dirname $(readlink $1)) }
 # grep
@@ -60,10 +65,8 @@ function 2r {
 	$1 > /dev/null 2>&1 &
 	disown
 }
-function 2r-tor-browser {
-	~/Apps/tor-browser_en-US/Browser/start-tor-browser > /dev/null 2>&1 &
-	disown
-}
+# source
+alias    2s-ansible="source $apps_cli_dir/ansible/hacking/env-setup"
 # OS specific
 if cat /etc/*-release | grep -q 'void'; then
 
@@ -71,11 +74,13 @@ if cat /etc/*-release | grep -q 'void'; then
 
 	alias 2i-pkg='sudo xbps-install'
 	alias 2q-pkg='xbps-query -Rs'
+	alias 2r-cache='sudo rm /var/cache/xbps/* && sudo xbps-remove -Oo'
 	alias 2r-pkg='sudo xbps-remove -R'
 	alias 2u-os='sudo xbps-install -Su'
 elif cat /etc/*-release | grep -q 'Arch Linux'; then
 	alias 2i-pkg='sudo pacman -S'
 	alias 2q-pkg='pacman -Ss'
+	alias 2r-cache='sudo pacman -Scc'
 	alias 2r-pkg='sudo pacman -R'
 	alias 2u-os='sudo pacman -Syu'
 elif [ "$(uname)" '==' "FreeBSD" ]; then

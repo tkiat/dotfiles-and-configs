@@ -99,6 +99,7 @@ exe 'nnoremap <leader>html5 <ESC>:r '.template_dir.'html5.template<CR>kdd/body<C
 exe 'nnoremap <leader>vue <ESC>:r '.template_dir.'vue.template<CR>kdd'
 exe 'nnoremap <leader>gomain <ESC>:r '.template_dir.'main.go.template<CR>kddjjjjjjA'
 exe 'nnoremap <leader>gotest <ESC>:r '.template_dir.'main_test.go.template<CR>kddjjjjjjeea'
+exe 'nnoremap <leader>asciidoctor <ESC>:r '.template_dir.'asciidoctor.template<CR>kdd'
 " ========================================
 "                              Scope: Line
 " ========================================
@@ -158,8 +159,10 @@ function AsciiDocToHTML()
 	execute '!asciidoctor -a stylesdir='.s:asciidoctor_stylesdir.' '.expand('%:p')
 	execute '!html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true -o '.expand('%:r').'.html '.expand('%:r').'.html'
 	execute '!echo "'.strftime("%Y-%m-%d %X \(GMT %Z\)").'" > '.expand('%:p:h').'/modified'
+	execute '![ \! -f created ] && echo "'.strftime("%Y-%m-%d %X \(GMT %Z\)").'" > '.expand('%:p:h').'/created'
+"	execute '![ -f created ] && echo noob'
 endfunction
-autocmd BufWritePost *.adoc :call AsciiDocToHTML()
+autocmd BufWritePost article.adoc :call AsciiDocToHTML()
 " save file
 nnoremap <leader>s :update<cr>
 vnoremap <leader>s <c-c>:update<cr>

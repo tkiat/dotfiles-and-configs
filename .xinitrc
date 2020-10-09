@@ -5,9 +5,11 @@
 
 setxkbmap -layout us,th -option grp:win_space_toggle
 
-os=$(awk -F= '$1=="NAME" { print $2 ;}' /etc/os-release  | tr -d '"')
+os=$(lsb_release -ds | tr -d '"')
 #mem=$(free -h | awk 'FNR == 2 {print $3"/"$2}') # used/total
 while true; do
-	xsetroot -name "$(date +'%a %Y-%m-%d %I:%M:%S%p') |$os"
+	xsetroot -name " $(date +'%a, %d %b %I:%M:%S%p') | $os"
 	sleep 1
 done &
+# exec
+exec dwm
