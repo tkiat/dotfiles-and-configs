@@ -19,7 +19,7 @@ function surf {
 # export LC_CTYPE="en_US.UTF-8"
 # export EDITOR=vim
 # mozbuild ===============================
-export PATH=~/.mozbuild/git-cinnabar:$PATH
+# export PATH=~/.mozbuild/git-cinnabar:$PATH
 # ----------------------------------------
 setopt autocd # no need to type cd
 # umask 027

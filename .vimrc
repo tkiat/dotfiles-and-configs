@@ -26,7 +26,7 @@ let s:char_surround=s:char_surround_insertmode + ['**','<>']
 let s:commentgroup=[
 	\{
 		\'comment-symbol': '#',
-		\'ext': '*.bash,*.gitignore,*.py,*.sh,*.tf,*.tmux.conf,*.yml,*.zprofile,*.zshenv,*.zshrc',
+		\'ext': '*.bash,*.gitignore,*.py,*.sh,*.tf,*.tmux.conf,*.yml,*.zprofile,*.zshenv,*.zshrc\(\.shared\)\=',
 		\'comment-line': 'mqI# <esc>`qll',
 		\'comment-visual': ':s/^\%V/# /g<cr>:nohl<cr>',
 		\'uncomment-line': 'mqI<del><del><esc>`qhh',
@@ -50,7 +50,7 @@ let s:commentgroup=[
 	\},
 	\{
 		\'comment-symbol': '"',
-		\'ext': '*.vim,*.vimrc,',
+		\'ext': '*.vim,*.vimrc\(\.shared\)\=,',
 		\'comment-line': 'mqI" <esc>`qll',
 		\'comment-visual': ':s/^\%V/" /g<cr>:nohl<cr>',
 		\'uncomment-line': 'mqI<del><del><esc>`qhh',

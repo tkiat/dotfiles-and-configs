@@ -74,7 +74,7 @@ if cat /etc/*-release | grep -q 'void'; then
 
 	alias 2i-pkg='sudo xbps-install'
 	alias 2q-pkg='xbps-query -Rs'
-	alias 2r-cache='sudo rm /var/cache/xbps/* && sudo xbps-remove -Oo'
+	alias 2r-cache='sudo rm /var/cache/xbps/* && sudo xbps-remove -Oo && sudo vkpurge rm all'
 	alias 2r-pkg='sudo xbps-remove -R'
 	alias 2u-os='sudo xbps-install -Su'
 elif cat /etc/*-release | grep -q 'Arch Linux'; then
@@ -138,8 +138,3 @@ PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b: '
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 # ----------------------------------------
-#
-#
-#=========== external config =============
-#
-#

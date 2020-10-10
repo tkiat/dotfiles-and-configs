@@ -11,5 +11,3 @@ while true; do
 	xsetroot -name " $(date +'%a, %d %b %I:%M:%S%p') | $os"
 	sleep 1
 done &
-# exec
-exec dwm
