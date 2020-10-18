@@ -7,8 +7,8 @@
 # I put non-interactive stuffs that might
 # change over time here
 # ========================================
+setopt autocd # no need to type cd
 # original configs =======================
-# alias surf='/home/$USER/Git/forked-surf/surf-open.sh www.google.com'
 function surf {
 	if [ -z "$1" ]; then
 		/home/$USER/Git/suckless-surf/surf-open.sh www.google.com
@@ -16,17 +16,19 @@ function surf {
 		/home/$USER/Git/suckless-surf/surf-open.sh $1
 	fi
 }
-# export LC_CTYPE="en_US.UTF-8"
-# export EDITOR=vim
+# scripts ================================
+local git_dir=~/Git
+if [ -d $git_dir/scripts/ ]; then
+  for dir in $git_dir/scripts/*; do
+    if [[ $(basename $dir) == bash || $(basename $dir) == python ]]; then
+      export PATH=$PATH:$dir
+    fi
+  done
+fi
+# ----------------------------------------
+# guix ===================================
+#export PATH=/home/$USER/.guix-profile/bin:$PATH # dmenu
+# ----------------------------------------
 # mozbuild ===============================
 # export PATH=~/.mozbuild/git-cinnabar:$PATH
 # ----------------------------------------
-setopt autocd # no need to type cd
-# umask 027
-# export PATH=/mnt/shared/Apps-Linux:$PATH # dmenu
-# ----------------------------------------
-#
-#
-#=========== external config =============
-#
-#

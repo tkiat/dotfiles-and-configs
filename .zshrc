@@ -1,4 +1,4 @@
-# ========================================
+# ======================================== # 
 # Reference: http://zsh.sourceforge.net/Doc/Release/index.html
 # Author: Theerawat Kiatdarakun
 # Welcome to .zshrc
@@ -7,12 +7,15 @@
 export EDITOR=
 local apps_cli_dir=/mnt/shared/Apps-Linux/CLI
 local dotfile_dir=/mnt/shared/Git/dotfiles
+local editor=vim
 local line_str="----------------------------------------"
 # Aliases ================================
 # overwite default
 alias    ...="cd ../.."
 alias    ls="ls --color --group-directories-first"
+alias    free="free -h"
 alias    mc="EDITOR=vim mc"
+alias    sudo='sudo ' # enable running alias as superuser
 # alternative to default
 alias    sl="ls"
 # bind
@@ -41,7 +44,10 @@ function 2c-file-c {
 # display
 alias    2d-filesize="du -sh ./* | sort -h"
 function 2d-git-status-all { for x in *; do echo $line_str && echo "Folder name: ${x}" && echo $line_str && git --work-tree=$x --git-dir=$x/.git status; done }
+# download
+alias    2d-gnu-keyring="wget https://ftp.gnu.org/gnu/gnu-keyring.gpg"
 # edit
+function 2e { $editor $(which $1) }
 alias    2e-.tmux.conf="[ -x '$(command -v tmux)' ] && vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
 alias    2e-.vimrc="vim -o $dotfile_dir/.vimrc ~/.vimrc"
 alias    2e-.xinitrc="vim -o $dotfile_dir/.xinitrc ~/.xinitrc"
@@ -50,6 +56,8 @@ alias    2e-.zshrc="vim -o $dotfile_dir/.zshrc ~/.zshrc && source ~/.zshrc"
 alias    2e-dotfiles="vim $dotfile_dir"
 # find
 alias    2fs="find . -maxdepth 1 -type l" # symlink
+# garbage collected
+alias    2gc-guix="guix package --delete-generations && guix gc --collect-garbage"
 # goto
 function 2gt-symlink { cd $(dirname $(readlink $1)) }
 # grep
@@ -58,19 +66,23 @@ alias    2gh="history 1 | grep "
 alias    2gm="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 # kill
 function 2k-port { sudo fuser -k $1/tcp }
+# list
+function 2lt { tar tf $1 | sed 's/\/.*//' | uniq } # list tarball file and folders (depth = 1)
 # logout
 alias    2logout="pkill -u $USER"
+# make
+alias    2m="sudo make install && make clean"
 # run
 function 2r {
 	$1 > /dev/null 2>&1 &
 	disown
 }
+alias    2r-guix="sudo ~root/.config/guix/current/bin/guix-daemon --build-users-group=guixbuild"
 # source
-alias    2s-ansible="source $apps_cli_dir/ansible/hacking/env-setup"
+	# alias    2s-ansible="source $apps_cli_dir/ansible/hacking/env-setup"
+alias    2s-zshrc="source ~/.zshrc"
 # OS specific
 if cat /etc/*-release | grep -q 'void'; then
-
-	alias vim='gvim -v'
 
 	alias 2i-pkg='sudo xbps-install'
 	alias 2q-pkg='xbps-query -Rs'
@@ -123,10 +135,10 @@ local colors=(11 165 046 208 014 129 196); local color=$colors[day]
 local colors_light=(227 213 121 180 123 099 124); local color_light=$colors_light[day]
 # git
 autoload -Uz vcs_info
-zstyle ':vcs_info:*' actionformats '(%a'$'\UE0A0''%b)' # used when git detected and e.g. rebase/merge conflict
+# zstyle ':vcs_info:*' actionformats '(%a'$'\UE0A0''%b)' # used when git detected and e.g. rebase/merge conflict
 zstyle ':vcs_info:*' formats '%F{'$color_light'}:git@%b%f'
+
 # zstyle ':vcs_info:*' formats '%F{'$color_light'}:%n/%r/%b%f' # used when git detected and actionformats is inactive
-# \UE0A0
 setopt PROMPT_SUBST
 precmd () { vcs_info }
 # modify prompt

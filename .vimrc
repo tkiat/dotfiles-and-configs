@@ -34,7 +34,7 @@ let s:commentgroup=[
 	\},
 	\{
 		\'comment-symbol': '//',
-		\'ext': '*.adoc,*.go,*.h,*.js,*.cpp',
+		\'ext': '*.adoc,*.c,*.go,*.h,*.js,*.cpp',
 		\'comment-line': 'mqI// <esc>`qll',
 		\'comment-visual': ':s/^\%V/\/\/ /g<cr>:nohl<cr>',
 		\'uncomment-line': 'mqI<del><del><del><esc>`qhh',
@@ -95,11 +95,12 @@ inoreabbrev shebang #!/usr/bin/env
 inoreabbrev bestregards <bs><cr><cr>Best regards,<cr>Theerawat Kiatdarakun
 inoreabbrev lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dapibus convallis massa, nec gravida diam pellentesque at. Aliquam mollis tempor mi sed venenatis. Maecenas neque massa, pulvinar vitae lacus et, convallis interdum ligula. Suspendisse rhoncus a arcu quis volutpat. Donec ac risus eros. Pellentesque convallis lectus eu sodales ornare. Quisque egestas ex non purus porta porttitor. Ut blandit feugiat iaculis. Nulla mollis venenatis pulvinar. Nullam pulvinar efficitur aliquet. Donec in nibh eleifend, finibus dui nec, faucibus dui.
 " template
-exe 'nnoremap <leader>html5 <ESC>:r '.template_dir.'html5.template<CR>kdd/body<CR>:nohl<CR>o'
-exe 'nnoremap <leader>vue <ESC>:r '.template_dir.'vue.template<CR>kdd'
-exe 'nnoremap <leader>gomain <ESC>:r '.template_dir.'main.go.template<CR>kddjjjjjjA'
-exe 'nnoremap <leader>gotest <ESC>:r '.template_dir.'main_test.go.template<CR>kddjjjjjjeea'
-exe 'nnoremap <leader>asciidoctor <ESC>:r '.template_dir.'asciidoctor.template<CR>kdd'
+exe 'nnoremap <leader>tc <ESC>:r '.template_dir.'c.template<CR>kdd'
+exe 'nnoremap <leader>ta <ESC>:r '.template_dir.'asciidoctor.template<CR>kdd'
+exe 'nnoremap <leader>tgm <ESC>:r '.template_dir.'main.go.template<CR>kddjjjjjjA'
+exe 'nnoremap <leader>tgt <ESC>:r '.template_dir.'main_test.go.template<CR>kddjjjjjjeea'
+exe 'nnoremap <leader>th <ESC>:r '.template_dir.'html5.template<CR>kdd/body<CR>:nohl<CR>o'
+exe 'nnoremap <leader>tv <ESC>:r '.template_dir.'vue.template<CR>kdd'
 " ========================================
 "                              Scope: Line
 " ========================================
@@ -169,6 +170,7 @@ vnoremap <leader>s <c-c>:update<cr>
 " open file
 nnoremap <leader>oc :vsplit ~/.vim/colors/tkiatd.vim<cr>
 nnoremap <leader>ov :vsplit $MYVIMRC<cr>
+nnoremap <leader>ovs :vsplit ~/.vimrc.shared<cr>
 nnoremap <leader>ozc :vsplit ~/.zshrc<cr>
 nnoremap <leader>oze :vsplit ~/.zshenv<cr>
 nnoremap <leader>ozp :vsplit ~/.zprofile<cr>
