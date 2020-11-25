@@ -1,20 +1,24 @@
 # ======================================== # 
 # Reference: http://zsh.sourceforge.net/Doc/Release/index.html
 # Author: Theerawat Kiatdarakun
-# Welcome to .zshrc
-# I put everything interactive here
+# Welcome to .zshrc I put everything interactive here
 # ========================================
 export EDITOR=
 local apps_cli_dir=/mnt/shared/Apps-Linux/CLI
 local dotfile_dir=/mnt/shared/Git/dotfiles
 local editor=vim
 local line_str="----------------------------------------"
+setopt +o nomatch # suppress error when pattern is nomatch
+set -o vi # vi mode
 # Aliases ================================
 # overwite default
 alias    ...="cd ../.."
+alias    df="df -h"
 alias    ls="ls --color --group-directories-first"
+#alias    feh="feh --scale-down --auto-zoom"
 alias    free="free -h"
 alias    mc="EDITOR=vim mc"
+alias    ranger="EDITOR=vim ranger"
 alias    sudo='sudo ' # enable running alias as superuser
 # alternative to default
 alias    sl="ls"
@@ -38,8 +42,11 @@ function 2c-clipboard-c {
 	xclip -o | xclip -selection clipboard
 }
 # alias    2c-file_to_clipboard="xclip -sel clip"
-function 2c-file-c {
+function 2c-file {
 	echo $1 xclip -selection clipboard
+}
+function 2c-stdout {
+	echo $1 | xclip -selection clipboard
 }
 # display
 alias    2d-filesize="du -sh ./* | sort -h"
@@ -61,7 +68,7 @@ alias    2gc-guix="guix package --delete-generations && guix gc --collect-garbag
 # goto
 function 2gt-symlink { cd $(dirname $(readlink $1)) }
 # grep
-alias    2gh="history 1 | grep "
+alias    2grep-h="history 1 | grep "
 # grub
 alias    2gm="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 # kill
@@ -72,24 +79,27 @@ function 2lt { tar tf $1 | sed 's/\/.*//' | uniq } # list tarball file and folde
 alias    2logout="pkill -u $USER"
 # make
 alias    2m="sudo make install && make clean"
+# resize
+alias    2resize-tmp="sudo mount -o remount,size=5G /tmp"
 # run
 function 2r {
 	$1 > /dev/null 2>&1 &
 	disown
 }
 alias    2r-guix="sudo ~root/.config/guix/current/bin/guix-daemon --build-users-group=guixbuild"
+alias    2r-guix-libring="/gnu/store/rqy5sidvp7ymzx2pb6snidb2zmqkgrj9-libring-20191101.3.67671e7/lib/ring/dring"
 # source
 	# alias    2s-ansible="source $apps_cli_dir/ansible/hacking/env-setup"
 alias    2s-zshrc="source ~/.zshrc"
 # OS specific
-if cat /etc/*-release | grep -q 'void'; then
+if cat /etc/*-release > /dev/null 2>&1 | grep -q 'void'; then
 
 	alias 2i-pkg='sudo xbps-install'
 	alias 2q-pkg='xbps-query -Rs'
 	alias 2r-cache='sudo rm /var/cache/xbps/* && sudo xbps-remove -Oo && sudo vkpurge rm all'
 	alias 2r-pkg='sudo xbps-remove -R'
 	alias 2u-os='sudo xbps-install -Su'
-elif cat /etc/*-release | grep -q 'Arch Linux'; then
+elif cat /etc/*-release > /dev/null 2>&1 | grep -q 'Arch Linux'; then
 	alias 2i-pkg='sudo pacman -S'
 	alias 2q-pkg='pacman -Ss'
 	alias 2r-cache='sudo pacman -Scc'
@@ -142,8 +152,8 @@ zstyle ':vcs_info:*' formats '%F{'$color_light'}:git@%b%f'
 setopt PROMPT_SUBST
 precmd () { vcs_info }
 # modify prompt
-PROMPT='%F{'$color_light'}%n@'$HOST':%F{'$color'}%0 %1~%f'
-PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b: '
+PROMPT='%B%F{'$color_light'}%n@'$HOST':%F{'$color'}%0 %1~%f'
+PROMPT=$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'$%b '
 # PROMPT='%B'$PROMPT'%(!.(root).)'\$vcs_info_msg_0_'%b%(60l.'$'\n''.)${emoji} '
 # ----------------------------------------
 # Tab Completion =========================

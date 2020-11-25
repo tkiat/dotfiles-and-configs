@@ -57,6 +57,14 @@ let s:commentgroup=[
 		\'uncomment-visual': ':s/^\%V" //g<cr>'
 	\},
 	\{
+		\'comment-symbol': ';;;',
+		\'ext': '*.scm',
+		\'comment-line': 'mqI;;; <esc>`qllll',
+		\'comment-visual': ':s/^\%V/;;; /g<cr>:nohl<cr>',
+		\'uncomment-line': 'mqI<del><del><del><del><esc>`qhhhh',
+		\'uncomment-visual': ':s/^\%V;;; //g<cr>'
+	\},
+	\{
 		\'comment-symbol': '<!-- -->',
 		\'ext': '*.html',
 		\'comment-line': 'mqI<!--<esc>A--><esc>`qllll',
@@ -71,6 +79,7 @@ let template_dir='~/.vim/template/'
 " ========================================
 "                         Scope: Character
 " ========================================
+set backspace=indent,eol,start " make backspace to work
 for val in s:char_closing_braces
 	exe 'inoremap '.val[0].'<CR> '.val[0].'<CR>'.val[1].'<Esc>ko<tab>'
 endfor
