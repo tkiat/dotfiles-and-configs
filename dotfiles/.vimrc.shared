@@ -108,7 +108,7 @@ exe 'nnoremap <leader>tc <ESC>:r '.template_dir.'c.template<CR>kdd'
 exe 'nnoremap <leader>ta <ESC>:r '.template_dir.'asciidoctor.template<CR>kdd'
 exe 'nnoremap <leader>tgm <ESC>:r '.template_dir.'main.go.template<CR>kddjjjjjjA'
 exe 'nnoremap <leader>tgt <ESC>:r '.template_dir.'main_test.go.template<CR>kddjjjjjjeea'
-exe 'nnoremap <leader>th <ESC>:r '.template_dir.'html5.template<CR>kdd/body<CR>:nohl<CR>o'
+exe 'nnoremap <leader>html5 <ESC>:r '.template_dir.'html5.template<CR>kdd/body<CR>:nohl<CR>o'
 exe 'nnoremap <leader>tv <ESC>:r '.template_dir.'vue.template<CR>kdd'
 " ========================================
 "                              Scope: Line
@@ -177,7 +177,7 @@ autocmd BufWritePost article.adoc :call AsciiDocToHTML()
 nnoremap <leader>s :update<cr>
 vnoremap <leader>s <c-c>:update<cr>
 " open file
-nnoremap <leader>oc :vsplit ~/.vim/colors/tkiatd.vim<cr>
+nnoremap <leader>oc :vsplit ~/.vim/colors/tkiat.vim<cr>
 nnoremap <leader>ov :vsplit $MYVIMRC<cr>
 nnoremap <leader>ovs :vsplit ~/.vimrc.shared<cr>
 nnoremap <leader>ozc :vsplit ~/.zshrc<cr>
@@ -194,6 +194,7 @@ set completeopt-=preview
 " ========================================
 "               Scope: Configs and Plugins
 " ========================================
+colorscheme tkiat
 " Set
 set autoindent " auto indent next line
 set cursorline " highlight current line
