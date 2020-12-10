@@ -9,7 +9,7 @@ local dotfile_dir=/mnt/shared/Git/dotfiles
 local editor=vim
 local line_str="----------------------------------------"
 setopt +o nomatch # suppress error when pattern is nomatch
-set -o vi # vi mode
+# set -o vi # vi mode
 # Aliases ================================
 # overwite default
 alias    ...="cd ../.."
