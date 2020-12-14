@@ -1,0 +1,12 @@
+
+type/^GIF
+	Include=image
+
+type/^JPEG
+	Include=image
+
+type/^PNG
+	Include=image
+
+include/image
+	Open=feh %f
