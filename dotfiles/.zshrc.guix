@@ -1,0 +1,3 @@
+source ~/.zshrc.shared
+alias wpa="sudo wpa_supplicant -c /etc/wpa_supplicant.conf -i wlp0s29f7u2 -B"
+alias dhc="sudo dhclient -v wlp0s29f7u2"

@@ -8,6 +8,9 @@
 # change over time here
 # ========================================
 setopt autocd # no need to type cd
+# alias ==================================
+alias qutebrowser="qutebrowser --target private-window"
+# ========================================
 # original configs =======================
 function surf {
 	if [ -z "$1" ]; then

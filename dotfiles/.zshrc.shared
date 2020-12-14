@@ -74,7 +74,10 @@ alias    2gm="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 # kill
 function 2k-port { sudo fuser -k $1/tcp }
 # list
+alias    2ld="\ls -d */ | cut -d '/' -f 1" # directories
 function 2lt { tar tf $1 | sed 's/\/.*//' | uniq } # list tarball file and folders (depth = 1)
+# ping
+alias    2p="ping gnu.org"
 # logout
 alias    2logout="pkill -u $USER"
 # make
