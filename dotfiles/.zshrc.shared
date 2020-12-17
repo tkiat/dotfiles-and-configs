@@ -82,6 +82,12 @@ alias    2p="ping gnu.org"
 alias    2logout="pkill -u $USER"
 # make
 alias    2m="sudo make install && make clean"
+# merge
+function 2merge-pdf { 
+	array=( $@ )
+	len=${#array[@]}
+	gs -q -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=merged-output.pdf -dBATCH ${array[@]:0:$len-1}
+}
 # resize
 alias    2resize-tmp="sudo mount -o remount,size=5G /tmp"
 # run

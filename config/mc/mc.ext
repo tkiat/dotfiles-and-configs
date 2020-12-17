@@ -1,4 +1,3 @@
-
 type/^GIF
 	Include=image
 
@@ -8,5 +7,20 @@ type/^JPEG
 type/^PNG
 	Include=image
 
+type/^AVI
+	Include=video
+
+type/^MOV
+	Include=video
+
+type/^MP4
+	Include=video
+
+type/^WMV
+	Include=video
+
 include/image
 	Open=feh %f
+
+include/video
+	Open=vlc %f
