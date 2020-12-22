@@ -15,12 +15,12 @@ setopt +o nomatch # suppress error when pattern is nomatch
 alias    ...="cd ../.."
 alias    df="df -h"
 alias    ls="ls --color --group-directories-first"
-#alias    feh="feh --scale-down --auto-zoom"
+alias    feh="feh --scale-down --auto-zoom"
 alias    free="free -h"
 alias    mc="EDITOR=vim mc"
 alias    ranger="EDITOR=vim ranger"
 alias    sudo='sudo ' # enable running alias as superuser
-# alternative to default
+# misspelling gotcha
 alias    sl="ls"
 # bind
 function 2b {
@@ -77,11 +77,9 @@ function 2k-port { sudo fuser -k $1/tcp }
 alias    2ld="\ls -d */ | cut -d '/' -f 1" # directories
 function 2lt { tar tf $1 | sed 's/\/.*//' | uniq } # list tarball file and folders (depth = 1)
 # ping
-alias    2p="ping gnu.org"
+alias    2ping="ping gnu.org"
 # logout
 alias    2logout="pkill -u $USER"
-# make
-alias    2m="sudo make install && make clean"
 # merge
 function 2merge-pdf { 
 	array=( $@ )
