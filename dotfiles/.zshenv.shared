@@ -12,13 +12,13 @@ setopt autocd # no need to type cd
 alias qutebrowser="qutebrowser --target private-window"
 # ========================================
 # original configs =======================
-function surf {
-	if [ -z "$1" ]; then
-		/home/$USER/Git/suckless-surf/surf-open.sh www.google.com
-	else
-		/home/$USER/Git/suckless-surf/surf-open.sh $1
-	fi
-}
+# function surf {
+# 	if [ -z "$1" ]; then
+# 		/home/$USER/Git/suckless-surf/surf-open.sh www.google.com
+# 	else
+# 		/home/$USER/Git/suckless-surf/surf-open.sh $1
+# 	fi
+# }
 # scripts ================================
 local git_dir=~/Git
 if [ -d $git_dir/scripts/ ]; then

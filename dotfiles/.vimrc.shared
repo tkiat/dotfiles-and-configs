@@ -210,3 +210,7 @@ exe 'set shiftwidth='.space_per_tab
 exe 'set tabstop='.space_per_tab
 " move new tab to the last position
 autocmd BufNew * execute ":tabm"
+" directories ============================
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
