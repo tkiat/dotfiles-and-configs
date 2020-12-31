@@ -1,26 +1,11 @@
-type/^GIF
-	Include=image
+shell/i/.pdf
+	Open=xpdf %f
 
-type/^JPEG
-	Include=image
+regex/i/\.(cbz|epub)$
+	Open=calibre %f 2> /dev/null &
 
-type/^PNG
-	Include=image
+regex/i/\.(avi|mov|mp4|wmv)$
+	Open=vlc %f 2> /dev/null &
 
-type/^AVI
-	Include=video
-
-type/^MOV
-	Include=video
-
-type/^MP4
-	Include=video
-
-type/^WMV
-	Include=video
-
-include/image
-	Open=feh %f
-
-include/video
-	Open=vlc %f
+regex/i/\.(gif|jpe?g|png)$
+	Open=feh %f 2> /dev/null &

@@ -38,6 +38,8 @@ function 2c-tab-title { echo -en "\e]2;$1\a" }
 # clear cache
 alias    2cc-go="go clean -cache -modcache -i -r"
 # copy to clipboard
+alias    2copy="tr -d '\n' | xclip -selection clipboard"
+# alias    2copy="\$(fc -ln -1) | tr -d '\n' | xclip -selection clipboard"
 function 2c-clipboard-c {
 	xclip -o | xclip -selection clipboard
 }
