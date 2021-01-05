@@ -1,12 +1,18 @@
 (use-modules
   (gnu)
-  (gnu system nss))
+  (gnu system nss)
+  (tkiat packages tkiat-dmenu)
+  (tkiat packages tkiat-dwm)
+  (tkiat packages tkiat-slock)
+  (tkiat packages tkiat-st))
 (use-service-modules
   desktop
   xorg)
 (use-package-modules
   certs
-  gnome)
+  gnome
+  shells
+  suckless)
 (operating-system
   (host-name "tkiat")
   (timezone "Asia/Bangkok")
@@ -46,11 +52,13 @@
           (name "tkiat")
           (comment "Theerawat Kiatdarakun")
           (group "users")
+          (shell #~(string-append #$zsh "/bin/zsh"))
           (supplementary-groups '("wheel" "netdev" "audio" "video" "lp" "cdrom" "tape" "kvm"))))
       %base-user-accounts))
   (packages
     (append
-      (list nss-certs)
+      (list nss-certs
+            tkiat-dwm tkiat-dmenu tkiat-st tkiat-slock)
       %base-packages))
   (services
     (append
@@ -60,6 +68,10 @@
         (set-xorg-configuration
           (xorg-configuration
             (keyboard-layout keyboard-layout)))
-        (service gnome-desktop-service-type))
+        (service enlightenment-desktop-service-type)
+        (service gnome-desktop-service-type)
+        (service lxqt-desktop-service-type)
+        (service mate-desktop-service-type)
+        (service xfce-desktop-service-type))
       %desktop-services))
   (name-service-switch %mdns-host-lookup-nss)) ;; Allow resolution of '.local' host names with mDNS.
