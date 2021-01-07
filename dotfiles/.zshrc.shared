@@ -12,7 +12,6 @@ setopt +o nomatch # suppress error when pattern is nomatch
 # set -o vi # vi mode
 # Aliases ================================
 # overwite default
-alias    ...="cd ../.."
 alias    df="df -h"
 alias    ls="ls --color --group-directories-first"
 alias    feh="feh --scale-down --auto-zoom"
@@ -22,6 +21,8 @@ alias    ranger="EDITOR=vim ranger"
 alias    sudo='sudo ' # enable running alias as superuser
 # misspelling gotcha
 alias    sl="ls"
+# to organize
+alias    ...="cd ../.."
 # bind
 function 2b {
 for dir in dev proc run sys

@@ -5,7 +5,7 @@
   (branch "master")
   (introduction
     (make-channel-introduction
-    "fbb84aa9c006f29c3902e62f272304fddeb2a597"
+    "1f5396b846107430c9443ab26900d88263c3f4d3"
     (openpgp-fingerprint
       "A180 8C8D E727 2D87 15CD  AB96 39AA 7B97 9BCC 55C5"))))
   %default-channels)

@@ -6,6 +6,7 @@
   (tkiat packages tkiat-slock)
   (tkiat packages tkiat-st))
 (use-service-modules
+  authentication
   desktop
   xorg)
 (use-package-modules
@@ -69,6 +70,7 @@
           (xorg-configuration
             (keyboard-layout keyboard-layout)))
         (service enlightenment-desktop-service-type)
+        (service fprintd-service-type)
         (service gnome-desktop-service-type)
         (service lxqt-desktop-service-type)
         (service mate-desktop-service-type)
