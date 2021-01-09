@@ -35,3 +35,13 @@ fi
 # mozbuild ===============================
 # export PATH=~/.mozbuild/git-cinnabar:$PATH
 # ----------------------------------------
+# ruby ===================================
+if which ruby >/dev/null && which gem >/dev/null; then
+    PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
+# ----------------------------------------#
+# golang =================================
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+# ----------------------------------------#
