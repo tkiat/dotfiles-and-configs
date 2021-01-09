@@ -1,0 +1,5 @@
+[Desktop Entry]
+Exec=/home/tkiat/.guix-profile/bin/qutebrowser
+MimeType=x-scheme-handler/unknown;x-scheme-handler/about;x-scheme-handler/https;x-scheme-handler/http;text/html;
+Name=qutebrowser
+Type=Application
