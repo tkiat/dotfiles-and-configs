@@ -1,19 +1,27 @@
 (use-modules
   (gnu)
   (gnu system nss)
+  (gnu services mcron)
   (tkiat packages tkiat-dmenu)
   (tkiat packages tkiat-dwm)
   (tkiat packages tkiat-slock)
   (tkiat packages tkiat-st))
+
 (use-service-modules
   authentication
   desktop
   xorg)
+
 (use-package-modules
   certs
   gnome
   shells
   suckless)
+
+(define newsboat-update-job
+  #~(job "0 * * * *"
+         "su - tkiat -c 'newsboat -x reload'"))
+
 (operating-system
   (host-name "tkiat")
   (timezone "Asia/Bangkok")
@@ -69,11 +77,10 @@
         (set-xorg-configuration
           (xorg-configuration
             (keyboard-layout keyboard-layout)))
-        (service enlightenment-desktop-service-type)
+        (simple-service 'my-cron-jobs
+                        mcron-service-type
+                        (list newsboat-update-job))
         (service fprintd-service-type)
-        (service gnome-desktop-service-type)
-        (service lxqt-desktop-service-type)
-        (service mate-desktop-service-type)
-        (service xfce-desktop-service-type))
+        (service gnome-desktop-service-type))
       %desktop-services))
   (name-service-switch %mdns-host-lookup-nss)) ;; Allow resolution of '.local' host names with mDNS.
