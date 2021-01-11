@@ -16,6 +16,7 @@ alias    df="df -h"
 alias    ls="ls --color --group-directories-first"
 alias    feh="feh --scale-down --auto-zoom"
 alias    free="free -h"
+# alias    info="info --vi-keys"
 alias    mc="EDITOR=vim mc"
 alias    ranger="EDITOR=vim ranger"
 alias    sudo='sudo ' # enable running alias as superuser

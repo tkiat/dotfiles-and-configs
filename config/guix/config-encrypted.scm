@@ -80,7 +80,6 @@
         (simple-service 'my-cron-jobs
                         mcron-service-type
                         (list newsboat-update-job))
-        (service fprintd-service-type)
         (service gnome-desktop-service-type))
       %desktop-services))
   (name-service-switch %mdns-host-lookup-nss)) ;; Allow resolution of '.local' host names with mDNS.

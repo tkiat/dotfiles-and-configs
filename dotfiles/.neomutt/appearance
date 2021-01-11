@@ -1,0 +1,4 @@
+# sidebar
+set imap_check_subscribed # show folders in sidebar
+set sidebar_visible
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"

@@ -1,0 +1,9 @@
+# general
+bind index h noop
+bind index l display-message
+bind index,pager,browser d half-down
+bind index,pager,browser u half-up
+# sidebar
+bind index,pager \Ck sidebar-prev # Previous Mailbox
+bind index,pager \Cj sidebar-next # Next Mailbox
+bind index,pager \Co sidebar-open # Open Highlighted Mailbox#
