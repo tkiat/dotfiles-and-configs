@@ -4,6 +4,7 @@ bind index l display-message
 bind index,pager,browser d half-down
 bind index,pager,browser u half-up
 # sidebar
-bind index,pager \Ck sidebar-prev # Previous Mailbox
-bind index,pager \Cj sidebar-next # Next Mailbox
-bind index,pager \Co sidebar-open # Open Highlighted Mailbox#
+bind index,pager B sidebar-toggle-visible
+bind index,pager \Ck sidebar-prev
+bind index,pager \Cj sidebar-next
+bind index,pager \Co sidebar-open
