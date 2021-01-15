@@ -38,7 +38,15 @@ alias    2clipboard-set-withnewline="xclip -selection clipboard"
 function 2file-edit { $editor $(which $1) }
 alias    2file-find-symlink="find . -maxdepth 1 -type l" # symlink
 alias    2file-size="du -sh ./* | sort -h"
-function 2git-display-folders-status { for x in *; do echo $line_str && echo "Folder name: ${x}" && echo $line_str && git --work-tree=$x --git-dir=$x/.git status; done }
+function 2git-display-folders-not-update {
+	for x in $(\ls -d */)
+	do
+		cd $x
+		git fetch -q
+		[ "$(git rev-parse HEAD 2>/dev/null)" != "$(git rev-parse @{u} 2>/dev/null)" ] && echo $x
+		cd ..
+	done
+}
 alias    2go-cache-clear="go clean -cache -modcache -i -r"
 function 2goto-symlink { cd $(dirname $(readlink $1)) }
 alias    2grep-history="history 1 | grep "
