@@ -31,4 +31,3 @@ macro i set browser "icecat %u"; open-in-browser ; set browser w3m
 # refresh-on-startup yes
 show-read-articles no
 show-read-feeds no
-# show-title-bar yes

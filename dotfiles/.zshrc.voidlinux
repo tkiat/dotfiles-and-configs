@@ -1,0 +1,6 @@
+source ~/.zshrc.shared
+alias 2i-pkg="sudo xbps-install"
+alias 2q-pkg="xbps-query -Rs"
+alias 2r-cache="sudo rm /var/cache/xbps/* && sudo xbps-remove -Oo && sudo vkpurge rm all"
+alias 2r-pkg="sudo xbps-remove -R"
+alias 2u-os="sudo xbps-install -Su"

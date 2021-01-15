@@ -1,0 +1,5 @@
+source ~/.zshrc.shared
+alias 2i-pkg="sudo pkg install"
+alias 2q-pkg="pkg search"
+alias 2r-pkg="sudo pkg delete"
+alias 2u-os="sudo freebsd-update fetch && sudo freebsd-update install"

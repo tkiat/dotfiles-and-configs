@@ -1,0 +1,6 @@
+source ~/.zshrc.shared
+alias 2i-pkg="sudo pacman -S"
+alias 2q-pkg="pacman -Ss"
+alias 2r-cache="sudo pacman -Scc"
+alias 2r-pkg="sudo pacman -R"
+alias 2u-os="sudo pacman -Syu"
