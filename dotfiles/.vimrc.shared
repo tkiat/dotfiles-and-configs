@@ -161,6 +161,7 @@ nnoremap <leader>ss mq:%s/\s\+$//<cr>`q
 " toggle highlight
 nnoremap <expr> <leader>hl (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 " ========================================
+nnoremap <leader>f :execute "normal! i" . expand('%:tr')<CR>
 "                              Scope: File
 " ========================================
 " asciidoctor autoconvert after save, note! must open file directly like vim <filename>, not vim .

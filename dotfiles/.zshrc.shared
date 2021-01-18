@@ -42,7 +42,7 @@ function 2git-display-folders-not-update {
 	for x in $(\ls -d */)
 	do
 		cd $x
-		git fetch -q
+		git fetch -q 1>/dev/null
 		[ "$(git rev-parse HEAD 2>/dev/null)" != "$(git rev-parse @{u} 2>/dev/null)" ] && echo $x
 		cd ..
 	done
@@ -50,6 +50,7 @@ function 2git-display-folders-not-update {
 alias    2go-cache-clear="go clean -cache -modcache -i -r"
 function 2goto-symlink { cd $(dirname $(readlink $1)) }
 alias    2grep-history="history 1 | grep "
+alias    2grep-current-dir="grep -nrw . -e "
 alias    2grub-make="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias    2keyring-download-gnu="wget https://ftp.gnu.org/gnu/gnu-keyring.gpg"
 alias    2list-dir="\ls -d */ | cut -d '/' -f 1"
@@ -62,6 +63,7 @@ function 2pdf-merge {
 }
 alias    2ping="ping gnu.org"
 function 2port-kill { sudo fuser -k $1/tcp }
+alias    2primary-get="xclip -o -selection primary"
 function 2run-background {
 	$1 > /dev/null 2>&1 &
 	disown
