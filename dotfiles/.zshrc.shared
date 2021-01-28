@@ -37,6 +37,7 @@ alias    2clipboard-set="tr -d '\n' | xclip -selection clipboard" # usage: pwd |
 alias    2clipboard-set-withnewline="xclip -selection clipboard"
 function 2file-edit { $editor $(which $1) }
 alias    2file-find-symlink="find . -maxdepth 1 -type l" # symlink
+alias    2file-find-nopair="for f in $(find .); do echo ${f%.*}; done | sort | uniq -u" # pair = file with same name but different ext.
 alias    2file-size="du -sh ./* | sort -h"
 function 2git-display-folders-not-update {
 	for x in $(\ls -d */)
@@ -68,6 +69,7 @@ function 2run-background {
 	$1 > /dev/null 2>&1 &
 	disown
 }
+alias    2set-cpufreq-ondemand="for i in $(seq -s ' ' $(nproc)); do sudo cpufreq-set -c 1 -g ondemand; done"
 alias    2suspend="su - root -c 'echo mem > /sys/power/state'"
 function 2tab-title-change { echo -en "\e]2;$1\a" }
 # ----------------------------------------

@@ -12,14 +12,6 @@
 " ========================================
 "                    Scope: Local Variable
 " ========================================
-let s:char_html_escape={
-	\'&': '&amp;',
-	\">": "&gt;",
-	\'<': '&lt;',
-	\'1sp': '&nbsp;',
-	\'2sp': '&ensp;',
-	\'4sp': '&emsp;'
-\}
 let s:char_closing_braces=['{}','()','[]']
 let s:char_surround_insertmode=s:char_closing_braces + ['""', "''"]
 let s:char_surround=s:char_surround_insertmode + ['**','<>']
@@ -66,7 +58,7 @@ let s:commentgroup=[
 	\},
 	\{
 		\'comment-symbol': '<!-- -->',
-		\'ext': '*.html',
+		\'ext': '*.html,*.md',
 		\'comment-line': 'mqI<!--<esc>A--><esc>`qllll',
 		\'comment-visual': ':s/^/<!--/g<cr>gv:s/$/-->/g<cr>:nohl<cr>',
 		\'uncomment-line': 'mqI<del><del><del><del><esc>A<bs><bs><bs><esc>`qhhhh',
@@ -80,25 +72,40 @@ let template_dir='~/.vim/template/'
 "                         Scope: Character
 " ========================================
 set backspace=indent,eol,start " make backspace to work
+let s:char_closing_braces=['{}','()','[]']
 for val in s:char_closing_braces
-	exe 'inoremap '.val[0].'<CR> '.val[0].'<CR>'.val[1].'<Esc>ko<tab>'
-endfor
-for val in s:char_surround_insertmode
+	" generate closing braces automatically
 	exe 'inoremap '.val[0].' '.val[0].val[1].'<Esc>i'
+	" generate closing braces automatically with tab when pressing enter
+	exe 'inoremap '.val[0].'<CR> '.val[0].'<CR>'.val[1].'<Esc>ko<tab>'
 endfor
 " ========================================
 "                              Scope: Word
 " ========================================
-" html escape
+" print current file name
+nnoremap <leader>f :execute "normal! a" . expand('%:t:r')<CR>
+" html escape (ex. &esc -> &amp;)
+let s:char_html_escape={
+	\'&': '&amp;',
+	\">": "&gt;",
+	\'<': '&lt;',
+	\'1sp': '&nbsp;',
+	\'2sp': '&ensp;',
+	\'4sp': '&emsp;'
+\}
 for [key, val] in items(s:char_html_escape)
 	exe 'inoremap '.key.'esc '.val
 endfor
-" enclose word under cursor by symbols
-for val in s:char_surround
+" enclose word under cursor by symbols TODO multi-line not working
+let s:char_surround_temp=['{}','()','[]','""',"''",'**','<>','``']
+for val in s:char_surround_temp
 	exe 'nnoremap <leader>'.val[0].' ciw'.val[0].val[1].'<esc>Pl'
+	if val[0] !=# val[1]
+		exe 'nnoremap <leader>'.val[1].' ciw'.val[0].val[1].'<esc>Pl'
+	endif
 endfor
-" delete enclose char
-nnoremap <leader>d mqdiwpbXX`qh
+" delete braces pair
+nnoremap <leader>d %x``x
 " abbreviation
 inoreabbrev shebang #!/usr/bin/env
 inoreabbrev bestregards <bs><cr><cr>Best regards,<cr>Theerawat Kiatdarakun
@@ -114,7 +121,7 @@ exe 'nnoremap <leader>tv <ESC>:r '.template_dir.'vue.template<CR>kdd'
 "                              Scope: Line
 " ========================================
 " comment and uncomment
-for i in range(0,4)
+for i in range(0,5)
 	exe ':autocmd BufNewFile,BufRead '.s:commentgroup[i]['ext'].' nnoremap <buffer> <leader>c '.s:commentgroup[i]['comment-line']
 	exe ':autocmd BufNewFile,BufRead '.s:commentgroup[i]['ext'].' nnoremap <buffer> <leader>u '.s:commentgroup[i]['uncomment-line']
 endfor
@@ -129,8 +136,10 @@ nnoremap <leader>o mqo<esc>`q
 " ========================================
 "                     Scope: Visual Select
 " ========================================
+exe 'vnoremap <leader>U mq:s/\<./\u&/g<cr>`q'
+exe 'vnoremap <leader><space> mq:s/[-_]\+/ /g<cr>`q'
 " surround visual select with characters
-for val in s:char_surround
+for val in s:char_surround_temp
 	exe 'vnoremap <leader>'.val[0].' mq:s/\%V.*\%V./'.val[0].'&'.val[1].'/<cr>`qf'.val[1].':nohl<cr>'
 	if val[0] !=# val[1]
 		exe 'vnoremap <leader>'.val[1].' mq:s/\%V.*\%V./'.val[0].'&'.val[1].'/<cr>`qf'.val[1].':nohl<cr>'
@@ -139,7 +148,7 @@ endfor
 " map 2 tabs to 1 tab
 vnoremap <leader><tab><tab> :s/\%V\t\t/\t/g<cr>:nohl<cr>
 " comment and uncomment
-for i in range(0,4)
+for i in range(0,5)
 	exe ':autocmd BufNewFile,BufRead '.s:commentgroup[i]['ext'].' vnoremap <buffer> <leader>c '.s:commentgroup[i]['comment-visual']
 	exe ':autocmd BufNewFile,BufRead '.s:commentgroup[i]['ext'].' vnoremap <buffer> <leader>u '.s:commentgroup[i]['uncomment-visual']
 endfor
@@ -159,11 +168,12 @@ exe 'nnoremap <leader><tab> mq:%s/\(^ *\)\@<= \{'.space_per_tab.'\}/<tab>/g<cr>`
 " strip trailing whitespace
 nnoremap <leader>ss mq:%s/\s\+$//<cr>`q
 " toggle highlight
-nnoremap <expr> <leader>hl (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+" nnoremap <expr> <leader>hl (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 " ========================================
-nnoremap <leader>f :execute "normal! i" . expand('%:tr')<CR>
 "                              Scope: File
 " ========================================
+" markdown
+autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownError "\w\@<=\w\@="
 " asciidoctor autoconvert after save, note! must open file directly like vim <filename>, not vim .
 let s:asciidoctor_stylesdir='/home/'.$USER.'/Git/assets/stylesheets/asciidoctor-custom/'
 function AsciiDocToHTML()
@@ -193,14 +203,24 @@ let g:netrw_liststyle = 3 " tree listing style"
 " disable scratch preview
 set completeopt-=preview
 " ========================================
+"                               Scope: Tab
+" ========================================
+nnoremap <leader>gm :tabm0<cr>
+" ========================================
 "               Scope: Configs and Plugins
 " ========================================
+" reset syntax highlighting
+hi clear
+syntax reset
+syntax on
+
 colorscheme tkiat
 " Set
 set autoindent " auto indent next line
 set cursorline " highlight current line
 set foldmethod=indent
-set hlsearch " highlight searches
+" set hlsearch " highlight searches
+set nohls
 set incsearch " highlight while still typing search
 set list " enable listchars
 set listchars=eol:$,tab:\|-,trail:_

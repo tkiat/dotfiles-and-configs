@@ -1,11 +1,6 @@
 " Made by Theerawat Kiatdarakun
 " Note - I use only ctermbg, not guibg. Same for ctermfg
 " Suggested reading :help *highlight-groups*
-
-" reset syntax highlighting
-hi clear
-syntax reset
-syntax on
 " colorscheme name
 let g:colors_name = "tkiatd"
 " set 256 colors
