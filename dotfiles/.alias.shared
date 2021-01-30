@@ -1,0 +1,27 @@
+# Aythor: Theerawat Kiatdarakun
+# All are POSIX compatible (to test: shellcheck --shell dash <thisfile>)
+
+# overwrite default
+alias df="df -h"
+alias egrep='egrep --color=auto'
+alias feh="feh --scale-down --auto-zoom"
+alias fgrep='fgrep --color=auto'
+alias free="free -h"
+alias grep='grep --color=auto'
+alias ls="ls -F --group-directories-first"
+alias mc="EDITOR=vim mc"
+alias ranger="EDITOR=vim ranger"
+alias sudo='sudo ' # enable running alias as superuser$
+
+# typo gotcha
+alias gf="fg"
+alias sl="ls"
+
+# new entry
+alias ..='cd ..'
+alias abrightness-change="[ -x '$(command -v xrandr)' ] && xrandr --output LVDS-1 --brightness"
+alias aclipboard_get="xclip -o -selection clipboard"
+alias aclipboard_set="tr -d '\n' | xclip -selection clipboard" # usage: pwd | 2clipboard-set
+alias aclipboard_set_withnewline="xclip -selection clipboard"
+      ae() { vim "$(command -v "$1")" ;}
+      als_exclude_same_name_diff_ext() { for f in *; do echo "${f%.*}"; done | sort | uniq -u ;}

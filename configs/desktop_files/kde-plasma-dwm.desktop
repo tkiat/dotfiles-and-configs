@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=XSession
+Exec=/usr/local/bin/dwm
+TryExec=/usr/bin/startkde
+DesktopNames=KDE
+Name=dwm
+Comment=dwm
+X-KDE-PluginInfo-Version=5.14.5
+# Exec=env KDEWM=/usr/local/bin/dwm /usr/bin/startkde
