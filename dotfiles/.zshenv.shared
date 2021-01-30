@@ -23,7 +23,7 @@ alias qutebrowser="qutebrowser --target private-window"
 local git_dir=~/Git
 if [ -d $git_dir/scripts/ ]; then
   for dir in $git_dir/scripts/*; do
-    if [[ $(basename $dir) == file || $(basename $dir) == general ]]; then
+    if [[ $(basename $dir) == file || $(basename $dir) == general || $(basename $dir) == posix ]]; then
       export PATH=$PATH:$dir
     fi
   done
