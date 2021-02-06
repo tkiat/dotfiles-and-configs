@@ -1,5 +1,5 @@
 # Aythor: Theerawat Kiatdarakun
-# All are POSIX compatible (to test: shellcheck --shell dash <thisfile>)
+# All are bash compatible (to test: shellcheck --shell bash <thisfile>)
 
 # overwrite default
 alias df="df -h"
@@ -19,9 +19,12 @@ alias sl="ls"
 
 # new entry
 alias ..='cd ..'
-alias abrightness-change="[ -x '$(command -v xrandr)' ] && xrandr --output LVDS-1 --brightness"
-alias aclipboard_get="xclip -o -selection clipboard"
-alias aclipboard_set="tr -d '\n' | xclip -selection clipboard" # usage: pwd | 2clipboard-set
-alias aclipboard_set_withnewline="xclip -selection clipboard"
-      ae() { vim "$(command -v "$1")" ;}
-      als_exclude_same_name_diff_ext() { for f in *; do echo "${f%.*}"; done | sort | uniq -u ;}
+alias ...='cd ../..'
+alias 2brightness-change="[ -x '$(command -v xrandr)' ] && xrandr --output LVDS-1 --brightness"
+alias 2clipboard-get="xclip -o -selection clipboard"
+alias 2clipboard-set="tr -d '\n' | xclip -selection clipboard" # usage: pwd | 2clipboard-set
+alias 2clipboard-set_withnewline="xclip -selection clipboard"
+      2e() { vim "$(command -v "$1")" ;}
+alias 2file-size="du -a --max-depth=1 --si | awk -F' ' '{ if (\$2 != \".\") {print} }' | sort -h && echo This is SI format"
+alias 2git-sort-size="git rev-list --objects --all | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' | sed -n 's/^blob //p' | sort --numeric-sort --key=2 | cut -c 1-12,41- | $(command -v gnumfmt || echo numfmt) --field=2 --to=iec-i --suffix=B --padding=7 --round=neares"
+      2ls-exclude-same-name-diff-ext() { for f in *; do echo "${f%.*}"; done | sort | uniq -u ;}

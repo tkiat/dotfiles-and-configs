@@ -76,7 +76,7 @@ let gm9=['Folded']
 let gm9_custom=[{'name':'CursorLine','cterm':'none','ctermbg':hc9},{'name':'CursorLineNr','cterm':'bold,italic','ctermfg':tc9,'ctermbg':hc9}]
 " group 10: highlight: general (bright)
 let tc10=b:xterm000
-let hc10=b:xterm255
+let hc10=b:xterm252
 let gm10=['Pmenu', 'StatusLineTerm', 'TablineSel', 'Visual']
 let gm10_reversed=['PmenuSbar', 'StatusLine']
 " group 11: highlight: general (dim)

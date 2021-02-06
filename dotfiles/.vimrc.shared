@@ -172,6 +172,7 @@ nnoremap <leader>ss mq:%s/\s\+$//<cr>`q
 " ========================================
 "                              Scope: File
 " ========================================
+nnoremap <leader>sc :set colorcolumn=
 " markdown
 autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownError "\w\@<=\w\@="
 " asciidoctor autoconvert after save, note! must open file directly like vim <filename>, not vim .
@@ -218,6 +219,7 @@ colorscheme tkiat
 " Set
 set autoindent " auto indent next line
 set cursorline " highlight current line
+set expandtab " auto-indent with spaces instead of tabs
 set foldmethod=indent
 " set hlsearch " highlight searches
 set nohls
