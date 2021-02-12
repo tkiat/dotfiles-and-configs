@@ -1,0 +1,8 @@
+#!/usr/bin/env dash
+git_dir=~/Git/dotfiles-and-configs
+# bash
+[ ! -f ~/.bash_profile ] && ln -sf $git_dir/bash/.bash_profile ~
+# channels
+[ ! -f ~/.config/guix/channels.scm ] && ln -sf $git_dir/guix/channels.scm ~/.config/guix
+# zsh
+[ ! -f ~/.zshrc ] && ln -sf $git_dir/zsh/.zshrc.guix ~/.zshrc

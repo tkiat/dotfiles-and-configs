@@ -2,7 +2,7 @@
 git_dir=~/Git/dotfiles-and-configs
 private_dir=~/Git/private
 # alias
-[ ! -f ~/.alias.shared ] && ln -sf $git_dir/.alias.shared ~
+[ ! -f ~/.alias.shared ] && ln -sf $git_dir/alias/.alias.shared ~
 # asoundrc
 [ ! -f ~/.asoundrc ] && ln -sf $git_dir/alsa/.asoundrc ~
 # bash

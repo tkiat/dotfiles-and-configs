@@ -37,6 +37,7 @@
                 (name "tkiat")
                 (comment "tkiat")
                 (group "users")
+                ;;; (shell #~(string-append #$zsh "/bin/zsh"))
                 (supplementary-groups '("wheel" "netdev"
                                         "audio" "video"))
                 (shell #~(string-append #$zsh "/bin/zsh")))

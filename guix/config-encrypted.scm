@@ -15,6 +15,7 @@
   xorg)
 
 (use-package-modules
+  bash
   certs
   gnome
   shells
@@ -63,7 +64,7 @@
           (name "tkiat")
           (comment "Theerawat Kiatdarakun")
           (group "users")
-          (shell #~(string-append #$zsh "/bin/zsh"))
+          (shell (file-append bash "/bin/bash"))
           (supplementary-groups '("wheel" "netdev" "audio" "video" "lp" "cdrom" "tape" "kvm"))))
       %base-user-accounts))
   (packages
@@ -71,14 +72,6 @@
       (list nss-certs
             tkiat-dwm tkiat-dmenu tkiat-st tkiat-slock)
       %base-packages))
-;;; TODO remove slock from desktop.scm or just create from base-scm
-;;;   (setuid-programs
-;;;     (append
-;;;       %setuid-programs
-;;;       (list
-;;;         (file-append tkiat-slock "/bin/slock"))))
-        ;;; (screen-locker-service tkiat-slock "tklock")
-        ;;; #~(string-append #$tkiat-slock "/bin/slock"))
   (services
     (append
       (list
@@ -96,8 +89,4 @@
             (cpu-scaling-governor-on-bat (list "powersave"))))
         (service gnome-desktop-service-type))
               %desktop-services))
-;;;       (remove (lambda (service)
-;;;         (member (service-kind service)
-;;;           (list (screen-locker-service slock))))
-;;;               %desktop-services)))
   (name-service-switch %mdns-host-lookup-nss)) ;; Allow resolution of '.local' host names with mDNS.
