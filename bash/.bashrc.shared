@@ -4,9 +4,7 @@ case $- in
       *) return;;
 esac
 # alias
-if [ -f ~/.alias.shared ]; then
-    . ~/.alias.shared
-fi
+[ -f ~/.alias.shared ] && . ~/.alias.shared
 # PATH
 export PATH=$PATH:~/Git/scripts/shell/
 # history
