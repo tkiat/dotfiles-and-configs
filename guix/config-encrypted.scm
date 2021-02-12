@@ -2,6 +2,7 @@
   (gnu)
   (gnu system nss)
   (gnu services mcron)
+  (rnrs lists)
   (tkiat packages tkiat-dmenu)
   (tkiat packages tkiat-dwm)
   (tkiat packages tkiat-slock)
@@ -10,6 +11,7 @@
 (use-service-modules
   authentication
   desktop
+  pm
   xorg)
 
 (use-package-modules
@@ -69,6 +71,14 @@
       (list nss-certs
             tkiat-dwm tkiat-dmenu tkiat-st tkiat-slock)
       %base-packages))
+;;; TODO remove slock from desktop.scm or just create from base-scm
+;;;   (setuid-programs
+;;;     (append
+;;;       %setuid-programs
+;;;       (list
+;;;         (file-append tkiat-slock "/bin/slock"))))
+        ;;; (screen-locker-service tkiat-slock "tklock")
+        ;;; #~(string-append #$tkiat-slock "/bin/slock"))
   (services
     (append
       (list
@@ -80,6 +90,14 @@
         (simple-service 'my-cron-jobs
                         mcron-service-type
                         (list newsboat-update-job))
+        (service tlp-service-type
+          (tlp-configuration
+            (cpu-scaling-governor-on-ac (list "ondemand"))
+            (cpu-scaling-governor-on-bat (list "powersave"))))
         (service gnome-desktop-service-type))
-      %desktop-services))
+              %desktop-services))
+;;;       (remove (lambda (service)
+;;;         (member (service-kind service)
+;;;           (list (screen-locker-service slock))))
+;;;               %desktop-services)))
   (name-service-switch %mdns-host-lookup-nss)) ;; Allow resolution of '.local' host names with mDNS.

@@ -14,6 +14,7 @@ alias    df="df -h"
 alias    ls="ls --color --group-directories-first"
 alias    feh="feh --scale-down --auto-zoom"
 alias    free="free -h"
+alias    xpdf="xpdf -z width"
 	# alias    info="info --vi-keys"
 alias    mc="EDITOR=vim mc"
 alias    ranger="EDITOR=vim ranger"
@@ -35,6 +36,7 @@ alias    2brightness-change="[ -x '$(command -v xrandr)' ] && xrandr --output LV
 alias    2clipboard-get="xclip -o -selection clipboard"
 alias    2clipboard-set="tr -d '\n' | xclip -selection clipboard" # usage: pwd | 2clipboard-set
 alias    2clipboard-set-withnewline="xclip -selection clipboard"
+alias    2replace-newline="tr '\n' ' '"
 function 2file-edit { $editor $(which $1) }
 alias    2file-find-symlink="find . -maxdepth 1 -type l" # symlink
 alias    2file-size="du -sh ./* | sort -h"
@@ -68,7 +70,7 @@ function 2run-background {
 	$1 > /dev/null 2>&1 &
 	disown
 }
-alias    2set-cpufreq-ondemand="for i in $(seq -s ' ' $(nproc)); do sudo cpufreq-set -c 1 -g ondemand; done"
+alias    2cpu-setfreq-ondemand="for i in {0..$(($(nproc)-1))}; do sudo cpufreq-set -c \$i -g ondemand; done"
 alias    2suspend="su - root -c 'echo mem > /sys/power/state'"
 function 2tab-title-change { echo -en "\e]2;$1\a" }
 # ----------------------------------------
