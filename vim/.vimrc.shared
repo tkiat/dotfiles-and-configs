@@ -18,7 +18,7 @@ let s:char_surround=s:char_surround_insertmode + ['**','<>']
 let s:commentgroup=[
 	\{
 		\'comment-symbol': '#',
-		\'ext': '*.bash,*dash,*.gitignore,*.py,*.rec,*.sh,*.tf,*.tmux.conf,*.yml,*.zprofile,*.zshenv,*.zshrc\(\.shared\)\=',
+		\'ext': '*.bash,*.bashrc\(\.shared\)\=,*dash,*.gitignore,*.py,*.rec,*.sh,*.tf,*.tmux.conf,*.yml,*.zprofile,*.zshenv,*.zshrc\(\.shared\)\=',
 		\'comment-line': 'mqI# <esc>`qll',
 		\'comment-visual': ':s/^\%V/# /g<cr>:nohl<cr>',
 		\'uncomment-line': 'mqI<del><del><esc>`qhh',
@@ -26,7 +26,7 @@ let s:commentgroup=[
 	\},
 	\{
 		\'comment-symbol': '//',
-		\'ext': '*.adoc,*.c,*.go,*.h,*.js,*.cpp',
+		\'ext': '*.adoc,*.c,*.dot,*.go,*.h,*.js,*.cpp',
 		\'comment-line': 'mqI// <esc>`qll',
 		\'comment-visual': ':s/^\%V/\/\/ /g<cr>:nohl<cr>',
 		\'uncomment-line': 'mqI<del><del><del><esc>`qhh',
@@ -222,6 +222,7 @@ set cursorline " highlight current line
 set expandtab " auto-indent with spaces instead of tabs
 set foldmethod=indent
 " set hlsearch " highlight searches
+set nofixendofline
 set nohls
 set incsearch " highlight while still typing search
 set list " enable listchars

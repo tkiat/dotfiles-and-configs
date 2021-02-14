@@ -17,7 +17,7 @@
 (use-package-modules
   bash
   certs
-  gnome
+  lxqt
   shells
   suckless)
 
@@ -87,6 +87,7 @@
           (tlp-configuration
             (cpu-scaling-governor-on-ac (list "ondemand"))
             (cpu-scaling-governor-on-bat (list "powersave"))))
-        (service gnome-desktop-service-type))
+        (service lxqt-desktop-service-type))
+        ;;; (service gnome-desktop-service-type))
               %desktop-services))
   (name-service-switch %mdns-host-lookup-nss)) ;; Allow resolution of '.local' host names with mDNS.
