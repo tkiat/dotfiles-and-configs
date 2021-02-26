@@ -1,76 +1,93 @@
-;; This is an operating system configuration template
-;; for a "desktop" setup with GNOME and Xfce where the
-;; root partition is encrypted with LUKS.
+(use-modules
+  (gnu)
+  (gnu system nss)
+  (gnu services mcron)
+  (rnrs lists)
+  (tkiat packages tkiat-dmenu)
+  (tkiat packages tkiat-dwm)
+  (tkiat packages tkiat-slock)
+  (tkiat packages tkiat-st))
 
-(use-modules (gnu) (gnu system nss) (srfi srfi-1)
-             (tkiat packages tkiat-dmenu)
-             (tkiat packages tkiat-dwm)
-             (tkiat packages tkiat-slock)
-             (tkiat packages tkiat-st))
-(use-service-modules base desktop networking sound ssh xorg)
-(use-package-modules certs gnome linux shells suckless)
+(use-service-modules
+  authentication
+  desktop
+  pm
+  xorg)
+
+(use-package-modules
+  bash
+  certs
+  lxqt
+  shells
+  suckless)
+
+(define newsboat-update-job
+  #~(job "0 * * * *"
+         "su - tkiat -c 'newsboat -x reload'"))
 
 (operating-system
   (host-name "tkiat")
   (timezone "Asia/Bangkok")
   (locale "en_US.utf8")
-  (kernel linux-libre)
-  (keyboard-layout (keyboard-layout "us" "altgr-intl"))
-
-  (bootloader (bootloader-configuration
-                (bootloader grub-bootloader)
-                (target "/dev/sda")
-                (keyboard-layout keyboard-layout)))
-
-  (file-systems (append
-                 (list (file-system
-                         (device (file-system-label "root"))
-                         (mount-point "/")
-                         (type "ext4")))
-                 %base-file-systems))
-
-  (firmware %base-firmware)
-
-  (swap-devices '("/dev/sda2"))
-
-  (users (cons (user-account
-                (name "tkiat")
-                (comment "tkiat")
-                (group "users")
-                ;;; (shell #~(string-append #$zsh "/bin/zsh"))
-                (supplementary-groups '("wheel" "netdev"
-                                        "audio" "video"))
-                (shell #~(string-append #$zsh "/bin/zsh")))
-               %base-user-accounts))
-
-  (packages (append (list
-         tkiat-dwm tkiat-dmenu tkiat-st tkiat-slock
-                     nss-certs ;; for HTTPS access
-                     gvfs) ;; for user mounts
-                    %base-packages))
-
-  (services (append (list (service wpa-supplicant-service-type
-           (wpa-supplicant-configuration
-             (interface "wlp0s29f7u2")
-             (config-file "/etc/wpa_supplicant.conf")))
-                          (service openssh-service-type
-                                   (openssh-configuration
-                                     (x11-forwarding? #t)
-                                     (permit-root-login 'without-password)))
-                          ;;; (service static-networking-service-type)
-                          (service dhcp-client-service-type))
-        (remove (lambda (service)
-            (member (service-kind service) (list network-manager-service-type
-                  pulseaudio-service-type
-                  wpa-supplicant-service-type)))
-                %desktop-services)))
-;;;             (modify-services %desktop-services
-;;;               (network-manager-service-type config =>
-;;;                 (network-manager-configuration
-;;;                   (dns "dnsmasq")))))))
-;;;         (modify-services %desktop-services
-;;;           (alsa-service-type config =>
-;;;             (alsa-configuration
-;;;               (pulseaudio? #f)))))))
-  ;;(remove (lambda (x) (member x '(a b c))) '(a b d))
+  (keyboard-layout
+    (keyboard-layout "us"
+                     "altgr-intl")) ;; The "altgr-intl" variant provides dead keys for accented characters.
+  (bootloader
+    (bootloader-configuration
+      (bootloader
+        (bootloader
+          (inherit grub-bootloader)
+          (installer #~(const #t))))
+      (keyboard-layout keyboard-layout)))
+  (mapped-devices
+    (list
+      (mapped-device
+        (source
+          (uuid "b55ff2af-b0d6-408b-a863-91f0236f9c66"))
+          (target "root-encrypted")
+          (type luks-device-mapping))))
+  (file-systems
+    (append
+      (list
+        (file-system
+          (device
+            (file-system-label "Guix"))
+          (mount-point "/")
+          (type "btrfs")
+          (dependencies mapped-devices)))
+        %base-file-systems))
+  (swap-devices '("/swapfile"))
+  (users
+    (append
+      (list
+        (user-account
+          (name "tkiat")
+          (comment "Theerawat Kiatdarakun")
+          (group "users")
+          (shell (file-append bash "/bin/bash"))
+          (supplementary-groups '("wheel" "netdev" "audio" "video" "lp" "cdrom" "tape" "kvm"))))
+      %base-user-accounts))
+  (packages
+    (append
+      (list nss-certs
+            tkiat-dwm tkiat-dmenu tkiat-st tkiat-slock)
+      %base-packages))
+  (services
+    (append
+      (list
+        (extra-special-file "/usr/bin/env"
+          (file-append coreutils "/bin/env"))
+        (set-xorg-configuration
+          (xorg-configuration
+            (keyboard-layout keyboard-layout)))
+        (simple-service 'my-cron-jobs
+                        mcron-service-type
+                        (list newsboat-update-job))
+        (service tlp-service-type
+          (tlp-configuration
+            (cpu-scaling-governor-on-ac (list "ondemand"))
+            (cpu-scaling-governor-on-bat (list "powersave"))))
+        (service lxqt-desktop-service-type))
+        ;;; (service gnome-desktop-service-type))
+              %desktop-services))
   (name-service-switch %mdns-host-lookup-nss)) ;; Allow resolution of '.local' host names with mDNS.

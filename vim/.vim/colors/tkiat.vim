@@ -5,6 +5,7 @@
 let g:colors_name = "tkiatd"
 " set 256 colors
 set t_Co=256
+set background=dark
 " ========================================
 "          Set all highlight groups to red
 "                      for testing purpose
@@ -39,24 +40,24 @@ endfor
 " group 1
 let tc1=b:xterm214
 let hc1='NONE'
-let gm1=['Boolean', 'Directory', 'Float', 'Number', 'String']
+let gm1=['Directory', 'Constant']
 " group 2
 let tc2=b:xterm149
 let hc2='NONE'
-let gm2=['Conditional', 'Exception', 'Label', 'Repeat', 'Statement']
+let gm2=['Statement']
 " group 3
 let tc3=b:xterm015
 let hc3=b:xterm233
-let gm3=['Normal', 'Operator', 'Question', 'ModeMsg']
+let gm3=['Normal', 'ModeMsg', 'Question', 'Title']
 let gm3_reversed=['TabLineFill']
 " group 4
 let tc4=b:xterm245
 let hc4='NONE'
-let gm4=['Comment', 'Delimiter', 'EndOfBuffer', 'LineNr']
+let gm4=['Comment', 'LineNr']
 " group 5
 let tc5=b:xterm123
 let hc5='NONE'
-let gm5=['Keyword', 'Type', 'Typedef', 'StorageClass', 'Structure']
+let gm5=['Type']
 " group 6
 let tc6=b:xterm205
 let hc6='NONE'
@@ -64,7 +65,7 @@ let gm6=['Special']
 " group 7
 let tc7=b:xterm075
 let hc7='NONE'
-let gm7=['Function', 'Identifier', 'Preproc']
+let gm7=['Identifier', 'Preproc']
 " group 8
 let tc8=b:xterm067
 let hc8='NONE'
@@ -72,7 +73,7 @@ let gm8=['Nontext', 'Specialkey']
 " group 9: highlight: row
 let tc9=b:xterm245
 let hc9=b:xterm236
-let gm9=['Folded']
+let gm9=['Folded','FoldColumn']
 let gm9_custom=[{'name':'CursorLine','cterm':'none','ctermbg':hc9},{'name':'CursorLineNr','cterm':'bold,italic','ctermfg':tc9,'ctermbg':hc9}]
 " group 10: highlight: general (bright)
 let tc10=b:xterm000
@@ -86,16 +87,13 @@ let gm11=['PmenuThumb', 'PmenuSel', 'StatusLineTermNC', 'TabLine']
 let gm11_reversed=['StatusLineNC']
 " group 12: highlight: error
 let tc12=b:xterm015
-let hc12=b:xterm001
-let gm12=['Error', 'ErrorMsg']
+let hc12=b:xterm009
+let gm12=['Error', 'ErrorMsg', 'DiffDelete']
 " group 13: highlight: search
 let tc13=b:xterm000
 let hc13=b:xterm214
-let gm13=['Search']
-" group 14: highlight: more focus
-let tc14=b:xterm000
-let hc14=b:xterm166
-let gm14_reversed=['IncSearch', 'MatchParen']
+let gm13=['Search', 'DiffAdd', 'DiffChange']
+let gm13_reversed=['IncSearch', 'MatchParen']
 " ========================================
 "               Apply all group highlights
 " ========================================

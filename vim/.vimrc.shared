@@ -9,6 +9,9 @@
 " Scope: File
 " Scope: Configuration
 " Scope: Plugin
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 " ========================================
 "                    Scope: Local Variable
 " ========================================
@@ -104,7 +107,7 @@ for val in s:char_surround_temp
 		exe 'nnoremap <leader>'.val[1].' ciw'.val[0].val[1].'<esc>Pl'
 	endif
 endfor
-" delete braces pair
+" delete braces pair - work only if cursor at left part
 nnoremap <leader>d %x``x
 " abbreviation
 inoreabbrev shebang #!/usr/bin/env
@@ -163,12 +166,13 @@ let @/ = ""
 nnoremap <leader>/ viw"qy/<C-r>q<cr>N
 " replace current word
 nnoremap <leader>R viw"qy:%s/<C-r>q//g<left><left>
+nnoremap <leader>r viw"qy:s/<C-r>q//g<left><left>
 " replace spaces at beginning with tab(s)
 exe 'nnoremap <leader><tab> mq:%s/\(^ *\)\@<= \{'.space_per_tab.'\}/<tab>/g<cr>`q'
 " strip trailing whitespace
 nnoremap <leader>ss mq:%s/\s\+$//<cr>`q
 " toggle highlight
-" nnoremap <expr> <leader>hl (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+nnoremap <expr> <leader>hl (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 " ========================================
 "                              Scope: File
 " ========================================
@@ -203,6 +207,8 @@ let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro nornu' " enable line num
 let g:netrw_liststyle = 3 " tree listing style"
 " disable scratch preview
 set completeopt-=preview
+" start help in a new tab
+cnoremap help tab help
 " ========================================
 "                               Scope: Tab
 " ========================================
@@ -215,7 +221,7 @@ hi clear
 syntax reset
 syntax on
 
-colorscheme tkiat
+colorscheme test
 " Set
 set autoindent " auto indent next line
 set cursorline " highlight current line
