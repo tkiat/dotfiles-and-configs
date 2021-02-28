@@ -193,7 +193,7 @@ autocmd BufWritePost article.adoc :call AsciiDocToHTML()
 nnoremap <leader>s :update<cr>
 vnoremap <leader>s <c-c>:update<cr>
 " open file
-nnoremap <leader>oc :vsplit ~/.vim/colors/tkiat.vim<cr>
+" nnoremap <leader>oc :vsplit ~/.vim/colors/tkiat.vim<cr>
 nnoremap <leader>ov :vsplit $MYVIMRC<cr>
 nnoremap <leader>ovs :vsplit ~/.vimrc.shared<cr>
 nnoremap <leader>ozc :vsplit ~/.zshrc<cr>
@@ -221,7 +221,8 @@ hi clear
 syntax reset
 syntax on
 
-colorscheme test
+nnoremap <leader>cl :colorscheme custom-light<cr>
+nnoremap <leader>cd :colorscheme custom-dark<cr>
 " Set
 set autoindent " auto indent next line
 set cursorline " highlight current line
