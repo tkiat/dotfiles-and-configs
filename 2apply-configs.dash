@@ -1,6 +1,12 @@
 #!/usr/bin/env dash
 git_dir=~/Git/dotfiles-and-configs
 private_dir=~/Git/private
+
+# ensurePathExist() {
+#   path=$1
+#   [ ! -d $path ] && mkdir -p $path
+# }
+
 # alias
 [ ! -f ~/.alias.shared ] && ln -sf $git_dir/alias/.alias.shared ~
 # asoundrc
@@ -9,47 +15,51 @@ private_dir=~/Git/private
 [ ! -f ~/.bashrc.shared ] && ln -sf $git_dir/bash/.bashrc.shared ~
 [ ! -f ~/.bashrc ] && echo "source ~/.bashrc.shared" > ~/.bashrc
 # buku
-[ ! -d ~/.local/share/buku ] && mkdir -p ~/.local/share/buku
+mkdir -p ~/.local/share/buku
 [ ! -f ~/.local/share/buku/bookmarks.db ] && ln -sf $private_dir/buku/bookmarks.db ~/.local/share/buku
 # cmus
-[ ! -d ~/.config/cmus ] && mkdir -p ~/.config/cmus
+mkdir -p ~/.config/cmus
 [ ! -f ~/.config/cmus/rc ] && ln -sf $git_dir/cmus/rc ~/.config/cmus
 # gitconfig
 [ ! -f ~/.gitconfig ] && ln -sf $git_dir/git/.gitconfig ~
 # inputrc
 [ ! -f ~/.inputrc ] && ln -sf $git_dir/readline/.inputrc ~
 # mc
-[ ! -d ~/.config/mc ] && mkdir -p ~/.config/mc
+mkdir -p ~/.config/mc
 [ ! -f ~/.config/mc/hotlist ] && ln -sf $git_dir/mc/hotlist ~/.config/mc
 [ ! -f ~/.config/mc/mc.ext ] && ln -sf $git_dir/mc/mc.ext ~/.config/mc
 # neomutt
 [ ! -d ~/.neomutt/ ] && ln -sf $git_dir/neomutt/.neomutt ~
 # newsboat
-[ ! -d ~/.newsboat/ ] && mkdir ~/.newsboat
+mkdir -p ~/.newsboat
 [ ! -f ~/.newsboat/config ] && ln -sf $git_dir/newsboat/config ~/.newsboat/config
 [ ! -f ~/.newsboat/urls ] && ln -sf $private_dir/newsboat/urls ~/.newsboat/urls
 # ranger
-[ ! -d ~/.config/ranger ] && mkdir -p ~/.config/ranger
+mkdir -p ~/.config/ranger
 [ ! -f ~/.config/ranger/rc.conf ] && ln -sf $git_dir/ranger/rc.conf ~/.config/ranger
 # tmux
 [ ! -f ~/.tmux.conf ] && ln -sf $git_dir/tmux/.tmux.conf ~
 # unison
-[ ! -d ~/.unison ] && mkdir ~/.unison
+mkdir ~/.unison
 [ ! -f ~/.unison/default.prf ] && ln -sf $git_dir/unison/default.prf ~/.unison
-# vim
+# Vim
 [ ! -f ~/.vimrc.shared ] && ln -sf $git_dir/vim/.vimrc.shared ~
 [ ! -f ~/.vimrc ] && echo "source $HOME/.vimrc.shared" > ~/.vimrc
 
-[ ! -d ~/.vim/backup ] && mkdir -p ~/.vim/backup
-[ ! -d ~/.vim/swap ] && mkdir -p ~/.vim/swap
-[ ! -d ~/.vim/undo ] && mkdir -p ~/.vim/undo
-[ ! -d ~/.vim/colors ] && mkdir -p ~/.vim/colors
-[ ! -d ~/.vim/template ] && mkdir -p ~/.vim/template
+mkdir -p ~/.vim/backup
+mkdir -p ~/.vim/swap
+mkdir -p ~/.vim/undo
+mkdir -p ~/.vim/colors
+mkdir -p ~/.vim/template
 
 [ ! -f ~/.vim/colors/tkiat.vim ] && ln -sf $git_dir/vim/.vim/colors/tkiat.vim ~/.vim/colors
 for file in "$git_dir"/vim/.vim/template/*; do [ ! -f ~/.vim/template/"$(basename "$file")" ] && ln -sf "$file" ~/.vim/template/"$(basename "$file")"; done
+# Vim plugin: coc.nvim
+folder=~/.vim/pack/coc/start && mkdir -p $folder && [ ! -f $folder/coc-nvim-archive ] && cd $folder && curl --fail -L https://github.com/neoclide/coc.nvim/archive/release.tar.gz | tar xzfv - && cd -
+folder=~/.config/coc/extensions && mkdir -p $folder && [ ! -f $folder/package.json ] && echo '{"dependencies":{}}' > $folder/package.json
+[ -x "$(command -v npm)" ] && cd ~/.config/coc/extensions && npm_list=$(npm list) && for pkg in coc-html coc-json coc-python coc-tsserver coc-yaml; do ! echo $npm_list | grep -q $pkg && npm install $pkg; done && cd -
 # w3m
-[ ! -d ~/.w3m ] && mkdir ~/.w3m
+mkdir ~/.w3m
 [ ! -f ~/.w3m/keymap ] && ln -sf $git_dir/w3m/keymap ~/.w3m
 # xpdfrc
 [ ! -f ~/.xpdfrc ] && ln -sf $git_dir/xorg/.xpdfrc ~
