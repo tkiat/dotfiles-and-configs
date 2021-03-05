@@ -9,6 +9,7 @@ alias feh="feh --scale-down --auto-zoom"
 alias fgrep='fgrep --color=auto'
 alias free="free -h"
 alias grep='grep --color=auto'
+alias less='less -r'
 alias ls="ls -F --group-directories-first"
 alias mc="EDITOR=vim mc"
 alias ranger="EDITOR=vim ranger"
@@ -22,6 +23,7 @@ alias sl="ls"
 # new entry
 alias ..='cd ..'
 alias ...='cd ../..'
+alias 2a="alias"
 alias 2brightness-change="[ -x '$(command -v xrandr)' ] && xrandr --output LVDS-1 --brightness"
 alias 2clipboard-get="xclip -o -selection clipboard"
 alias 2clipboard-set="tr -d '\n' | xclip -selection clipboard" # usage: pwd | 2clipboard-set

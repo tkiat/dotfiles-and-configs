@@ -40,9 +40,10 @@ mkdir -p ~/.config/ranger
 # tmux
 [ ! -f ~/.tmux.conf ] && ln -sf $git_dir/tmux/.tmux.conf ~
 # unison
-mkdir ~/.unison
+mkdir -p ~/.unison
 [ ! -f ~/.unison/default.prf ] && ln -sf $git_dir/unison/default.prf ~/.unison
 # Vim
+[ ! -f ~/.vimrc.const ] && ln -sf $git_dir/vim/.vimrc.const ~
 [ ! -f ~/.vimrc.shared ] && ln -sf $git_dir/vim/.vimrc.shared ~
 [ ! -f ~/.vimrc ] && echo "source $HOME/.vimrc.shared" > ~/.vimrc
 
@@ -59,7 +60,7 @@ folder=~/.vim/pack/coc/start && mkdir -p $folder && [ ! -f $folder/coc-nvim-arch
 folder=~/.config/coc/extensions && mkdir -p $folder && [ ! -f $folder/package.json ] && echo '{"dependencies":{}}' > $folder/package.json
 [ -x "$(command -v npm)" ] && cd ~/.config/coc/extensions && npm_list=$(npm list) && for pkg in coc-html coc-json coc-python coc-tsserver coc-yaml; do ! echo $npm_list | grep -q $pkg && npm install $pkg; done && cd -
 # w3m
-mkdir ~/.w3m
+mkdir -p ~/.w3m
 [ ! -f ~/.w3m/keymap ] && ln -sf $git_dir/w3m/keymap ~/.w3m
 # xpdfrc
 [ ! -f ~/.xpdfrc ] && ln -sf $git_dir/xorg/.xpdfrc ~
