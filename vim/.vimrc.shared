@@ -1,5 +1,6 @@
 " Author: Theerawat Kiatdarakun
 source ~/.vimrc.const
+let template_dir='~/.vim/template/'
 " TODO use vim tag sections here also check mapping first perhaps can remove leader
 " ========================================
 " Set
@@ -110,12 +111,18 @@ endfor
 " o: open file
 nnoremap <leader>obc :vsplit ~/.bashrc<cr>
 nnoremap <leader>obs :vsplit ~/.bashrc.shared<cr>
+nnoremap <leader>ot :tabnew ~/.vim/template/<cr>
 nnoremap <leader>ovc :vsplit ~/.vimrc<cr>
 nnoremap <leader>ovs :vsplit ~/.vimrc.shared<cr>
 nnoremap <leader>ozc :vsplit ~/.zshrc<cr>
 nnoremap <leader>ozs :vsplit ~/.zshrc.shared<cr>
 nnoremap <leader>oze :vsplit ~/.zshenv<cr>
 nnoremap <leader>ozp :vsplit ~/.zprofile<cr>
+" oq: open file in qutebrowser
+nnoremap <leader>oq :!qutebrowser %<cr>
+" p: paste from clipboard to end of file
+nnoremap <leader>pc :w<cr>:!echo $(xclip -o selection clipboard) >> %<cr>L<cr>
+" <cr><cr>lll
 " r: replace - 2 tabs with 1 tab
 vnoremap <leader><tab><tab> :s/\%V\t\t/\t/g<cr>:nohl<cr>
 " r: replace - all words in file
@@ -143,7 +150,6 @@ nnoremap <leader>sc :set colorcolumn=
 " s: source file
 nnoremap <leader>sv :source $MYVIMRC<cr>
 " t: template
-let template_dir='~/.vim/template/'
 exe 'nnoremap <leader>tc <ESC>:r '.template_dir.'c.template<CR>kdd'
 exe 'nnoremap <leader>ta <ESC>:r '.template_dir.'asciidoctor.template<CR>kdd'
 exe 'nnoremap <leader>tgm <ESC>:r '.template_dir.'main.go.template<CR>kddjjjjjjA'
