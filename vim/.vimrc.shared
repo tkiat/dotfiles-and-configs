@@ -84,7 +84,7 @@ for i in range(0,5)
 	exe ':autocmd BufNewFile,BufRead '.my_commentgroup[i]['ext'].' vnoremap <buffer> <leader>c '.my_commentgroup[i]['comment-visual']
 endfor
 " c: copy - current file
-nnoremap <leader>cf :!cat % \| xclip -selection clipboard<cr><cr>
+  " nnoremap <leader>cf :!cat % \| xclip -selection clipboard<cr><cr>
 " d: definition highlight group
 map <leader>def :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
