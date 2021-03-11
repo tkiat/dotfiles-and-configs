@@ -59,10 +59,11 @@ inoreabbrev shebang #!/usr/bin/env
 " ========================================
 " mapping manually with <leader>
 " ========================================
-" 0-9: go to tab
-for val in range(0,9)
-	exe 'nnoremap <leader>'.val.' '.val.'gt<CR>'
+" 0-8: go to tab, 9: go to last tab
+for val in range(0,8)
+	exe 'nnoremap <leader>'.val.' '.val.'gt<cr>'
 endfor
+nnoremap <leader>9 :tabl<cr>
 " {(["'*<`: enclose curent word with its pair
 for val in ['{}','()','[]','""',"''",'**','<>','``']
 	exe 'nnoremap <leader>'.val[0].' ciw'.val[0].val[1].'<esc>Pl'
@@ -131,9 +132,9 @@ vnoremap <leader>R y:%s/<c-r>"//g<left><left>
 " r: replace - all words in line
 nnoremap <leader>r viw"qy:s/<C-r>q//g<left><left>
 " r: replace - capitalize first letter of each word
-vnoremap <leader>rU mq:s/\<./\u&/g<cr>`q
+nnoremap <leader>rU mq:s/\<./\u&/g<cr>`q
 " r: replace - hyphen and underscore with space
-vnoremap <leader>r<space> mq:s/[-_]\+/ /g<cr>`q
+nnoremap <leader>r<space> mq:s/[-_]\+/ /g<cr>`q
 " r: replace - spaces at front with tab(s)
 exe 'nnoremap <leader>r<tab> mq:%s/\(^ *\)\@<= \{'.space_per_tab.'\}/<tab>/g<cr>`q'
 " m: move - tab
