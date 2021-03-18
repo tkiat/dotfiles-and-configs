@@ -24,6 +24,7 @@ set nofixendofline
 set nofoldenable " disable auto-folding at start
 set nohls
 set number " show line number
+set shellcmdflag=-ic
 " netrw
 let g:netrw_browse_split = 3 " open file in new tab
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro nornu' " enable line number
@@ -65,6 +66,7 @@ for val in range(0,8)
 endfor
 nnoremap <leader>9 :tabl<cr>
 " {(["'*<`: enclose curent word with its pair
+" TODO custom pair
 for val in ['{}','()','[]','""',"''",'**','<>','``']
 	exe 'nnoremap <leader>'.val[0].' ciw'.val[0].val[1].'<esc>Pl'
 	exe 'vnoremap <leader>'.val[0].' mq:s/\%V.*\%V./'.val[0].'&'.val[1].'/<cr>`qf'.val[1].':nohl<cr>'
@@ -73,8 +75,13 @@ for val in ['{}','()','[]','""',"''",'**','<>','``']
 		exe 'vnoremap <leader>'.val[1].' mq:s/\%V.*\%V./'.val[0].'&'.val[1].'/<cr>`qf'.val[1].':nohl<cr>'
 	endif
 endfor
+" ** enclose word
+nnoremap <leader>** ciw****<esc>hPl
+vnoremap <leader>** mq:s/\%V.*\%V./**&**/<cr>`qf'**':nohl<cr>
 " /: search current word
 nnoremap <leader>/ viw"qy/<C-r>q<cr>N
+" space: surround a word with spaces
+nnoremap <leader><space> mqbi<space><esc>ea<space><esc>`ql
 " c: colorscheme
 nnoremap <leader>c0 :colorscheme default<cr>
 nnoremap <leader>c1 :colorscheme custom-dark<cr>
@@ -84,6 +91,8 @@ for i in range(0,5)
 	exe ':autocmd BufNewFile,BufRead '.my_commentgroup[i]['ext'].' nnoremap <buffer> <leader>c '.my_commentgroup[i]['comment-line']
 	exe ':autocmd BufNewFile,BufRead '.my_commentgroup[i]['ext'].' vnoremap <buffer> <leader>c '.my_commentgroup[i]['comment-visual']
 endfor
+" c: comment - manual
+nnoremap <leader>c* ^i{/*<esc>A*/}<esc>
 " c: copy - current file
   " nnoremap <leader>cf :!cat % \| xclip -selection clipboard<cr><cr>
 " d: definition highlight group
@@ -131,10 +140,10 @@ nnoremap <leader>R viw"qy:%s/<C-r>q//g<left><left>
 vnoremap <leader>R y:%s/<c-r>"//g<left><left>
 " r: replace - all words in line
 nnoremap <leader>r viw"qy:s/<C-r>q//g<left><left>
-" r: replace - capitalize first letter of each word
-nnoremap <leader>rU mq:s/\<./\u&/g<cr>`q
 " r: replace - hyphen and underscore with space
 nnoremap <leader>r<space> mq:s/[-_]\+/ /g<cr>`q
+" r: replace - capitalize first letter of each word
+nnoremap <leader>rU mq:s/\<./\u&/g<cr>`q
 " r: replace - spaces at front with tab(s)
 exe 'nnoremap <leader>r<tab> mq:%s/\(^ *\)\@<= \{'.space_per_tab.'\}/<tab>/g<cr>`q'
 " m: move - tab
@@ -162,9 +171,8 @@ for i in range(0,len(g:my_commentgroup)-1)
 	exe ':autocmd BufNewFile,BufRead '.g:my_commentgroup[i]['ext'].' nnoremap <buffer> <leader>u '.g:my_commentgroup[i]['uncomment-line']
 	exe ':autocmd BufNewFile,BufRead '.g:my_commentgroup[i]['ext'].' vnoremap <buffer> <leader>u '.g:my_commentgroup[i]['uncomment-visual']
 endfor
-
-
-
+" u: comment - manual
+nnoremap <leader>u* ^xxx<esc>$xxx<esc>
 " ========================================
 "                              Scope: File
 " ========================================

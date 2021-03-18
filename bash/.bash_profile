@@ -1,7 +1,7 @@
 # Honor system-wide environment variables
 source /etc/profile
 # [ -x "$(command -v xrandr)" ] && xrandr --output LVDS-1 --brightness 0.9
-[ -x "$(command -v redshift)" ] && redshift -O 3400
+[ -x "$(command -v redshift)" ] && redshift -O 3000
 
 setxkbmap -layout us,th -option grp:win_space_toggle
 xsetroot -solid black

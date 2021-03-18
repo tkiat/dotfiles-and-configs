@@ -4,6 +4,7 @@
 # reminder
       2github_url() { echo git@github.com:tkiat/"$1".git; }
 # overwrite default
+alias chromium="chromium --incognito"
 alias df="df -h"
 alias feh="feh --scale-down --auto-zoom"
 alias fgrep='fgrep --color=auto'
