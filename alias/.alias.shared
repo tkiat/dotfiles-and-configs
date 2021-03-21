@@ -46,7 +46,7 @@ alias 2ping="ping gnu.org"
       2port-kill() { sudo fuser -k $1/tcp; }
 alias 2primary-get="xclip -o -selection primary"
 alias 2replace-newline="tr '\n' ' '"
-alias 2suspend="[ -x \"$(command -v loginctl)\" ] && [ -x \"$(command -v slock)\" ] && loginctl suspend && slock"
+alias 2suspend="[ -x \"$(command -v systemctl)\" ] && [ -x \"$(command -v slock)\" ] && systemctl suspend && slock"
 # alias 2suspend="[ -x \"$(command -v slock)\" ] && su - root -c 'echo mem > /sys/power/state' && slock"
       2tab-title-change() { echo -en "\e]2;$1\a"; }
 # script

@@ -24,6 +24,8 @@ mkdir -p ~/.config/cmus
 [ ! -f ~/.gitconfig ] && ln -sf $git_dir/git/.gitconfig ~
 # inputrc
 [ ! -f ~/.inputrc ] && ln -sf $git_dir/readline/.inputrc ~
+# lazyman-pomodoro
+[ ! -d ~/.local/share/lazyman-pomodoro ] && ln -sf $git_dir/private/lazyman-pomodoro ~/.local/share
 # mc
 mkdir -p ~/.config/mc
 [ ! -f ~/.config/mc/hotlist ] && ln -sf $git_dir/mc/hotlist ~/.config/mc
@@ -54,11 +56,18 @@ mkdir -p ~/.vim/colors
 mkdir -p ~/.vim/template
 
 [ ! -f ~/.vim/colors/tkiat.vim ] && ln -sf $git_dir/vim/.vim/colors/tkiat.vim ~/.vim/colors
+[ ! -f ~/.vim/colors/custom-dark.vim ] && ln -sf $git_dir/vim/.vim/colors/custom-dark.vim ~/.vim/colors
+[ ! -f ~/.vim/colors/custom-light.vim ] && ln -sf $git_dir/vim/.vim/colors/custom-light.vim ~/.vim/colors
 for file in "$git_dir"/vim/.vim/template/*; do [ ! -f ~/.vim/template/"$(basename "$file")" ] && ln -sf "$file" ~/.vim/template/"$(basename "$file")"; done
 # Vim plugin: coc.nvim
 folder=~/.vim/pack/coc/start && mkdir -p $folder && [ ! -f $folder/coc-nvim-archive ] && cd $folder && curl --fail -L https://github.com/neoclide/coc.nvim/archive/release.tar.gz | tar xzfv - && cd -
 folder=~/.config/coc/extensions && mkdir -p $folder && [ ! -f $folder/package.json ] && echo '{"dependencies":{}}' > $folder/package.json
 [ -x "$(command -v npm)" ] && cd ~/.config/coc/extensions && npm_list=$(npm list) && for pkg in coc-html coc-json coc-python coc-tsserver coc-yaml; do ! echo $npm_list | grep -q $pkg && npm install $pkg; done && cd -
+# # Vim plugin manager: pathogen
+# mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+# curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+# Vim plugin: emmet
+[ ! -d ~/.vim/bundle/emmet-vim ] && git clone https://github.com/mattn/emmet-vim.git ~/.vim/bundle/emmet-vim
 # w3m
 mkdir -p ~/.w3m
 [ ! -f ~/.w3m/keymap ] && ln -sf $git_dir/w3m/keymap ~/.w3m
