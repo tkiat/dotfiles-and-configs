@@ -59,13 +59,18 @@ mkdir -p ~/.vim/template
 [ ! -f ~/.vim/colors/custom-dark.vim ] && ln -sf $git_dir/vim/.vim/colors/custom-dark.vim ~/.vim/colors
 [ ! -f ~/.vim/colors/custom-light.vim ] && ln -sf $git_dir/vim/.vim/colors/custom-light.vim ~/.vim/colors
 for file in "$git_dir"/vim/.vim/template/*; do [ ! -f ~/.vim/template/"$(basename "$file")" ] && ln -sf "$file" ~/.vim/template/"$(basename "$file")"; done
+# Vim plugin: nerdtree
+git clone https://github.com/preservim/nerdtree.git ~/.vim/pack/vendor/start/nerdtree
+vim -u NONE -c "helptags ~/.vim/pack/vendor/start/nerdtree/doc" -c q
+# Vim plugin: vimcompletesme
+git clone git://github.com/ajh17/VimCompletesMe.git ~/.vim/pack/vendor/start/VimCompletesMe
 # Vim plugin: coc.nvim
 folder=~/.vim/pack/coc/start && mkdir -p $folder && [ ! -f $folder/coc-nvim-archive ] && cd $folder && curl --fail -L https://github.com/neoclide/coc.nvim/archive/release.tar.gz | tar xzfv - && cd -
 folder=~/.config/coc/extensions && mkdir -p $folder && [ ! -f $folder/package.json ] && echo '{"dependencies":{}}' > $folder/package.json
 [ -x "$(command -v npm)" ] && cd ~/.config/coc/extensions && npm_list=$(npm list) && for pkg in coc-html coc-json coc-python coc-tsserver coc-yaml; do ! echo $npm_list | grep -q $pkg && npm install $pkg; done && cd -
 # # Vim plugin manager: pathogen
-# mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-# curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 # Vim plugin: emmet
 [ ! -d ~/.vim/bundle/emmet-vim ] && git clone https://github.com/mattn/emmet-vim.git ~/.vim/bundle/emmet-vim
 # w3m
