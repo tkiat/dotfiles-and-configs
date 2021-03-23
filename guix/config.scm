@@ -43,7 +43,7 @@
     (list
       (mapped-device
         (source
-          (uuid "b55ff2af-b0d6-408b-a863-91f0236f9c66"))
+          (uuid "a4b43746-3129-4a01-bafe-bec87961f1aa"))
           (target "root-encrypted")
           (type luks-device-mapping))))
   (file-systems
@@ -51,7 +51,7 @@
       (list
         (file-system
           (device
-            (file-system-label "Guix"))
+            (file-system-label "guix"))
           (mount-point "/")
           (type "btrfs")
           (dependencies mapped-devices)))
@@ -88,6 +88,5 @@
             (cpu-scaling-governor-on-ac (list "ondemand"))
             (cpu-scaling-governor-on-bat (list "powersave"))))
         (service lxqt-desktop-service-type))
-        ;;; (service gnome-desktop-service-type))
               %desktop-services))
   (name-service-switch %mdns-host-lookup-nss)) ;; Allow resolution of '.local' host names with mDNS.

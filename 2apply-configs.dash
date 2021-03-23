@@ -59,7 +59,7 @@ mkdir -p ~/.vim/template
 [ ! -f ~/.vim/colors/custom-dark.vim ] && ln -sf $git_dir/vim/.vim/colors/custom-dark.vim ~/.vim/colors
 [ ! -f ~/.vim/colors/custom-light.vim ] && ln -sf $git_dir/vim/.vim/colors/custom-light.vim ~/.vim/colors
 for file in "$git_dir"/vim/.vim/template/*; do [ ! -f ~/.vim/template/"$(basename "$file")" ] && ln -sf "$file" ~/.vim/template/"$(basename "$file")"; done
-# Vim plugin: nerdtree
+# Vim plugin: NERDtree
 git clone https://github.com/preservim/nerdtree.git ~/.vim/pack/vendor/start/nerdtree
 vim -u NONE -c "helptags ~/.vim/pack/vendor/start/nerdtree/doc" -c q
 # Vim plugin: vimcompletesme
