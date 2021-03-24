@@ -25,7 +25,7 @@ mkdir -p ~/.config/cmus
 # inputrc
 [ ! -f ~/.inputrc ] && ln -sf $git_dir/readline/.inputrc ~
 # lazyman-pomodoro
-[ ! -d ~/.local/share/lazyman-pomodoro ] && ln -sf $git_dir/private/lazyman-pomodoro ~/.local/share
+[ ! -d ~/.local/share/lazyman-pomodoro ] && ln -sf $private_dir/lazyman-pomodoro ~/.local/share
 # mc
 mkdir -p ~/.config/mc
 [ ! -f ~/.config/mc/hotlist ] && ln -sf $git_dir/mc/hotlist ~/.config/mc

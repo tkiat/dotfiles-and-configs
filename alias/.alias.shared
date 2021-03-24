@@ -1,8 +1,10 @@
 # Author: Theerawat Kiatdarakun
 # All are bash compatible (to test: shellcheck --shell bash <thisfile>)
 
+# shorthand
+alias 2luks-open='sudo cryptsetup luksOpen'
 # reminder
-      2github_url() { echo git@github.com:tkiat/"$1".git; }
+2github_url() { echo git@github.com:tkiat/"$1".git; }
 # overwrite default
 alias chromium="chromium --incognito"
 alias df="df -h"
@@ -14,6 +16,7 @@ alias less='less -r'
 alias ls="ls -F --group-directories-first"
 alias mc="EDITOR=vim mc"
 alias ranger="EDITOR=vim ranger"
+alias python="python3"
 alias qutebrowser="qutebrowser --target private-window"
 alias sudo='sudo ' # enable running alias as superuser$
 alias telegram-cli="telegram-cli --enable-msg-id --wait-dialog-list"
@@ -38,6 +41,7 @@ alias 2git-sort-size="git rev-list --objects --all | git cat-file --batch-check=
 alias 2grep-current-dir="grep -inrw . -e "
 alias 2grub-make="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias 2keyring-get-gnu="wget https://ftp.gnu.org/gnu/gnu-keyring.gpg"
+alias 2live-server="python -m http.server 8000"
       2ls-exclude-same-name-diff-ext() { for f in *; do echo "${f%.*}"; done | sort | uniq -u ;}
 alias 2ls-symlink="find . -maxdepth 1 -type l"
       2ls-tar() { tar tf $1 | sed 's/\/.*//' | uniq; } # list tarball file and folders (depth = 1)
@@ -46,7 +50,7 @@ alias 2ping="ping gnu.org"
       2port-kill() { sudo fuser -k $1/tcp; }
 alias 2primary-get="xclip -o -selection primary"
 alias 2replace-newline="tr '\n' ' '"
-alias 2suspend="[ -x \"$(command -v systemctl)\" ] && [ -x \"$(command -v slock)\" ] && systemctl suspend && slock"
+# alias 2suspend="[ -x \"$(command -v systemctl)\" ] && [ -x \"$(command -v slock)\" ] && systemctl suspend && slock"
 # alias 2suspend="[ -x \"$(command -v slock)\" ] && su - root -c 'echo mem > /sys/power/state' && slock"
       2tab-title-change() { echo -en "\e]2;$1\a"; }
 # script

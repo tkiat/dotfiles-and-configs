@@ -5,5 +5,7 @@ alias 2guix-show-config='guix system describe | grep '\''configuration file'\'' 
 alias 2guix-garbage-collect="guix package --delete-generations && guix gc --collect-garbage"
 #
 alias 2file-open-gif='qview'
-#
-# alias 2suspend="loginctl suspend && slock"
+alias 2suspend="[ -x \"$(command -v loginctl)\" ] && [ -x \"$(command -v slock)\" ] && loginctl suspend && slock"
+
+# overwrite
+alias mupdf="mupdf-x11"
