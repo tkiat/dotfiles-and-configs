@@ -1,4 +1,5 @@
 " Author: Theerawat Kiatdarakun
+" TODO combine mapping sections
 source ~/.vimrc.const
 let template_dir='~/.vim/template/'
 " TODO use vim tag sections here also check mapping first perhaps can remove leader
@@ -159,6 +160,8 @@ vnoremap <leader>s <c-c>:update<cr>
 nnoremap <leader>sc :set colorcolumn=
 " s: source file
 nnoremap <leader>sv :source $MYVIMRC<cr>
+" t: tab new
+nnoremap <leader>t :tabedit<cr>
 " t: template
 exe 'nnoremap <leader>tc <ESC>:r '.template_dir.'c.template<CR>kdd'
 exe 'nnoremap <leader>ta <ESC>:r '.template_dir.'asciidoctor.template<CR>kdd'
