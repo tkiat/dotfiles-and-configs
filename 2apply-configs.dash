@@ -22,6 +22,9 @@ mkdir -p ~/.config/cmus
 [ ! -f ~/.config/cmus/rc ] && ln -sf $git_dir/cmus/rc ~/.config/cmus
 # gitconfig
 [ ! -f ~/.gitconfig ] && ln -sf $git_dir/git/.gitconfig ~
+# gtk3
+[ ! -d ~/.config/gtk-3.0 ] && mkdir -p ~/.config/gtk-3.0
+[ ! -f ~/.config/gtk-3.0/settings.ini ] && ln -s $git_dir/gtk3/settings.ini ~/.config/gtk-3.0
 # inputrc
 [ ! -f ~/.inputrc ] && ln -sf $git_dir/readline/.inputrc ~
 # lazyman-pomodoro
@@ -68,7 +71,7 @@ git clone git://github.com/ajh17/VimCompletesMe.git ~/.vim/pack/vendor/start/Vim
 folder=~/.vim/pack/coc/start && mkdir -p $folder && [ ! -f $folder/coc-nvim-archive ] && cd $folder && curl --fail -L https://github.com/neoclide/coc.nvim/archive/release.tar.gz | tar xzfv - && cd -
 folder=~/.config/coc/extensions && mkdir -p $folder && [ ! -f $folder/package.json ] && echo '{"dependencies":{}}' > $folder/package.json
 [ -x "$(command -v npm)" ] && cd ~/.config/coc/extensions && npm_list=$(npm list) && for pkg in coc-html coc-json coc-python coc-tsserver coc-yaml; do ! echo $npm_list | grep -q $pkg && npm install $pkg; done && cd -
-# # Vim plugin manager: pathogen
+# Vim plugin manager: pathogen
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 # Vim plugin: emmet

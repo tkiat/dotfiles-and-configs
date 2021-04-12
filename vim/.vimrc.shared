@@ -102,6 +102,8 @@ map <leader>def :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '>
 			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 " d: delete - braces pair
 nnoremap <leader>d %x``x
+" d: delete - first letter
+nnoremap <leader>d^ mqI<del><esc>`qh
 " d: delete - last character in line
 nnoremap <leader>da mq$x<esc>`q
 " d: delete - trailing character(s)
@@ -141,6 +143,7 @@ nnoremap <leader>R viw"qy:%s/<C-r>q//g<left><left>
 vnoremap <leader>R y:%s/<c-r>"//g<left><left>
 " r: replace - all words in line
 nnoremap <leader>r viw"qy:s/<C-r>q//g<left><left>
+vnoremap <leader>r y:s/<c-r>"//g<left><left>
 " r: replace - hyphen and underscore with space
 nnoremap <leader>r<space> mq:s/[-_]\+/ /g<cr>`q
 " r: replace - capitalize first letter of each word
@@ -176,6 +179,9 @@ for i in range(0,len(g:my_commentgroup)-1)
 endfor
 " u: comment - manual
 nnoremap <leader>u* ^xxx<esc>$xxx<esc>
+" y: yank: whole html tag
+nnoremap <leader>y< vf>f>y
+nnoremap <leader>y> vf>f>y
 " ========================================
 "                              Scope: File
 " ========================================

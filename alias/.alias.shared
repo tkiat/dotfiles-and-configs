@@ -22,8 +22,9 @@ alias sudo='sudo ' # enable running alias as superuser$
 alias telegram-cli="telegram-cli --enable-msg-id --wait-dialog-list"
 alias xpdf="xpdf -z width"
 # typo gotcha
-alias gf="fg"
-alias sl="ls"
+alias gf='fg'
+alias sl='ls'
+alias ivm='vim'
 # new entry
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -56,3 +57,4 @@ alias 2replace-newline="tr '\n' ' '"
       2tab-title-change() { echo -en "\e]2;$1\a"; }
 # script
 alias 2pomodoro="~/Git/lazyman-pomodoro/lazyman_pomodoro.py"
+alias 2watch-bash='watch -x bash -ic'
