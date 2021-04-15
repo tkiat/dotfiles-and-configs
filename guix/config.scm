@@ -75,6 +75,7 @@
   (services
     (append
       (list
+        ;;; add /usr/bin/env to system
         (extra-special-file "/usr/bin/env"
           (file-append coreutils "/bin/env"))
         (set-xorg-configuration

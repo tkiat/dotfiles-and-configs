@@ -25,6 +25,9 @@ mkdir -p ~/.config/cmus
 # gtk3
 [ ! -d ~/.config/gtk-3.0 ] && mkdir -p ~/.config/gtk-3.0
 [ ! -f ~/.config/gtk-3.0/settings.ini ] && ln -s $git_dir/gtk3/settings.ini ~/.config/gtk-3.0
+# inkscape
+[ ! -d ~/.config/inkscape/templates ] && mkdir -p ~/.config/inkscape/templates
+[ ! -f ~/.config/inkscape/templates/default.svg ] && ln -s $git_dir/inkscape/default.svg ~/.config/inkscape/templates
 # inputrc
 [ ! -f ~/.inputrc ] && ln -sf $git_dir/readline/.inputrc ~
 # lazyman-pomodoro

@@ -43,7 +43,7 @@ syntax on
 " markdown - remove highlight on error
 autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownError "\w\@<=\w\@="
 " tab - move new tab to the last position
-autocmd BufNew * execute ":tabm"
+" autocmd BufNew * execute ":tabm"
 " ========================================
 " mapping automatically
 " ========================================
@@ -80,7 +80,8 @@ endfor
 nnoremap <leader>** ciw****<esc>hPl
 vnoremap <leader>** mq:s/\%V.*\%V./**&**/<cr>`qf'**':nohl<cr>
 " /: search current word
-nnoremap <leader>/ viw"qy/<C-r>q<cr>N
+nnoremap <leader>/ viw"qy/<c-r>q<cr>N
+vnoremap <leader>/ y/<c-r>"<cr>
 " space: surround a word with spaces
 nnoremap <leader><space> mqbi<space><esc>ea<space><esc>`ql
 " c: colorscheme
