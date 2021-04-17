@@ -94,7 +94,8 @@ for i in range(0,5)
 	exe ':autocmd BufNewFile,BufRead '.my_commentgroup[i]['ext'].' vnoremap <buffer> <leader>c '.my_commentgroup[i]['comment-visual']
 endfor
 " c: comment - manual
-nnoremap <leader>c* ^i{/*<esc>A*/}<esc>
+nnoremap <leader>cc ^i/*<esc>A*/<esc>
+nnoremap <leader>cj ^i{/*<esc>A*/}<esc>
 " c: copy - current file
   " nnoremap <leader>cf :!cat % \| xclip -selection clipboard<cr><cr>
 " d: definition highlight group
@@ -179,7 +180,8 @@ for i in range(0,len(g:my_commentgroup)-1)
 	exe ':autocmd BufNewFile,BufRead '.g:my_commentgroup[i]['ext'].' vnoremap <buffer> <leader>u '.g:my_commentgroup[i]['uncomment-visual']
 endfor
 " u: comment - manual
-nnoremap <leader>u* ^xxx<esc>$xxx<esc>
+nnoremap <leader>uc ^xx<esc>$xx<esc>
+nnoremap <leader>uj ^xxx<esc>$xxx<esc>
 " y: yank: whole html tag
 nnoremap <leader>y< vf>f>y
 nnoremap <leader>y> vf>f>y
