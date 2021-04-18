@@ -95,7 +95,8 @@ for i in range(0,5)
 endfor
 " c: comment - manual
 nnoremap <leader>cc ^i/*<esc>A*/<esc>
-nnoremap <leader>cj ^i{/*<esc>A*/}<esc>
+nnoremap <leader>cj ^i//<esc>A<esc>
+nnoremap <leader>cx ^i{/*<esc>A*/}<esc>
 " c: copy - current file
   " nnoremap <leader>cf :!cat % \| xclip -selection clipboard<cr><cr>
 " d: definition highlight group
@@ -181,7 +182,8 @@ for i in range(0,len(g:my_commentgroup)-1)
 endfor
 " u: comment - manual
 nnoremap <leader>uc ^xx<esc>$xx<esc>
-nnoremap <leader>uj ^xxx<esc>$xxx<esc>
+nnoremap <leader>uj ^xx<esc>$<esc>
+nnoremap <leader>ux ^xxx<esc>$xxx<esc>
 " y: yank: whole html tag
 nnoremap <leader>y< vf>f>y
 nnoremap <leader>y> vf>f>y
