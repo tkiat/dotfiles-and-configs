@@ -1,6 +1,11 @@
 " Author: Theerawat Kiatdarakun
 " TODO combine mapping sections
 source ~/.vimrc.const
+
+" test: https://stackoverflow.com/questions/37644682/why-is-vim-so-slow
+" set timeoutlen=1000
+" set ttimeoutlen=0
+
 let template_dir='~/.vim/template/'
 " TODO use vim tag sections here also check mapping first perhaps can remove leader
 " ========================================
@@ -43,7 +48,7 @@ syntax on
 " markdown - remove highlight on error
 autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownError "\w\@<=\w\@="
 " tab - move new tab to the last position
-" autocmd BufNew * execute ":tabm"
+autocmd BufNew * execute ":tabm"
 " ========================================
 " mapping automatically
 " ========================================
@@ -95,8 +100,8 @@ for i in range(0,5)
 endfor
 " c: comment - manual
 nnoremap <leader>cc ^i/*<esc>A*/<esc>
-nnoremap <leader>cj ^i//<esc>A<esc>
-nnoremap <leader>cx ^i{/*<esc>A*/}<esc>
+nnoremap <leader>c/ ^i//<esc>A<esc>
+nnoremap <leader>c{ ^i{/*<esc>A*/}<esc>
 " c: copy - current file
   " nnoremap <leader>cf :!cat % \| xclip -selection clipboard<cr><cr>
 " d: definition highlight group
@@ -142,7 +147,7 @@ nnoremap <leader>pc :w<cr>:!echo $(xclip -o selection clipboard) >> %<cr>L<cr>
 " r: replace - 2 tabs with 1 tab
 vnoremap <leader><tab><tab> :s/\%V\t\t/\t/g<cr>:nohl<cr>
 " r: replace - all words in file
-nnoremap <leader>R viw"qy:%s/<C-r>q//g<left><left>
+nnoremap <leader>R viw"qy:%s/<C-r>q/<C-r>q/g<left><left>
 vnoremap <leader>R y:%s/<c-r>"//g<left><left>
 " r: replace - all words in line
 nnoremap <leader>r viw"qy:s/<C-r>q//g<left><left>
@@ -163,7 +168,7 @@ nnoremap <leader>q :q<cr>
 nnoremap <leader>s :update<cr>
 vnoremap <leader>s <c-c>:update<cr>
 " s: set - colorcolumn
-nnoremap <leader>sc :set colorcolumn=
+exe 'nnoremap <leader>sc :set colorcolumn='.col('.')
 " s: source file
 nnoremap <leader>sv :source $MYVIMRC<cr>
 " t: tab new
@@ -182,8 +187,8 @@ for i in range(0,len(g:my_commentgroup)-1)
 endfor
 " u: comment - manual
 nnoremap <leader>uc ^xx<esc>$xx<esc>
-nnoremap <leader>uj ^xx<esc>$<esc>
-nnoremap <leader>ux ^xxx<esc>$xxx<esc>
+nnoremap <leader>u/ ^xx<esc>$<esc>
+nnoremap <leader>u{ ^xxx<esc>$xxx<esc>
 " y: yank: whole html tag
 nnoremap <leader>y< vf>f>y
 nnoremap <leader>y> vf>f>y

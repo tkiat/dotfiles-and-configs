@@ -6,7 +6,7 @@ alias 2luks-open='sudo cryptsetup luksOpen'
 # reminder
 2github_url() { echo git@github.com:tkiat/"$1".git; }
 # overwrite default
-alias chromium="chromium --incognito"
+  # alias chromium="chromium --incognito"
 alias df="df -h"
 alias feh="feh --scale-down --auto-zoom"
 alias fgrep='fgrep --color=auto'
@@ -40,7 +40,7 @@ alias 2file-size="du -a --max-depth=1 --si | awk -F' ' '{ if (\$2 != \".\") {pri
 alias 2git-sort-size="git rev-list --objects --all | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' | sed -n 's/^blob //p' | sort --numeric-sort --key=2 | cut -c 1-12,41- | $(command -v gnumfmt || echo numfmt) --field=2 --to=iec-i --suffix=B --padding=7 --round=neares"
 alias 2git-update="git add -A && git commit -m 'UPDATE' && git push origin \$(git rev-parse --abbrev-ref HEAD)"
       2goto-symlink() { cd $(dirname $(readlink $1)); }
-alias 2grep-current-dir="grep -inrw . -e "
+alias 2grep-current-dir="grep -inr . -e "
 alias 2grub-make="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias 2keyring-get-gnu="wget https://ftp.gnu.org/gnu/gnu-keyring.gpg"
 alias 2live-server="python -m http.server 8000"
