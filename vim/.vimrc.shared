@@ -168,7 +168,21 @@ nnoremap <leader>q :q<cr>
 nnoremap <leader>s :update<cr>
 vnoremap <leader>s <c-c>:update<cr>
 " s: set - colorcolumn
-exe 'nnoremap <leader>sc :set colorcolumn='.col('.')
+function! ColHighlight()
+  let x = 0
+  function! Bar() closure
+    let x = 1 - x
+    if x !=# 0
+      exe ':set colorcolumn='.col('.')
+    else
+      :set colorcolumn=
+    endif
+    return x
+  endfunction
+  return funcref('Bar')
+endfunction
+let ColHighlightInstance = ColHighlight()
+nnoremap <leader>sc :call ColHighlightInstance()<cr>
 " s: source file
 nnoremap <leader>sv :source $MYVIMRC<cr>
 " t: tab new
