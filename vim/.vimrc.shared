@@ -183,6 +183,7 @@ function! ColHighlight()
 endfunction
 let ColHighlightInstance = ColHighlight()
 nnoremap <leader>sc :call ColHighlightInstance()<cr>
+nnoremap <leader>scc :set colorcolumn=
 " s: source file
 nnoremap <leader>sv :source $MYVIMRC<cr>
 " t: tab new

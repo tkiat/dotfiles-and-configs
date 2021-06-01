@@ -11,7 +11,7 @@ let g:my_commentgroup=[
 	\},
 	\{
 		\'comment-symbol': '//',
-		\'ext': '*.adoc,*.c,*.dot,*.go,*.h,*.js,*.cpp',
+		\'ext': '*.adoc,*.c,*.dot,*.go,*.h,*.js,*.jsx,*.ts,*.tsx,*.cpp',
 		\'comment-line': 'mqI// <esc>`qll',
 		\'comment-visual': ':s/^\%V/\/\/ /g<cr>:nohl<cr>',
 		\'uncomment-line': 'mqI<del><del><del><esc>`qhh',
