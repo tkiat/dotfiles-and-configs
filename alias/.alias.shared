@@ -13,7 +13,7 @@ alias fgrep='fgrep --color=auto'
 alias free="free -h"
 alias grep='grep --color=auto'
 alias less='less -r'
-alias ls="ls -F --group-directories-first"
+alias ls="ls -F --group-directories-first --color"
 alias mc="EDITOR=vim mc"
 alias ranger="EDITOR=vim ranger"
 alias python="python3"
@@ -22,6 +22,7 @@ alias sudo='sudo ' # enable running alias as superuser$
 alias telegram-cli="telegram-cli --enable-msg-id --wait-dialog-list"
 alias xpdf="xpdf -z width"
 # typo gotcha
+alias dc='cd'
 alias gf='fg'
 alias sl='ls'
 alias ivm='vim'
@@ -34,6 +35,7 @@ alias 2clipboard-get="xclip -o -selection clipboard"
 alias 2clipboard-set="tr -d '\n' | xclip -selection clipboard" # usage: pwd | 2clipboard-set
 alias 2clipboard-set_withnewline="xclip -selection clipboard"
 alias 2cpu-setfreq-ondemand="for i in {0..$(($(nproc)-1))}; do sudo cpufreq-set -c \$i -g ondemand; done"
+alias 2diff-folders="diff -x '.*' -rq"
       2e() { vim "$(command -v "$1")" ;}
 alias 2file-size="du -a --max-depth=1 --si | awk -F' ' '{ if (\$2 != \".\") {print} }' | sort -h && echo "" && echo This is SI format"
       2git-display-folders-not-update() { for x in $(\ls -d */); do cd $x; git fetch -q 1>/dev/null; [ "$(git rev-parse HEAD 2>/dev/null)" != "$(git rev-parse @{u} 2>/dev/null)" ] && echo $x; cd ..; done; }

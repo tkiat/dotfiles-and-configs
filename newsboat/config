@@ -26,10 +26,11 @@ datetime-format "%L"
 history-limit 0 # search history
 keep-articles-days 5
 # macro c set browser "chromium --incognito %u"; open-in-browser ; set browser chromium
-macro c set browser "chromium %u"; open-in-browser ; set browser chromium
+# macro c set browser "chromium %u"; open-in-browser ; set browser chromium
 macro f set browser "firefox %u"; open-in-browser ; set browser chromium
 macro i set browser "icecat %u"; open-in-browser ; set browser chromium
 macro q set browser "qutebrowser %u"; open-in-browser ; set browser chromium
+macro w set browser "w3m %u"; open-in-browser ; set browser chromium
 # max-items 100
 # refresh-on-startup yes
 show-read-articles no

@@ -143,7 +143,7 @@ nnoremap <leader>ozp :vsplit ~/.zprofile<cr>
 nnoremap <leader>oq :!qutebrowser %<cr>
 " p: paste from clipboard to end of file
 nnoremap <leader>pc :w<cr>:!echo $(xclip -o selection clipboard) >> %<cr>L<cr>
-" <cr><cr>lll
+" TODO vnoreamp '<,'>s/\%Vfoo\%V/bar/g
 " r: replace - 2 tabs with 1 tab
 vnoremap <leader><tab><tab> :s/\%V\t\t/\t/g<cr>:nohl<cr>
 " r: replace - all words in file
