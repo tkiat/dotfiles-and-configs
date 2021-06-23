@@ -5,7 +5,6 @@ case $- in
 esac
 # Alias
 [ -f ~/.alias.shared ] && . ~/.alias.shared
-[ -f ~/.alias.specific ] && . ~/.alias.specific
 # Default
 EDITOR=vim
 # PATH

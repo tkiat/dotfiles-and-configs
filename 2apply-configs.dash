@@ -9,6 +9,7 @@ private_dir=~/Git/private
 
 # alias
 [ ! -f ~/.alias.shared ] && ln -sf $git_dir/alias/.alias.shared ~
+[ ! -d ~/.alias.specific ] && ln -s $git_dir/alias-specific ~/.alias.specific
 # asoundrc
 [ ! -f ~/.asoundrc ] && ln -sf $git_dir/alsa/.asoundrc ~
 # bash
