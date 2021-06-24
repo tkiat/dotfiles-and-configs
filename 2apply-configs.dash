@@ -1,6 +1,10 @@
 #!/usr/bin/env dash
 git_dir=~/Git/dotfiles-and-configs
 private_dir=~/Git/private
+super_private_dir=~/Sync/Local/Private
+
+[ ! -d ~/.password-store ] && ln -s $super_private_dir/.password-store ~
+[ ! -d ~/.ssh/ ] && ln -s $super_private_dir/.ssh ~
 
 # ensurePathExist() {
 #   path=$1
