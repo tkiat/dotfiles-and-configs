@@ -5,7 +5,7 @@
 setxkbmap -layout us,th -option grp:win_space_toggle
 xsetroot -solid black
 
-while xsetroot -name " $(date +'%a, %d %b %I:%M:%S%p')"; do
+while xsetroot -name " $(date +'%a, %d %b %I:%M:%S%p') "; do
 	sleep 1
 done &
 
