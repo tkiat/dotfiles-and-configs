@@ -1,1 +1,3 @@
+alias 2poweroff='systemctl poweroff'
 alias 2suspend='[ -x $(command -v slock) ] && systemctl suspend && slock'
+alias 2shutdown='systemctl poweroff'

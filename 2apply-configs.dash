@@ -87,6 +87,8 @@ curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 # w3m
 mkdir -p ~/.w3m
 [ ! -f ~/.w3m/keymap ] && ln -sf $git_dir/w3m/keymap ~/.w3m
+# xorg
+[ ! -f ~/.xinitrc ] && ln -sf $git_dir/xorg/.xinitrc ~
 # xpdfrc
 [ ! -f ~/.xpdfrc ] && ln -sf $git_dir/xorg/.xpdfrc ~
 # zsh
