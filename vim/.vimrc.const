@@ -18,6 +18,14 @@ let g:my_commentgroup=[
 		\'uncomment-visual': ':s/^\%V\/\/ //g<cr>'
 	\},
 	\{
+		\'comment-symbol': '--',
+		\'ext': '*.purs',
+		\'comment-line': 'mqI-- <esc>`qll',
+		\'comment-visual': ':s/^\%V/-- /g<cr>:nohl<cr>',
+		\'uncomment-line': 'mqI<del><del><del><esc>`qhh',
+		\'uncomment-visual': ':s/^\%V-- //g<cr>'
+	\},
+	\{
 		\'comment-symbol': '/* */',
 		\'ext': '*.css,*.scss',
 		\'comment-line': 'mqI/*<esc>A*/<esc>`qll',

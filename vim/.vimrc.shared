@@ -1,6 +1,5 @@
 " Author: Theerawat Kiatdarakun
 " TODO combine mapping sections
-source ~/.vimrc.const
 
 " test: https://stackoverflow.com/questions/37644682/why-is-vim-so-slow
 " set timeoutlen=1000
@@ -219,19 +218,3 @@ function AsciiDocToHTML()
 	execute '![ \! -f created ] && echo "'.strftime("%Y-%m-%d %X \(GMT %Z\)").'" > '.expand('%:p:h').'/created'
 endfunction
 autocmd BufWritePost article.adoc :call AsciiDocToHTML()
-" ========================================
-"               Scope: Configs and Plugins
-" ========================================
-" plugin: NERDTree =======================
-filetype plugin indent on
-let NERDTreeShowHidden=1
-let NERDTreeShowLineNumbers=1
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" ----------------------------------------
-" plugin: vim-go =========================
-nnoremap <leader>gi :GoImport <C-R><C-W><cr>
-" ----------------------------------------
-" plugin: vim-terraform ==================
-let g:terraform_fmt_on_save=1
-" ----------------------------------------
