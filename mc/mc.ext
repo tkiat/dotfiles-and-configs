@@ -2,7 +2,7 @@ shell/i/.pdf
 	Open=xpdf %f
 
 regex/i/\.(cbz|epub)$
-	Open=calibre %f 2> /dev/null &
+	Open=mupdf %f 2> /dev/null &
 
 regex/i/\.(avi|mov|mp4|wmv)$
 	Open=vlc %f 2> /dev/null &
