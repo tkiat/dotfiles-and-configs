@@ -7,6 +7,7 @@ alias 2luks-open='sudo cryptsetup luksOpen'
 2github_url() { echo git@github.com:tkiat/"$1".git; }
 # overwrite default
   # alias chromium="chromium --incognito"
+alias cp="cp --preserve=timestamps"
 alias df="df -h"
 alias feh="feh --scale-down --auto-zoom"
 alias fgrep='fgrep --color=auto'
