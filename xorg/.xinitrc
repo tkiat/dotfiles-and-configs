@@ -10,3 +10,14 @@ while xsetroot -name " $(date +'%a, %d %b %I:%M:%S%p') "; do
 done &
 
 exec dwm
+
+# echo "select a window manager"
+# echo "1) dwm"
+# echo "2) xmonad"
+# 
+# read n
+# case $n in
+#   1) exec dwm;;
+#   2) exec xmonad;;
+#   *) echo "invalid option";;
+# esac

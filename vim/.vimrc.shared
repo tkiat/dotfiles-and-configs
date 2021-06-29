@@ -93,7 +93,7 @@ nnoremap <leader>c0 :colorscheme default<cr>
 nnoremap <leader>c1 :colorscheme custom-dark<cr>
 nnoremap <leader>c2 :colorscheme custom-light<cr>
 " c: comment
-for i in range(0,5)
+for i in range(0,6)
 	exe ':autocmd BufNewFile,BufRead '.my_commentgroup[i]['ext'].' nnoremap <buffer> <leader>c '.my_commentgroup[i]['comment-line']
 	exe ':autocmd BufNewFile,BufRead '.my_commentgroup[i]['ext'].' vnoremap <buffer> <leader>c '.my_commentgroup[i]['comment-visual']
 endfor
