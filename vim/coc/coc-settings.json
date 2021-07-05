@@ -26,10 +26,11 @@
     "purescript": {
       "command": "purescript-language-server",
       "args": ["--stdio"],
-      "filetypes": ["purescript"]
+      "filetypes": ["purescript"],
+      "rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"]
     }
   },
-  "prettier.printWidth": 120,
+  "prettier.printWidth": 80,
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "prettier.tabWidth": 2,
