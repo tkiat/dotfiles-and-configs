@@ -5,16 +5,19 @@
 alias 2luks-open='sudo cryptsetup luksOpen'
 # reminder
 2github_url() { echo git@github.com:tkiat/"$1".git; }
+# replace command
+alias ls="exa"
 # overwrite default
   # alias chromium="chromium --incognito"
 alias cp="cp --preserve=timestamps"
 alias df="df -h"
+alias exa="exa --group-directories-first"
 alias feh="feh --scale-down --auto-zoom"
 alias fgrep='fgrep --color=auto'
 alias free="free -h"
 alias grep='grep --color=auto'
 alias less='less -r'
-alias ls="ls -F --group-directories-first --color"
+# alias ls="ls -F --group-directories-first --color"
 alias mc="EDITOR=vim mc"
 alias mupdf='mupdf-x11'
 alias mupdf-dark='mupdf -C aaaaaa -I'
