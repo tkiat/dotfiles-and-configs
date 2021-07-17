@@ -6,11 +6,15 @@ alias 2luks-open='sudo cryptsetup luksOpen'
 # reminder
 2github_url() { echo git@github.com:tkiat/"$1".git; }
 # replace command
+alias cat="bat"
+alias du="dust"
 alias ls="exa"
+alias tree="ls -T"
 # overwrite default
   # alias chromium="chromium --incognito"
 alias cp="cp --preserve=timestamps"
 alias df="df -h"
+alias dust="dust --depth 1"
 alias exa="exa --group-directories-first"
 alias feh="feh --scale-down --auto-zoom"
 alias fgrep='fgrep --color=auto'

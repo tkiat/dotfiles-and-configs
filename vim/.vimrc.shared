@@ -62,6 +62,7 @@ inoreabbrev lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. In da
 cnoremap help tab help
 " shebang
 inoreabbrev shebang #!/usr/bin/env
+" inoremap @esc &#64;
 " ========================================
 " mapping manually with <leader>
 " ========================================
