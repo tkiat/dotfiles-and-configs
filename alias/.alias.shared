@@ -45,6 +45,8 @@ alias 2clipboard-get="xclip -o -selection clipboard"
 alias 2clipboard-set="tr -d '\n' | xclip -selection clipboard" # usage: pwd | 2clipboard-set
 alias 2clipboard-set_withnewline="xclip -selection clipboard"
 alias 2cpu-setfreq-ondemand="for i in {0..$(($(nproc)-1))}; do sudo cpufreq-set -c \$i -g ondemand; done"
+alias 2cryptsetup-o="sudo cryptsetup luksOpen"
+alias 2cryptsetup-x="sudo cryptsetup luksClose"
 alias 2diff-folders="diff -x '.*' -rq"
       2e() { vim "$(command -v "$1")" ;}
 alias 2file-size="du -a --max-depth=1 --si | awk -F' ' '{ if (\$2 != \".\") {print} }' | sort -h && echo "" && echo This is SI format"

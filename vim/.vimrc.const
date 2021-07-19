@@ -19,7 +19,7 @@ let g:my_commentgroup=[
 	\},
 	\{
 		\'comment-symbol': '--',
-		\'ext': '*.dhall,*.purs',
+		\'ext': '*.dhall,*.hs,*.purs',
 		\'comment-line': 'mqI-- <esc>`qll',
 		\'comment-visual': ':s/^\%V/-- /g<cr>:nohl<cr>',
 		\'uncomment-line': 'mqI<del><del><del><esc>`qhh',

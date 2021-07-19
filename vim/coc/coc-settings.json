@@ -23,6 +23,18 @@
       "filetypes": ["elm"],
       "rootPatterns": ["elm.json"]
     },
+    "haskell": {
+      "command": "haskell-language-server-wrapper",
+      "args": ["--lsp"],
+      "rootPatterns": [
+        "*.cabal",
+        "stack.yaml",
+        "cabal.project",
+        "package.yaml",
+        "hie.yaml"
+      ],
+      "filetypes": ["haskell", "lhaskell"]
+    },
     "purescript": {
       "command": "purescript-language-server",
       "args": ["--stdio"],
@@ -30,7 +42,7 @@
       "rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"]
     }
   },
-  "prettier.printWidth": 80,
+  "prettier.printWidth": 100,
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "prettier.tabWidth": 2,

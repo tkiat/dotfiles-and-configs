@@ -1,27 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-
-    <script type="module">
-      document.documentElement.classList.remove('no-js')
-      document.documentElement.classList.add('js')
-    </script>
-
-    <style>
-      .no-js > body > #app {
-        display: none;
-      }
-      .js > body > #no-js {
-        display: none;
-      }
-    </style>
   </head>
   <body>
     <div id="app" class="app"></div>
-    <div id="no-js">Please Enable Javascript.</div>
+    <noscript>Please Enable Javascript.</noscript>
     <script src="index.js"></script>
   </body>
 </html>

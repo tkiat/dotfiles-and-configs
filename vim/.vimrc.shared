@@ -132,8 +132,9 @@ endfor
 " o: open file
 nnoremap <leader>obc :vsplit ~/.bashrc<cr>
 nnoremap <leader>obs :vsplit ~/.bashrc.shared<cr>
-nnoremap <leader>ot :tabnew ~/.vim/template/<cr>
-nnoremap <leader>ovc :vsplit ~/.vimrc<cr>
+nnoremap <leader>ot  :tabnew ~/.vim/template/<cr>
+nnoremap <leader>ov  :vsplit ~/.vimrc<cr>
+nnoremap <leader>ovc :vsplit ~/.vimrc.const<cr>
 nnoremap <leader>ovs :vsplit ~/.vimrc.shared<cr>
 nnoremap <leader>ozc :vsplit ~/.zshrc<cr>
 nnoremap <leader>ozs :vsplit ~/.zshrc.shared<cr>
