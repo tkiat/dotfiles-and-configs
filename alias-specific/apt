@@ -1,4 +1,4 @@
 alias 2apt-gc='sudo apt autoremove'
 alias 2apt-i='sudo apt install'
-alias 2apt-q='apt list --installed'
+alias 2apt-q='apt list --installed | bat'
 alias 2apt-u='sudo apt update && sudo apt upgrade'
