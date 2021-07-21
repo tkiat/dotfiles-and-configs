@@ -1,7 +1,18 @@
 source ~/.vimrc.const
 source ~/.vimrc.shared
+" source ~/.vimrc.specific/browser-nerdtree.vim
+" source ~/.vimrc.specific/formatter-haskell-hindent.vim
 " =============================================================================
 "                                  Plugins
+" =============================================================================
+" ftplugin ====================================================================
+" let g:ftplugin_haskell_hindent_disabled = 1
+" nerdtree ====================================================================
+filetype plugin indent on
+let NERDTreeShowHidden=1
+let NERDTreeShowLineNumbers=1
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " coc.vim =====================================================================
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -14,12 +25,6 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
-" NERDTree ====================================================================
-filetype plugin indent on
-let NERDTreeShowHidden=1
-let NERDTreeShowLineNumbers=1
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " vim-go ======================================================================
 " nnoremap <leader>gi :GoImport <C-R><C-W><cr>
 " vim-terraform ===============================================================

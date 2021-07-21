@@ -65,6 +65,11 @@ mkdir -p ~/.vim/swap
 mkdir -p ~/.vim/undo
 mkdir -p ~/.vim/colors
 mkdir -p ~/.vim/template
+mkdir -p ~/.vim/ftplugin
+
+mkdir -p ~/.vim/ftplugin/haskell
+ln -s $git_dir/vim/ftplugin/haskell/hindent.vim ~/.vim/ftplugin/haskell
+# [ ! -f ~/.vim/ftplugin/haskell/hindent.vim ] && 
 
 [ ! -f ~/.vim/colors/tkiat.vim ] && ln -sf $git_dir/vim/.vim/colors/tkiat.vim ~/.vim/colors
 [ ! -f ~/.vim/colors/custom-dark.vim ] && ln -sf $git_dir/vim/.vim/colors/custom-dark.vim ~/.vim/colors

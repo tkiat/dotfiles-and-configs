@@ -18,6 +18,7 @@ set cursorline " highlight current line
 " directories
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
+filetype plugin on
 set undodir=~/.vim/undo//
 
 set expandtab " auto-indent with spaces instead of tabs
