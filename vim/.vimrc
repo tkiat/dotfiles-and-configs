@@ -6,9 +6,10 @@ source ~/.vimrc.shared
 "                                  Plugins
 " =============================================================================
 " ftplugin ====================================================================
+filetype plugin on
+filetype plugin indent on
 " let g:ftplugin_haskell_hindent_disabled = 1
 " nerdtree ====================================================================
-filetype plugin indent on
 let NERDTreeShowHidden=1
 let NERDTreeShowLineNumbers=1
 autocmd StdinReadPre * let s:std_in=1

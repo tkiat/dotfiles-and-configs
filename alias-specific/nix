@@ -1,5 +1,5 @@
 alias 2nix-gc='nix-env --delete-generations old && nix-store --gc'
-alias 2nix-i='nix-env -i'
+alias 2nix-i='nix-env -i && rm -f ~/.cache/dmenu_run'
 alias 2nix-e='nix-env -e'
 alias 2nix-q='nix-env --query'
 alias 2nix-s='nix-env -qa | grep'
